@@ -11,14 +11,14 @@ excerpt: "Which option best suits my needs?"
 header:
   overlay_image: /assets/images/header-saas.png
   overlay_filter: 0.5
-  teaser: /assets/images/header-saas.png
+  teaser: /assets/images/teaser-saas.png
 ---
 # Intro
 Welcome to the second entry on the _Road to PactFlow Enterprise_ series!
 
-This time, we will talk about the classic Self-Hosted vs SaaS doubt: *which option is a better fit for my needs? Do I have the knowledge and resources required for a self-hosted approach? What problems will I face when choosing one or another?* 🤔
+This time, I will talk about the classic Self-Hosted vs SaaS doubt: *which option is a better fit for my needs? Do I have the knowledge and resources required for a self-hosted approach? What problems will I face when choosing one or another?* 🤔
 
-**Spoiler alert: there is no easy answer**, and there is no “one-size-fits-all” solution. That’s why the article will be structured into key points, and inside those points, the differences between one approach and the other will be covered.
+**Spoiler alert: there is no easy answer**, and there is no "one-size-fits-all" solution. That’s why the article will be structured into key points, and inside those points, the differences between one approach and the other will be covered.
 
 Let’s try to summarize what we should be thinking about when having to answer the question: ***SaaS or Self-Hosted for PactFlow Enterprise?***
 
@@ -28,18 +28,18 @@ I guess it makes sense to start from the beginning, with a quick definition of w
 
 ### SaaS
 
-Software as a Service (SaaS) is a model where the software is licensed on a subscription basis, and hosted in a remote data center. You can think about it like “on-demand software”.  
+Software as a Service (SaaS) is a model where the software is licensed on a subscription basis, and hosted in a remote data center. You can think about it like "on-demand software".  
 You will have a PactFlow instance, accessible and private for your use, hosted in PactFlow/SmartBear data centers.
 
 ### Self-Hosted
 
 When following a self-hosted model, we will be running and maintaining PactFlow using our private platform. Self-Hosting is based on running your own application by setting up servers and networking by yourself.
 
-In this article, we will use the term self-hosting to talk about deployments using cloud platforms or on-premise. class.
+In this article, I´ll use the term self-hosting to talk about deployments using cloud platforms or on-premise. class.
 {: .notice--warning}
 
 We may make use of the on-premise version of PactFlow Enterprise to deploy it to a cloud platform like AWS, Azure, or Google Cloud. Or we may run PactFlow on our own premises, making use of our own physical data centers to host the whole product.   
-If any details apply specifically to on-premises or cloud, we will indicate this.
+If any details apply specifically to on-premises or cloud, I will indicate this.
 
 # Implementation
 
@@ -189,7 +189,7 @@ If you ask me personally, I would say that all could be reduced to a combination
 
 The first and second ones, related to security, regulations, and control over the data, are the most critical. In some industries, it would be a no-brainer and the self-hosted would be mandatory.
 
-But if this is not the case, and we can evaluate both options, then we should calculate the costs for hosting the product and what I would call “compromise” with the methodology. Starting with the SaaS approach will be more affordable, but in the long term, the self-hosted option may be more beneficial in some specific situations.
+But if this is not the case, and we can evaluate both options, then we should calculate the costs for hosting the product and what I would call "compromise" with the methodology. Starting with the SaaS approach will be more affordable, but in the long term, the self-hosted option may be more beneficial in some specific situations.
 
 ## Summary Table
 
