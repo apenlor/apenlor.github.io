@@ -90,7 +90,7 @@ baidu_site_verification  :
 
 # Social Sharing
 twitter:
-  username               : "apenlor"
+  username               :
 bluesky:
   username               : "apenlor.github.io"
 facebook:
@@ -106,7 +106,6 @@ social:
   links: # An array of links to social media profiles
     - "https://bsky.app/profile/apenlor.github.io"
     - "https://www.linkedin.com/in/alejandropenalorenzo"
-    - "https://twitter.com/apenlor"
 
 # Analytics
 analytics:
@@ -133,9 +132,6 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/apenlor"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/apenlor"
 
 # Site Footer
 footer:
@@ -149,9 +145,6 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/apenlor"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/apenlor"
 
 # Reading Files
 include:
