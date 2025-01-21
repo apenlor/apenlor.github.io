@@ -12,4 +12,4 @@ This is my personal site, using Minimal Mistakes Jekyll theme:
 
 To set up your environment to develop this theme, run `bundle install`.
 
-To test the theme, run `bundle exec rake preview` and open your browser at `http://localhost:4000/test/`.
+To test the theme, run `bundle exec rake preview` and open your browser at `http://localhost:4000/`.

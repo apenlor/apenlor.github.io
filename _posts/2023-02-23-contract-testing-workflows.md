@@ -8,7 +8,7 @@ tags:
 toc: true
 toc_label: "Table of contents"
 toc_sticky: true
-excerpt: "Understand the basic workflows related to Contract Testing"
+excerpt: "Understand the basic workflows related to Contract Testing."
 header:
   overlay_image: /assets/images/header-workflows.png
   overlay_filter: 0.5
