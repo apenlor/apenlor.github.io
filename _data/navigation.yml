@@ -1,4 +1,6 @@
 # main links
 main:
+  - title: "Live Collaborations"
+    url: /collaborations/
   - title: "About"
     url: /about/
