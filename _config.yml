@@ -119,7 +119,7 @@ analytics:
 author:
   name             : "Alejandro Pena"
   avatar           : "/assets/images/bio-photo.jpg"
-  bio              : "Software Engineer <a href='https://sngular.com' target='_blank' style='color: #3A8CC1;'>@Sngular</a> \n\n Currently working as Backend & QE Chapter Lead. \n\n Sharing experiences and thoughts here, I’m a JVM \\| Spring developer, with a focus on QE & DevOps."
+  bio              : "Principal Engineer <a href='https://sngular.com' target='_blank' style='color: #3A8CC1;'>@Sngular</a> \n\n Backend & QE Chapter Lead. \n\n Sharing experiences and thoughts here, I’m a Golang & JVM \\| Spring developer, with a focus on QE, DevOps & Platform engineering."
   location         :
   email            :
   links:
