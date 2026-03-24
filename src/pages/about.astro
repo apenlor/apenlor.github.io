@@ -1,0 +1,95 @@
+---
+import Hero from '~/components/widgets/Hero.astro';
+import Content from '~/components/widgets/Content.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'About',
+  description: "So, who the heck is this guy? Meet Alejandro Peña Lorenzo, a Software Engineer with over a decade of experience.",
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    tagline="About me"
+    image={{
+      src: '~/assets/images/bio-photo.jpg',
+      alt: 'Alejandro Peña Lorenzo',
+    }}
+  >
+    <Fragment slot="title">
+      Hi there! I'm <span class="text-accent dark:text-white">Alex</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Software Engineer · Backend Chapter Lead · Contract Testing advocate
+    </Fragment>
+  </Hero>
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isReversed
+    items={[
+      {
+        title: 'Backend Development',
+        description: 'Over a decade building large-scale backend systems, real-time applications, and distributed architectures.',
+        icon: 'tabler:server',
+      },
+      {
+        title: 'Quality Engineering',
+        description: 'Deep expertise in Contract Testing (Pact / PactFlow), test automation, and embedding quality in delivery pipelines.',
+        icon: 'tabler:shield-check',
+      },
+      {
+        title: 'DevOps',
+        description: 'Designing and implementing CI/CD pipelines, infrastructure as code, and developer experience improvements.',
+        icon: 'tabler:git-merge',
+      },
+    ]}
+    image={{
+      src: '~/assets/images/header-about.png',
+      alt: 'About header image',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-4">A bit about my journey</h3>
+      <p class="mb-4">
+        My name is <strong>Alex</strong>, and I am a Software Engineer with over a decade of expertise in technology
+        and software development. My journey began around 2010, and since then I have had the privilege of working in
+        various roles that have shaped my skills and understanding of the industry.
+      </p>
+      <p class="mb-4">
+        Currently, I'm located in Galicia ❤️ (Spain), where I serve as <strong>Backend Chapter Lead</strong> at
+        <a class="text-blue-600 dark:text-blue-400 underline" href="https://sngular.com" target="_blank">Sngular</a>,
+        supporting engineers and contributing to business development and project proposals. My technical expertise
+        encompasses <strong>backend development</strong>, <strong>DevOps</strong>, and <strong>Quality Engineering</strong>,
+        and I have held roles as a Tech Lead and Solutions Architect on various projects.
+      </p>
+      <p class="mb-4">
+        My early work involved developing document management systems using Alfresco Software, focusing on performance
+        audits and technical training. I later contributed to projects like BIC Cloud Workflow and BIC Cloud GRC,
+        working on workflow process design and risk management.
+      </p>
+      <p class="mb-4">
+        My recent experiences in the financial sector in the US have been particularly rewarding. In Pittsburgh, I
+        designed and built a real-time stock exchange application for <strong>PNC Bank</strong> using <strong>Kafka</strong>
+        and Confluent. I collaborated with <strong>Capital One</strong> in Washington, DC, to enhance their MFA login
+        infrastructure, and worked with <strong>Freddie Mac</strong> to help them adopt Contract Testing across their
+        whole organization.
+      </p>
+      <p>
+        This last experience led me to a continuous collaboration with SmartBear, especially regarding their
+        <a class="text-blue-600 dark:text-blue-400 underline" href="https://pactflow.io/" target="_blank">PactFlow</a>
+        product. Many of the articles and live events you'll find here are related to the contract testing practice.
+        Thank you for visiting my page — don't hesitate to connect!
+      </p>
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+</Layout>

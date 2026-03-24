@@ -1,0 +1,25 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import Search from 'astro-pagefind/components/Search';
+
+const metadata = {
+  title: 'Search',
+  robots: { index: false, follow: false },
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText tagline="Search" title="Find articles" />
+
+  <section class="px-4 py-8 sm:px-6 mx-auto lg:px-8 max-w-4xl">
+    <Search
+      id="search"
+      className="pagefind-ui"
+      uiOptions={{
+        showImages: true,
+        excerptLength: 15,
+      }}
+    />
+  </section>
+</Layout>
