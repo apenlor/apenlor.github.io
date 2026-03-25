@@ -44,6 +44,6 @@ export const footerData = {
     { ariaLabel: "RSS", icon: "tabler:rss", href: getAsset("/rss.xml") },
   ],
   footNote: `
-    <a class="text-blue-600 underline dark:text-muted" href="https://apenlor.github.io">Alejandro Peña Lorenzo</a> · All rights reserved.
+    <a class="text-blue-600 underline dark:text-muted" href="https://apenlor.github.io">Alejandro Pena Lorenzo</a> · All rights reserved.
   `,
 };
