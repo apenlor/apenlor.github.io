@@ -63,11 +63,11 @@ npm run fix
 - **Filename:** `kebab-case.md` — no date prefix (date is in frontmatter).
 - **Required frontmatter:**
   ```yaml
-  publishDate: 2024-12-19T00:00:00Z   # YAML native date — NO quotes
+  publishDate: 2024-12-19T00:00:00Z # YAML native date — NO quotes
   title: "Post title"
   excerpt: "Short description"
   image: ~/assets/images/teaser-image.png
-  category: Contract Testing            # single string
+  category: Contract Testing # single string
   tags:
     - Tag1
     - Tag2

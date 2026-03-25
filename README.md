@@ -22,13 +22,13 @@ npm run fix       # lint fix
 
 ## Content
 
-| Location | Purpose |
-|---|---|
-| `src/data/post/` | Blog posts (Markdown, Astro Content Collections) |
-| `src/pages/` | Site pages (`index.astro`, `about.astro`, `talks.astro`, `search.astro`) |
-| `src/assets/images/` | Images (referenced as `~/assets/images/...`) |
-| `src/config.yaml` | Site-wide config (name, URL, blog settings) |
-| `src/navigation.ts` | Header and footer navigation |
+| Location             | Purpose                                                                  |
+| -------------------- | ------------------------------------------------------------------------ |
+| `src/data/post/`     | Blog posts (Markdown, Astro Content Collections)                         |
+| `src/pages/`         | Site pages (`index.astro`, `about.astro`, `talks.astro`, `search.astro`) |
+| `src/assets/images/` | Images (referenced as `~/assets/images/...`)                             |
+| `src/config.yaml`    | Site-wide config (name, URL, blog settings)                              |
+| `src/navigation.ts`  | Header and footer navigation                                             |
 
 ## Key conventions
 
