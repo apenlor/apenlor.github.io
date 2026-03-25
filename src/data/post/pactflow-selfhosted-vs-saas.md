@@ -7,14 +7,16 @@ category: Contract Testing
 tags:
   - PactFlow
 ---
+
 # Intro
+
 Welcome to the second entry on the _Road to PactFlow Enterprise_ series!
 
-This time, I will talk about the classic Self-Hosted vs SaaS doubt: *which option is a better fit for my needs? Do I have the knowledge and resources required for a self-hosted approach? What problems will I face when choosing one or another?* 🤔
+This time, I will talk about the classic Self-Hosted vs SaaS doubt: _which option is a better fit for my needs? Do I have the knowledge and resources required for a self-hosted approach? What problems will I face when choosing one or another?_ 🤔
 
 **Spoiler alert: there is no easy answer**, and there is no "one-size-fits-all" solution. That's why the article will be structured into key points, and inside those points, the differences between one approach and the other will be covered.
 
-Let's try to summarize what we should be thinking about when having to answer the question: ***SaaS or Self-Hosted for PactFlow Enterprise?***
+Let's try to summarize what we should be thinking about when having to answer the question: **_SaaS or Self-Hosted for PactFlow Enterprise?_**
 
 ## A quick definition
 
@@ -31,7 +33,7 @@ When following a self-hosted model, we will be running and maintaining PactFlow 
 
 > In this article, I´ll use the term self-hosting to talk about deployments using cloud platforms or on-premise.
 
-We may make use of the on-premise version of PactFlow Enterprise to deploy it to a cloud platform like AWS, Azure, or Google Cloud. Or we may run PactFlow on our own premises, making use of our own physical data centers to host the whole product.   
+We may make use of the on-premise version of PactFlow Enterprise to deploy it to a cloud platform like AWS, Azure, or Google Cloud. Or we may run PactFlow on our own premises, making use of our own physical data centers to host the whole product.  
 If any details apply specifically to on-premises or cloud, I will indicate this.
 
 # Implementation
@@ -59,7 +61,7 @@ Of course, this is just an example, you could be using EC2 instead of EKS, or no
 In our architecture diagram, we are reflecting the deployment in just one region, but using multiple availability zones. For implementing a good disaster recovery, we should probably extend this solution with two regions replicating the same architecture. PactFlow is a stateless application, so at least there will be no worries about configuring sticky sessions or similar.
 
 ![PactFlow AWS sample architecture](/assets/images/diagram-pactflow-aws-architecture.png)
-*PactFlow AWS sample architecture*
+_PactFlow AWS sample architecture_
 
 Any team with experience in AWS will be able to create a similar architecture pretty fast.
 
@@ -70,7 +72,7 @@ This is the other key point to take into consideration before the provisioning: 
 Fortunately, the requirements are quite reasonable, with the following minimum requirements:
 
 |                |   CPU   | Memory  |  Disk   | Details                         |
-|:---------------|:-------:|:-------:|:-------:|---------------------------------|
+| :------------- | :-----: | :-----: | :-----: | ------------------------------- |
 | **PactFlow**   | 4 vCPUs | 4.0 GiB | 4.0 GiB | Docker \> 20.10.0               |
 | **PostgreSQL** | 4 vCPUs | 4.0 GiB | 5.0 GiB | IO perf \- 10 read/s 25 write/s |
 
@@ -88,9 +90,9 @@ On the other hand, when using the **self-hosted approach**, you will be responsi
 >
 > **1 database unit** = 1 CPU, 256 MiB memory, 1 GiB storage (per week), 25 writes/s, 10 read/s
 >
-> For every 500 active users*, you should increment your total compute capacity by one unit, and each database server capacity by one unit.
+> For every 500 active users\*, you should increment your total compute capacity by one unit, and each database server capacity by one unit.
 >
-> *Active users are defined as a developer that either logs into PactFlow daily or commits code that would trigger a CI build that integrates with PactFlow.*
+> _Active users are defined as a developer that either logs into PactFlow daily or commits code that would trigger a CI build that integrates with PactFlow._
 
 But of course, **it always will be better to monitor the platform and scale dynamically**.
 
@@ -107,7 +109,7 @@ Controversial topic, and _(oh surprise!)_ without a clear answer. Each approach 
 If we talk about **on-premise, the costs are always going to be higher.** It is not only the maintenance of the platform but the hardware as well. There is no doubt at this point.
 
 **But the situation can be different if you're hosting your services in the cloud**, especially if you have a large volume of applications already deployed. The price per resource improves significantly based on the number of resources used, making the hardware/servers related costs decrease significantly with this approach.  
-Of course, you will still need staff to maintain the platform, but you probably already have a platform team in this context (note that this will incur an overhead operating for the team, so plan it accordingly).   
+Of course, you will still need staff to maintain the platform, but you probably already have a platform team in this context (note that this will incur an overhead operating for the team, so plan it accordingly).  
 **The point is that in some situations, a self-hosted rollout based on the cloud could be a better (more economical) option in the long run.**
 
 # Maintenance & Upgrade
@@ -119,7 +121,7 @@ For the maintenance & upgrade of the platform, PactFlow will follow the classic 
 
 The backups management would be as well on your side, but that's a pretty easy process, you just need to take care of your PostgreSQL instance backups.
 
-In my experience, an approach that is working pretty well is to create a dedicated **team specialized in PactFlow and Contract Testing.** This team will be responsible for the maintenance & upgrade, working hand-in-hand with the platform team. And also would be the team responsible for the rollout of the methodology, training, giving support, and tracking the usage metrics across the whole organization.   
+In my experience, an approach that is working pretty well is to create a dedicated **team specialized in PactFlow and Contract Testing.** This team will be responsible for the maintenance & upgrade, working hand-in-hand with the platform team. And also would be the team responsible for the rollout of the methodology, training, giving support, and tracking the usage metrics across the whole organization.  
 You can find more information in <a href="https://docs.pactflow.io/docs/workshops/org_scale/" target="_blank">this PactFlow official article</a>, or even <a href="https://www.youtube.com/watch?v=LyVSmRtwFkc" target="_blank">watch in YouTube the video that is being summarized in the article.</a>
 
 # Support
@@ -127,7 +129,7 @@ You can find more information in <a href="https://docs.pactflow.io/docs/workshop
 No support is needed from your side when you're **using the SaaS option, all the responsibility would be on the PactFlow side**. You will have a proper communication channel to notify any kind of issue, but probably it will not be used a lot.
 
 **The situation is pretty different when you're hosting PactFlow on your platform.** The product is distributed as a Docker image, and that gives huge flexibility in terms of options about how to be deployed. That flexibility comes with a price, and that price is that PactFlow team will give you support with anything related to the application but not for the components that live outside the application itself.  
-Some examples of topics that are covered could be configuration issues, logs interpretation,  and diagnosis of the behavior of the application. But things like network issues, deployment orchestration, or infrastructure automation tools are totally out of scope. Of course, the team will do its best to help, but there are so many factors beyond PactFlow's control that it would be impossible to cover them all.
+Some examples of topics that are covered could be configuration issues, logs interpretation, and diagnosis of the behavior of the application. But things like network issues, deployment orchestration, or infrastructure automation tools are totally out of scope. Of course, the team will do its best to help, but there are so many factors beyond PactFlow's control that it would be impossible to cover them all.
 
 You can read more about the support policy <a href="https://docs.pactflow.io/docs/on-premises/support-policy/" target="_blank">here</a>.
 
@@ -139,23 +141,23 @@ Before jumping to the self-hosted section, I would like to put my two cents on t
 
 Some highlights about PactFlow SaaS platform:
 
-* SaaS PactFlow is fully **hosted in AWS ap-southeast-2 region** (Sydney, Australia), meaning that it's protected by all <a href="https://aws.amazon.com/compliance/data-center/controls/" target="_blank">the AWS data center security controls</a>.
-* The core platform is making use of different AWS services, all of them **certified with the higher standards of security** (EC2, Lambda, Cognito, Route53, S3…)
-* **Communication is encrypted in transit and at rest**, including the storage in S3 using AES-256 (considered as <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#Security" target="_blank">enough for TOP SECRET data by the NSA</a>).
-* **Two-factor authentication** is mandatory for all users, and the access keys are rotated regularly. **SAML 2.0 SSO** access is available and every action on the platform is recorded in immutable logs. Even there are analysis tools that detect any suspicious activity and independent third-party penetration tests audits.
-* The whole platform **complies with <a href="https://www.cisecurity.org/controls/implementation-groups/ig1" target="_blank">CIS IG 1</a> policies** and is looking to <a href="https://www.aicpa.org/resources/landing/system-and-organization-controls-soc-suite-of-services" target="_blank">SOC2 attestation</a> by 2023 Q4.
+- SaaS PactFlow is fully **hosted in AWS ap-southeast-2 region** (Sydney, Australia), meaning that it's protected by all <a href="https://aws.amazon.com/compliance/data-center/controls/" target="_blank">the AWS data center security controls</a>.
+- The core platform is making use of different AWS services, all of them **certified with the higher standards of security** (EC2, Lambda, Cognito, Route53, S3…)
+- **Communication is encrypted in transit and at rest**, including the storage in S3 using AES-256 (considered as <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard#Security" target="_blank">enough for TOP SECRET data by the NSA</a>).
+- **Two-factor authentication** is mandatory for all users, and the access keys are rotated regularly. **SAML 2.0 SSO** access is available and every action on the platform is recorded in immutable logs. Even there are analysis tools that detect any suspicious activity and independent third-party penetration tests audits.
+- The whole platform **complies with <a href="https://www.cisecurity.org/controls/implementation-groups/ig1" target="_blank">CIS IG 1</a> policies** and is looking to <a href="https://www.aicpa.org/resources/landing/system-and-organization-controls-soc-suite-of-services" target="_blank">SOC2 attestation</a> by 2023 Q4.
 
 If you want to have more information about security you can read this entry: <a href="https://pactflow.io/security/" target="_blank">PactFlow Security.</a>
 
 So yes, we can assume the **PactFlow SaaS environment is pretty safe.**
 
 _BUT… (there is always a but…)_  
-**You will always have more control over your data in a self-hosted setup.**   
+**You will always have more control over your data in a self-hosted setup.**  
 Even if you decide to host it in the cloud, as we did in the architecture section, it will ensure that you are the only holder of all the information in PactFlow.
 
-* Take advantage of the AWS **cloud security standards** (or from any other provider) while keeping full control of your information.
-* Make **PactFlow available only to your private network**, improving significantly the security, as it would be not exposed to the internet.
-* **No need to open the communication to your CI/CD pipelines** whitelisting the IP from PactFlow SaaS.
+- Take advantage of the AWS **cloud security standards** (or from any other provider) while keeping full control of your information.
+- Make **PactFlow available only to your private network**, improving significantly the security, as it would be not exposed to the internet.
+- **No need to open the communication to your CI/CD pipelines** whitelisting the IP from PactFlow SaaS.
 
 These three points listed are even more significant if we talk about an on-premise approach. The connectivity with your own servers couldn't be more private and the data will be stored in your own hardware. But be careful, as with this approach you're on your own as well for all the security management, so being up to date with the latest updates about security is a must.
 
@@ -167,18 +169,18 @@ Bonus section. I'll give you a simple and quick overview of the roles that you m
 
 A standard Contract Testing adoption team would be comprised of the following roles:
 
-* **Solutions Architect:** Would be in charge of product deployment and maintenance in your platform, so you will need an expert on the platform that is going to host PactFlow. And not only the platform (AWS/Google Cloud/Azure/OpenShift) but also the technologies that are going to surround it, which could be for example Kubernetes, Istio, CertManager, or any other component used for orchestration. Only needed in a self-hosted approach.
-* **Subject Matter Expert:** Role with a deep understanding of Contract Testing and PactFlow. Will act as lead for the technical team and the group of practice. A profile with good communication skills and management experience.
-* **DevOps:** For CI/CD & Webhooks implementation. Specialized in pipeline implementation with the tool you use for the CI/CD (Jenkins, Bamboo, GitHub Actions…)
-* **Engineers:** Roles for helping in the code implementation and adoption of Contract Testing. They need to have solid knowledge about how to implement contract testing using the languages from your stack and hopefully, really good skills for knowledge transfer with your teams members.
+- **Solutions Architect:** Would be in charge of product deployment and maintenance in your platform, so you will need an expert on the platform that is going to host PactFlow. And not only the platform (AWS/Google Cloud/Azure/OpenShift) but also the technologies that are going to surround it, which could be for example Kubernetes, Istio, CertManager, or any other component used for orchestration. Only needed in a self-hosted approach.
+- **Subject Matter Expert:** Role with a deep understanding of Contract Testing and PactFlow. Will act as lead for the technical team and the group of practice. A profile with good communication skills and management experience.
+- **DevOps:** For CI/CD & Webhooks implementation. Specialized in pipeline implementation with the tool you use for the CI/CD (Jenkins, Bamboo, GitHub Actions…)
+- **Engineers:** Roles for helping in the code implementation and adoption of Contract Testing. They need to have solid knowledge about how to implement contract testing using the languages from your stack and hopefully, really good skills for knowledge transfer with your teams members.
 
 # Conclusion
 
 If you ask me personally, I would say that all could be reduced to a combination of the following key questions:
 
-* Security and specific regulations' compliance.
-* Control over your data
-* Cloud platform maturity and compromise with the methodology.
+- Security and specific regulations' compliance.
+- Control over your data
+- Cloud platform maturity and compromise with the methodology.
 
 The first and second ones, related to security, regulations, and control over the data, are the most critical. In some industries, it would be a no-brainer and the self-hosted would be mandatory.
 
@@ -186,14 +188,14 @@ But if this is not the case, and we can evaluate both options, then we should ca
 
 ## Summary Table
 
-|                    |                                                     Saas                                                      |                                                               Self-Hosted Cloud                                                               |                                                       Self-Hosted on-premise                                                       |
-|:-------------------|:-------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------:|
-| **Implementation** | Not your responsibility. | Your responsibility. | Your responsibility. |
-| **Scalability**    | Not your responsibility. | Simple, but you will be responsible. | Limited by physical resources. |
+|                    |              Saas               |                        Self-Hosted Cloud                         |                Self-Hosted on-premise                 |
+| :----------------- | :-----------------------------: | :--------------------------------------------------------------: | :---------------------------------------------------: |
+| **Implementation** |    Not your responsibility.     |                       Your responsibility.                       |                 Your responsibility.                  |
+| **Scalability**    |    Not your responsibility.     |               Simple, but you will be responsible.               |            Limited by physical resources.             |
 | **Costs**          | Easy start. Subscription model. | Costly to start. Can be significantly improved in the long term. | Keep physical resources up to date make it expensive. |
-| **Maintenance**    | Not your responsibility. | Simple, but you will be responsible. | Simple, but you will be responsible. |
-| **Support**        | Not your responsibility. | Cloud platform support on your side. | Platform support on your side. |
-| **Security**       | Safer than popular belief. | Control over data. | Control over data, network and physical servers. |
+| **Maintenance**    |    Not your responsibility.     |               Simple, but you will be responsible.               |         Simple, but you will be responsible.          |
+| **Support**        |    Not your responsibility.     |               Cloud platform support on your side.               |            Platform support on your side.             |
+| **Security**       |   Safer than popular belief.    |                        Control over data.                        |   Control over data, network and physical servers.    |
 
 # See you soon\!
 

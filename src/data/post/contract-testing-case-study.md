@@ -1,12 +1,12 @@
 ---
 publishDate: 2024-10-14T00:00:00Z
-title: 'PactFlow & Contract Testing: A Business Case Study'
+title: "PactFlow & Contract Testing: A Business Case Study"
 excerpt: An anonymized real-case study about Contract Testing adoption.
 category: Contract Testing
 image: ~/assets/images/teaser-contract-testing-case-study.png
 tags:
-- Adoption
-- PactFlow
+  - Adoption
+  - PactFlow
 ---
 
 # Introduction
@@ -39,40 +39,39 @@ So, we're all aligned, and everyone is ready to start the journey. How do we exe
 
 The execution phase initially focused on the development of the MVP to demonstrate the value of contract testing using PactFlow. The project was structured into three work streams:
 ![MVP Planning](/assets/images/diagram-mvp-case-study.png)
-*MVP Planning*
+_MVP Planning_
 
 ### Tech Capability
 
 Concentrated on establishing the necessary technical capability and infrastructure. Over **three sprints**, the team achieved the following:
 
-* Established technical capability and infrastructure for PactFlow.
-* Enabled three on-premises PactFlow instances.
-* Configured and integrated PactFlow with the corporation's ecosystem.
-* Implemented CI/CD pipelines for basic Contract Testing.
+- Established technical capability and infrastructure for PactFlow.
+- Enabled three on-premises PactFlow instances.
+- Configured and integrated PactFlow with the corporation's ecosystem.
+- Implemented CI/CD pipelines for basic Contract Testing.
 
 ### Onboarding Teams
 
 The second work stream focused on onboarding teams and building internal expertise. Over **four sprints**, the team accomplished:
 
-* Onboarded two teams as pilots for the MVP.
-* Generated sample consumer and provider contracts for the MVP APIs.
-* Provided demos and tech talks to introduce the methodology.
-* Provided training to teams to become self-sustaining with PactFlow and Contract Testing.
+- Onboarded two teams as pilots for the MVP.
+- Generated sample consumer and provider contracts for the MVP APIs.
+- Provided demos and tech talks to introduce the methodology.
+- Provided training to teams to become self-sustaining with PactFlow and Contract Testing.
 
 ### Setting Up the Group of Practice
 
 The third work stream focused on establishing the GoP to ensure continuous improvement and widespread adoption of contract testing. Over **two sprints**, the team:
 
-* Defined the GoP composition.
-* Identified and agreed on GoP deliverables.
-* Defined KPI metrics and started collecting data.
-* Agreed on report contents for stakeholders.
-* Defined continuous improvement strategy.
+- Defined the GoP composition.
+- Identified and agreed on GoP deliverables.
+- Defined KPI metrics and started collecting data.
+- Agreed on report contents for stakeholders.
+- Defined continuous improvement strategy.
 
 ## GoP Duties
 
 The Group of Practice is essential in ensuring the effective and widespread adoption of contract testing within the organization. Here's how they contribute to the process:
-
 
 ### Metrics
 
@@ -83,7 +82,7 @@ The GoP establishes and tracks various metrics and KPIs to measure the speed and
 Quantitative metrics are crucial for measuring tangible outcomes and adoption rates. They can be categorized into two main types: engagement and impact. Some examples below:
 
 | Engagement Metrics                             | Impact Metrics                |
-|------------------------------------------------|-------------------------------|
+| ---------------------------------------------- | ----------------------------- |
 | Number of pipelines with can-i-deploy enabled. | Time spent on manual testing. |
 | Number of projects with contracts in PactFlow. | Deployment frequency.         |
 | Number of endpoints covered with CT.           | Lead time for change.         |
@@ -94,10 +93,10 @@ Quantitative metrics are crucial for measuring tangible outcomes and adoption ra
 
 Qualitative metrics provide insights into the overall satisfaction and effectiveness of the new tools. They should be tracked regularly and ideally using anonymous (blameless) surveys.
 
-* Team satisfaction with the new tools.
-* Pains and gains.
-* PactFlow Activity.
-* Community Engagement. How active and supportive is the community?
+- Team satisfaction with the new tools.
+- Pains and gains.
+- PactFlow Activity.
+- Community Engagement. How active and supportive is the community?
 
 ### Processes
 
@@ -123,21 +122,21 @@ Throughout nine sprints, the implementation of contract testing yielded tangible
 
 ### Governance
 
-* **Training and Expertise:** Two teams were fully trained in contract testing techniques, with four members becoming Contract Testing champions.
-* **KPIs and GoP:** Eight KPIs were defined, and the GoP was established to engage teams and ensure ongoing adoption.
-* **Security:** Role-Based Access Control, user authentication, and secure access with traceability were successfully implemented.
+- **Training and Expertise:** Two teams were fully trained in contract testing techniques, with four members becoming Contract Testing champions.
+- **KPIs and GoP:** Eight KPIs were defined, and the GoP was established to engage teams and ensure ongoing adoption.
+- **Security:** Role-Based Access Control, user authentication, and secure access with traceability were successfully implemented.
 
 ### Technical Achievements
 
-* **Coverage:** Six critical endpoints were covered by contract testing.
-* **Integration:** Two Jenkins pipelines were fully integrated with PactFlow, streamlining the testing process.
-* **Bug Detection:** The approach was effective, as two bugs in production environments were detected through contract testing.
+- **Coverage:** Six critical endpoints were covered by contract testing.
+- **Integration:** Two Jenkins pipelines were fully integrated with PactFlow, streamlining the testing process.
+- **Bug Detection:** The approach was effective, as two bugs in production environments were detected through contract testing.
 
 ### Time Efficiency
 
-* **First Test:** The first test was developed in just 8 hours.
-* **Pipeline Integration:** Integration of the first pipeline took 3 weeks.
-* **Bug Discovery:** Within 4 weeks of project initiation, the first bug was discovered and addressed.
+- **First Test:** The first test was developed in just 8 hours.
+- **Pipeline Integration:** Integration of the first pipeline took 3 weeks.
+- **Bug Discovery:** Within 4 weeks of project initiation, the first bug was discovered and addressed.
 
 ## Client estimated impact on cost savings
 
@@ -151,9 +150,6 @@ The implementation of contract testing has proven to be a transformative step fo
 
 Just to finish, some of the key learnings we gained from this experience include:
 
-* **Contract Testing Champions are essential:** They are crucial in driving adoption and ensuring the practice is embraced across teams.
-* **Group of Practice is a must:** The GoP is the backbone of the practice, guiding, supporting, and sustaining the adoption process.
-* **Monitoring metrics are vital:** Ad-hoc metrics are key to tracking success, ensuring alignment with goals, and identifying practice-specific areas for improvement.
-
-
-
+- **Contract Testing Champions are essential:** They are crucial in driving adoption and ensuring the practice is embraced across teams.
+- **Group of Practice is a must:** The GoP is the backbone of the practice, guiding, supporting, and sustaining the adoption process.
+- **Monitoring metrics are vital:** Ad-hoc metrics are key to tracking success, ensuring alignment with goals, and identifying practice-specific areas for improvement.

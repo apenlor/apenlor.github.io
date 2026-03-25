@@ -1,14 +1,15 @@
 ---
 publishDate: 2024-12-19T00:00:00Z
-title: 'Contract Testing: The final cheatsheet'
-excerpt: Key points to consider adoption of contract testing, covering both kind of
+title: "Contract Testing: The final cheatsheet"
+excerpt:
+  Key points to consider adoption of contract testing, covering both kind of
   strategies (consumer driven & bi-directional).
 category: Contract Testing
 image: ~/assets/images/teaser-contract-testing-cheatsheet.png
 tags:
-- Adoption
-- PactFlow
-- pact
+  - Adoption
+  - PactFlow
+  - pact
 ---
 
 # Introduction
@@ -23,12 +24,12 @@ The main purpose is to ensure that changes in one service do not break the funct
 
 Contract testing plays a crucial role in improving the software development lifecycle by:
 
-* **Enhancing Agility**.  
+- **Enhancing Agility**.  
   Teams can independently develop and release services without waiting for full system integration. This autonomy allows for faster iterations and reduced lead times.
-* **Increasing Confidence in Integration**.  
+- **Increasing Confidence in Integration**.  
   It builds confidence that changes to a service will not unexpectedly impact others, reducing the need for extensive manual integration testing.
-* **Improving Overall Quality**.  
-  By *"shifting left"*, it helps catch integration errors early in the development process, preventing issues from reaching later environments. This proactive approach leads to more stable releases and a smoother developer experience.
+- **Improving Overall Quality**.  
+  By _"shifting left"_, it helps catch integration errors early in the development process, preventing issues from reaching later environments. This proactive approach leads to more stable releases and a smoother developer experience.
 
 Want more details about the impact it can have on your business? Check out our article about <a href="/blog/understanding-roi-contract-testing" target="_blank">the ROI of Contract Testing</a>.
 
@@ -42,8 +43,8 @@ On the other side, **the provider is responsible for verifying each of the contr
 
 ### Key Points
 
-* Contracts are defined by consumers as "minimum viable contracts."
-* The provider must include a verification-related code in its test classes to ensure that these contracts are satisfied.
+- Contracts are defined by consumers as "minimum viable contracts."
+- The provider must include a verification-related code in its test classes to ensure that these contracts are satisfied.
 
 This approach places the responsibility on the consumer to define what it needs, and the provider adapts its implementation to meet these expectations.
 
@@ -65,8 +66,8 @@ From this point forward, nothing changes. The workflows, automation, and other p
 
 ### Key Points
 
-* Contracts are still defined by consumers as "minimum viable contracts."
-* The provider does not need to implement specific test code; they simply need to have their OAS in PactFlow.
+- Contracts are still defined by consumers as "minimum viable contracts."
+- The provider does not need to implement specific test code; they simply need to have their OAS in PactFlow.
 
 ### Use Cases
 
@@ -81,7 +82,7 @@ Go with consumer-driven testing whenever possible. In my experience, it provides
 ## Consumer Driven
 
 ![Consumer Driven diagram](/assets/images/diagram-contract-testing-cheatsheet-consumer-driven.png)
-*Consumer Driven diagram*
+_Consumer Driven diagram_
 
 1. The **consumer** defines the expectations in their codebase.
 2. During the **build and test** phase, the Pact framework starts a mock provider to test the expectations using real requests.
@@ -96,7 +97,7 @@ Go with consumer-driven testing whenever possible. In my experience, it provides
 ## Bi-Directional
 
 ![Bidirectional diagram](/assets/images/diagram-contract-testing-cheatsheet-bidirectional.png)
-*Bidirectional diagram*
+_Bidirectional diagram_
 
 1. The **consumer** defines the expectations in their codebase.
 2. During the **build and test** phase, the Pact framework starts a mock provider to test the expectations using real requests.
@@ -222,55 +223,54 @@ The same consumer sample code is valid for the bi-directional option. There's no
 
 **On the provider side, you won't need to add testing code to your codebase.** Remember, only the OpenAPI Specification is required.
 
-Ideally, the best approach *(IMHO)* is to generate it directly from your code using tools like the <a href="https://springdoc.org/" target="_blank">`springdoc-openapi-maven-plugin`</a> or any other tool of your choice. It's also valid to generate it externally and validate it using testing tools such as <a href="https://smartbear.com/product/ready-api/" target="_blank">ReadyAPI</a>, <a href="https://rest-assured.io/" target="_blank">RestAssured</a>, <a href="https://dredd.org/en/latest/index.html" target="_blank">Dredd</a>, or <a href="https://www.postman.com/api-platform/api-governance/" target="_blank">Postman</a>. You can find a lot of great examples and documentation on the PactFlow website:
+Ideally, the best approach _(IMHO)_ is to generate it directly from your code using tools like the <a href="https://springdoc.org/" target="_blank">`springdoc-openapi-maven-plugin`</a> or any other tool of your choice. It's also valid to generate it externally and validate it using testing tools such as <a href="https://smartbear.com/product/ready-api/" target="_blank">ReadyAPI</a>, <a href="https://rest-assured.io/" target="_blank">RestAssured</a>, <a href="https://dredd.org/en/latest/index.html" target="_blank">Dredd</a>, or <a href="https://www.postman.com/api-platform/api-governance/" target="_blank">Postman</a>. You can find a lot of great examples and documentation on the PactFlow website:
 
-* <a href="https://docs.pactflow.io/docs/bi-directional-contract-testing" target="_blank">Bi-directional Contract Testing</a>
-* <a href="https://docs.pactflow.io/docs/examples" target="_blank">Contract Testing Examples</a>
+- <a href="https://docs.pactflow.io/docs/bi-directional-contract-testing" target="_blank">Bi-directional Contract Testing</a>
+- <a href="https://docs.pactflow.io/docs/examples" target="_blank">Contract Testing Examples</a>
 
 # Automation (CI)
 
 I have a couple of detailed articles covering the workflows and CI/CD implications for the consumer-driven approach, but also applies to bi-directional. Feel free to deep dive into them:
 
-* <a href="/blog/contract-testing-workflows" target="_blank">Contract Testing Workflows</a>
-* <a href="/blog/contract-testing-and-ci" target="_blank">Contract Testing & CI</a>
-
+- <a href="/blog/contract-testing-workflows" target="_blank">Contract Testing Workflows</a>
+- <a href="/blog/contract-testing-and-ci" target="_blank">Contract Testing & CI</a>
 
 ## Consumer Driven
 
 Key points:
 
-* Consumer builds will publish their contracts to PactFlow.
-* Provider builds will download related contracts from PactFlow to validate them and publish the results.
-* Can-I-Deploy and other quality checks are in place for both consumers and providers, as we all know.
+- Consumer builds will publish their contracts to PactFlow.
+- Provider builds will download related contracts from PactFlow to validate them and publish the results.
+- Can-I-Deploy and other quality checks are in place for both consumers and providers, as we all know.
 
 Your work will involve orchestrating this process: managing how the publish/download of contracts are tagged, organized, and filtered for download.
 
 This strategy prioritizes the consumer. **Ideally, every change will start on the consumer side. However, this doesn't mean the provider fully depends on the consumers' roadmaps.** Each side can evolve independently, even though the evolution of contracts is driven by the consumers.
 
-Sample basic steps for consumer:  
+Sample basic steps for consumer:
 
 ![Consumer Driven pipeline diagram](/assets/images/diagram-contract-testing-cheatsheet-consumer-pipeline.png)
-*Consumer Driven pipeline diagram*
+_Consumer Driven pipeline diagram_
 
-For the provider, the verification is usually done by delegating on the pact plugin executed within the build:  
+For the provider, the verification is usually done by delegating on the pact plugin executed within the build:
 
 ![Consumer Driven, provider pipeline diagram](/assets/images/diagram-contract-testing-cheatsheet-provider-pipeline.png)
-*Consumer Driven, provider pipeline diagram*
+_Consumer Driven, provider pipeline diagram_
 
 ## Bi-Directional
 
 Key points:
 
-* Consumer builds will publish their contracts to PactFlow.
-* The provider does not download any contracts from PactFlow. Their only responsibility is to publish the OpenAPI Specification.
-* Can-I-Deploy and other quality checks are in place for both consumers and providers, as we all know.
+- Consumer builds will publish their contracts to PactFlow.
+- The provider does not download any contracts from PactFlow. Their only responsibility is to publish the OpenAPI Specification.
+- Can-I-Deploy and other quality checks are in place for both consumers and providers, as we all know.
 
 As you can see, the only and very important difference is just the provider build. It does not download contracts and validate them using their code & tests. **The provider just publishes the OAS, and PactFlow itself will do its magic to compare that OAS against the contract and check the compatibility**.
 
-With this approach, a sample provider build would look like this: 
+With this approach, a sample provider build would look like this:
 
 ![Bidirectional pipeline diagram](/assets/images/diagram-contract-testing-cheatsheet-bidirectional-pipeline.png)
-*Bidirectional pipeline diagram*
+_Bidirectional pipeline diagram_
 
 > **Implementing support for both techniques simultaneously is extremely easy and convenient.**
 
@@ -307,20 +307,20 @@ Pact Broker (the open-source version) will work in many contexts. It will be a h
 Below is a table summarizing the key differences between the two options to help you make an informed decision:
 
 |                                         |  Pact Broker   |      PactFlow       |
-|:---------------------------------------:|:--------------:|:-------------------:|
-|             Consumer Driven             |       ✅        |          ✅          |
-|             Bi-Directional              |       🟥       |          ✅          |
-|             AI Augmented CT             |       🟥       |          ✅          |
+| :-------------------------------------: | :------------: | :-----------------: |
+|             Consumer Driven             |       ✅       |         ✅          |
+|             Bi-Directional              |       🟥       |         ✅          |
+|             AI Augmented CT             |       🟥       |         ✅          |
 |            Formats supported            |      Pact      |   Pact \+ OpenAPI   |
-|         SwaggerHub integration          |       🟥       |          ✅          |
+|         SwaggerHub integration          |       🟥       |         ✅          |
 |                 Hosting                 |  Self-hosted   | SaaS or Self-hosted |
-|   Roles, User Management, Teams, etc.   |       🟥       |          ✅          |
-| Secure access and administration (SAML) |       🟥       |          ✅          |
+|   Roles, User Management, Teams, etc.   |       🟥       |         ✅          |
+| Secure access and administration (SAML) |       🟥       |         ✅          |
 |             User interface              |     Basic      |      Advanced       |
-|                 Support                 | Community only |          ✅          |
-|               API Tokens                |       🟥       |          ✅          |
-|                 Secrets                 |       🟥       |          ✅          |
-|              Audit Trails               |       🟥       |          ✅          |
+|                 Support                 | Community only |         ✅          |
+|               API Tokens                |       🟥       |         ✅          |
+|                 Secrets                 |       🟥       |         ✅          |
+|              Audit Trails               |       🟥       |         ✅          |
 
 # Conclusion
 

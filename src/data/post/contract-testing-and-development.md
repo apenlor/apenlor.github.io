@@ -5,7 +5,7 @@ excerpt: Initial steps for developers & tips for onboarding teams into the pract
 category: Contract Testing
 image: ~/assets/images/teaser-development.png
 tags:
-- Adoption
+  - Adoption
 ---
 
 # Introduction
@@ -41,7 +41,7 @@ Rather than diving into specific programming languages or teaching development, 
 It is crucial to have a deep and precise understanding of the contract testing framework and how it operates. I know, this advice might sound pretty obvious… but in my personal experience, it's not always as clear as it seems. Just when I thought I had a solid knowledge of the framework and was getting the hang of developing new scenarios, there was always a surprise waiting around the corner.
 
 ![Consumer Driven diagram](/assets/images/diagram-contract-testing.png)
-*Consumer Driven diagram*
+_Consumer Driven diagram_
 
 Contract testing is a methodology with greater depth and complexity than initially apparent. As you work with it, you'll continuously encounter new situations and challenges. There are tons of languages, standards, libraries, frameworks, and other factors that can significantly impact how you approach development. My latest challenge was facing a SpringBoot application that relied almost entirely on <a href="https://spring.io/projects/spring-integration" target="_blank">Spring Integration</a>. Barely any custom code from the developers, just a bunch of Spring configurations. I found myself dealing with HTTP Gateways and MessageChannels that Spring had fully generated. Adjusting their behavior to point to our Pact Mock server was pretty complex.
 
@@ -53,7 +53,7 @@ When engaging in contract testing, **the way you approach development will vary 
 
 As a consumer, your focus should be on outlining the expectations from the provider. This involves specifying the exact details of the data you need, how you plan to request it, and the format you expect to receive it in. **Remember, in contract testing, the consumer drives the contract; it's your responsibility to articulate what you need clearly and unambiguously**.
 
-On the other hand, **as a provider, your job is to ensure that you can meet the consumer's expectations consistently.** This involves confirming that your service can provide the data exactly as specified in the contract. A key aspect here is the use of `@State` annotation to define the data that will be returned in each test. Understanding and managing these states effectively will be central to your role as a provider. 
+On the other hand, **as a provider, your job is to ensure that you can meet the consumer's expectations consistently.** This involves confirming that your service can provide the data exactly as specified in the contract. A key aspect here is the use of `@State` annotation to define the data that will be returned in each test. Understanding and managing these states effectively will be central to your role as a provider.
 
 ```java
     @State("Student 1 exists")
@@ -70,7 +70,7 @@ For that reason, communication between the consumer team and the provider team i
 
 In contract testing, the strategy selected can have an important impact on your approach. You'll notice a shift in focus when switching between <a href="https://pactflow.io/what-is-consumer-driven-contract-testing/" target="_blank">Consumer-Driven</a> and <a href="https://pactflow.io/blog/introducing-bi-directional-contract-testing/" target="_blank">Bi-directional</a> testing.
 
-**Bi-directional testing reduces the need for team coordination.** The focus here, as always, is on the consumer, but in this specific situation, the provider is generally passive. This approach is designed to work in situations where the provider can't inject testing code on their end (imagine you want to test a big legacy monolith in your company or even the Slack API).   
+**Bi-directional testing reduces the need for team coordination.** The focus here, as always, is on the consumer, but in this specific situation, the provider is generally passive. This approach is designed to work in situations where the provider can't inject testing code on their end (imagine you want to test a big legacy monolith in your company or even the Slack API).  
 As for the provider, responsibilities may be as straightforward as simply uploading the OpenAPI Specification (OAS) to PactFlow. Sometimes, the provider may not even do that, and the consumer takes on this task. If that's the case, it should be accompanied by a set of tests validating the compatibility of the OAS with the deployed version of the provider, using tools like <a href="https://swagger.io/docs/swagger-inspector/how-to-use-swagger-inspector/" target="_blank">Swagger Inspector</a>, <a href="https://dredd.org/en/latest/index.html" target="_blank">Dredd</a>, or <a href="https://www.postman.com/" target="_blank">Postman</a>.
 
 While this makes Bi-directional testing easier in terms of collaboration and coordination, it's worth noting that the level of coverage it provides may not be as comprehensive as that of Consumer Driven testing (at least in my opinion). In the Consumer Driven approach, the provider works more proactively to meet the consumer's expectations, providing a more in-depth validation of service interactions. In my personal opinion, bi-directional testing is here to cover a particular situation, but our first option when implementing contract testing should be consumer driven.
@@ -81,15 +81,15 @@ Therefore, when planning your contract testing approach, consider the testing st
 
 While both Contract Testing & Functional Testing are vital, understanding their individual purposes and how to use each is key to efficient testing. Sounds familiar? You're not alone… this is a topic that often sparks debates among developers when they start to work on their testing coverage.  
 ![Testing pyramid](/assets/images/diagram-testing-pyramid.png)
-*Testing pyramid*
+_Testing pyramid_
 
 **Contract testing is all about the communication between a consumer and a provider.** It confirms that the two sides are on the same page regarding the exchanges happening between them. Let's say we have a scenario where we're creating a new customer via a POST request to an `/customers` endpoint. In this case, a contract test would check that both sides have the same understanding of what is required in terms of request and response for this operation. **However, it would not confirm the side effects of this operation,** like the correct creation and storage of the new customer, **that's where functional tests come in.**
 
 Sounds reasonable, right? But with interactions that do not have side effects (like validating error responses), it’s easy to lose focus. Let’s assume we have a Customer Service that enforces specific rules for the names, like maximum length or allowed characters. It might seem tempting to include these rules in contract tests and validate the kind of error returned. But that would be stepping into the territory of functional testing. If the provider decided to modify these rules, they would then unintentionally break our contract, even though these aren't breaking changes for the communication. Instead of over-specifying, we should test how the provider responds to incorrect inputs more broadly. For instance: check the `400` error code and the existence of an `errorMessage` and `errorCode`, but do not check the kind of error or content of the message. You don’t care at all about that.
 
-**Contract tests should aim to find consumer bugs and misunderstandings related to endpoints or payloads, as well as identify breaking changes by the provider. However, they should avoid digging into the provider's business logic.** 
+**Contract tests should aim to find consumer bugs and misunderstandings related to endpoints or payloads, as well as identify breaking changes by the provider. However, they should avoid digging into the provider's business logic.**
 
-There is <a href="https://docs.pact.io/consumer/contract_tests_not_functional_tests" target="_blank">a really good article about this topic in Pact documentation</a>. Actually, you have just read a summary of what you’re going to find there. 
+There is <a href="https://docs.pact.io/consumer/contract_tests_not_functional_tests" target="_blank">a really good article about this topic in Pact documentation</a>. Actually, you have just read a summary of what you’re going to find there.
 
 # Developing contract tests
 
@@ -109,11 +109,11 @@ Having all that in mind, you’re in a good position to identify a starting poin
 
 ## Establish the common criteria (and good practices)
 
-When it comes to methodology adoption work, there's a lot more to it than just making sure everything works. It's about creating good coding habits, making sure the contract testing code is organized and well-structured, and getting everyone on the same page when it comes to how things are done. 
+When it comes to methodology adoption work, there's a lot more to it than just making sure everything works. It's about creating good coding habits, making sure the contract testing code is organized and well-structured, and getting everyone on the same page when it comes to how things are done.
 
 Keep in mind that when you start working on **the first pilots,** these **are going to be the standard to follow for future projects**. You want to focus on showing reusable patterns and samples of code, even the creation of common modules that can be used in several projects. And don't forget about DSL usage, there are many approaches to solve the same situation, try to establish a pattern and a clear style, this consistency can be a game changer.
 
-Why does all this matter? Well, it’s all about making life easier for everyone. **You want it to be no big deal for a developer to move from one project to another**. And this isn't just for the developers, it's for you too. As you'll be the one helping all those teams, **knowing your way around the code will make your job a lot easier**. 
+Why does all this matter? Well, it’s all about making life easier for everyone. **You want it to be no big deal for a developer to move from one project to another**. And this isn't just for the developers, it's for you too. As you'll be the one helping all those teams, **knowing your way around the code will make your job a lot easier**.
 
 In the end, spending a bit of time getting things right at the beginning will save everyone a lot of time down the road. Plus, it's going to make the whole journey a lot smoother.
 
@@ -129,7 +129,7 @@ For developers, these applications offer a chance to learn contract testing in a
 
 ## Archetypes: The base project setup concept
 
-Once you've got reference applications like the ones we've talked about in the previous point, the next step is to consider adding contract testing to the _(most likely already existing)_ "starter kit" in your organization. 
+Once you've got reference applications like the ones we've talked about in the previous point, the next step is to consider adding contract testing to the _(most likely already existing)_ "starter kit" in your organization.
 
 Remember, we're dealing with large-scale organizations here, and this is a pretty common practice. Using an archetype _(or similar)_ to generate a basic project structure has loads of benefits _(and sure, it has its disadvantages too, but we're not here to talk about that)_. The point is: If it's a product type that your client uses, then contract testing should definitely be part of the tech options to include.
 
@@ -143,7 +143,7 @@ So, here we are at the last stop. In this section, **we're going to outline the 
 
 Let’s now describe each step in more detail.
 
-## Tech Talk: Contract Testing Introduction 
+## Tech Talk: Contract Testing Introduction
 
 Let's be totally honest here, **most teams won't have a clue about contract testing when you first approach them**. _If you're lucky, their technical leads might have a superficial understanding..._
 
@@ -161,7 +161,7 @@ It's just all about transforming the unknown known and bringing clarity to the p
 
 ## Analysis: Team architecture review
 
-After the educational sessions we’ve described in the previous points, it's now time to address the team's specific situation. **The initial conversations should be focused on understanding the team's architecture and the various components involved in their ecosystem.** At this stage, we'll be selecting the communication channels and APIs (or components) that will serve as the first scenarios for contract testing within the team. Don’t forget the advice from our _"Start Small and Easy"_ section - **we're aiming for something meaningful but relatively simple among the alternatives available**. 
+After the educational sessions we’ve described in the previous points, it's now time to address the team's specific situation. **The initial conversations should be focused on understanding the team's architecture and the various components involved in their ecosystem.** At this stage, we'll be selecting the communication channels and APIs (or components) that will serve as the first scenarios for contract testing within the team. Don’t forget the advice from our _"Start Small and Easy"_ section - **we're aiming for something meaningful but relatively simple among the alternatives available**.
 
 Our focus is to establish a foundation for the team to start independently developing. This initial step is vital, setting the stage for further growth and adaptation of contract testing practices. It's about finding the right balance between value and complexity and choosing a starting point that gives the team the confidence to move forward.
 
@@ -181,7 +181,7 @@ Setting up regular meetings, especially during the initial phases, can help in p
 
 Remember, it's not a race, but a journey. Every step towards understanding and applying better practices in contract testing is a step toward better _(and significantly safer)_ software development.
 
-## Contract Testing Champions: Spread the word! 
+## Contract Testing Champions: Spread the word!
 
 The idea of a "contract testing champion" is a creative invention of mine... _Who am I trying to fool? This is purely <a href="https://www.x.com/morvader" target="_blank">Fran's</a> brainchild… feel free to credit (or blame) him for this idea_ 😂
 

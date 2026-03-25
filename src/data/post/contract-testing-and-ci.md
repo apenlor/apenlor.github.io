@@ -5,12 +5,12 @@ excerpt: Key steps & specific situations to integrate Contract Testing into CI/C
 category: Contract Testing
 image: ~/assets/images/teaser-pipelines.png
 tags:
-- pact
-- CI/CD
+  - pact
+  - CI/CD
 ---
 
-
 # Intro
+
 Here we are again, with the third release of the _Road to PactFlow Enterprise_ series.
 
 This time we will deal with **an advanced topic: CI/CD implementation**. But not just at a high level as in <a href="/blog/contract-testing-workflows" target="_blank">the first article "Contract Testing Workflows"</a>, in this one we will go deeper and **talk about very particular situations you are likely to face, and the options you have to deal with them**.
@@ -31,11 +31,11 @@ Ok, we love webhooks, but **when implementing contract testing in a large-scale 
 
 ## One possible solution
 
-**Integrate the creation in your pipelines.** *Pretty obvious taking into account the title of the article, right?*
+**Integrate the creation in your pipelines.** _Pretty obvious taking into account the title of the article, right?_
 
 ![Alt](/assets/images/diagram-webhook-auto-creation.png)
 
-As you can see, webhook creation automation is included in the provider pipelines. First of all, we request to PactFlow all the existing webhooks configured for the provider and all the integrations. With that information, we can check if an integration (contract between consumer A and provider B) has a dedicated webhook triggering the verification pipeline from provider B. If that webhook does not exist, we can assume that it must be created. 
+As you can see, webhook creation automation is included in the provider pipelines. First of all, we request to PactFlow all the existing webhooks configured for the provider and all the integrations. With that information, we can check if an integration (contract between consumer A and provider B) has a dedicated webhook triggering the verification pipeline from provider B. If that webhook does not exist, we can assume that it must be created.
 
 If you’re using the Pact CLI instead of direct API calls, the process is much easier as you have the <a href="https://github.com/pact-foundation/pact_broker-client#create-or-update-webhook" target="_blank">create-or-update-webhook</a> available, so you will not need to worry about checking anything.
 
@@ -47,9 +47,9 @@ This approach has a drawback, the very first execution of a consumer publishing 
 
 ## Alternatives
 
-The most obvious alternative is to create them manually, even though I strongly don’t recommend that at all in big organizations. 
+The most obvious alternative is to create them manually, even though I strongly don’t recommend that at all in big organizations.
 
-Another alternative could be to isolate the webhook creation in a dedicated job, giving you more control over when the creation is executed. You can schedule the execution of that process as part of your application onboarding. 
+Another alternative could be to isolate the webhook creation in a dedicated job, giving you more control over when the creation is executed. You can schedule the execution of that process as part of your application onboarding.
 
 Honestly, none of them sound convincing to me. I´m pretty fan of automating the process all the possible.
 
@@ -61,7 +61,7 @@ But, if your organization has access to tools like Terraform you should be able 
 
 If you still don’t know what can-i-deploy is, you can read <a href="https://pactflow.io/blog/can-i-deploy/" target="_blank">this Pactflow official post</a> that summarizes pretty well what is the purpose of this core contract testing operation.
 
-In introductory contents, we used to see the typical diagrams where the consumer pipeline just waits for the PactFlow webhook callback to continue with the can-i-deploy (waiting for the provider verification to happen). You can see an example of what we’re talking about in the <a href="/blog/contract-testing-workflows#first-execution---consumer-driven" target="_blank">*First Execution \- Consumer Driven* section of the Contract Testing Workflows article</a>.
+In introductory contents, we used to see the typical diagrams where the consumer pipeline just waits for the PactFlow webhook callback to continue with the can-i-deploy (waiting for the provider verification to happen). You can see an example of what we’re talking about in the <a href="/blog/contract-testing-workflows#first-execution---consumer-driven" target="_blank">_First Execution \- Consumer Driven_ section of the Contract Testing Workflows article</a>.
 
 ![Alt](/assets/images/diagram-webhook-callback.png)
 
@@ -79,10 +79,10 @@ The difference is subtle but important, the pipeline is not waiting for a callba
 
 ## Alternative
 
-The <a href="https://github.com/pact-foundation/pact_broker-client#can-i-deploy" target="_blank">Pact CLI offers with the can-i-deploy</a> the possibility of using two parameters to configure this behavior: 
+The <a href="https://github.com/pact-foundation/pact_broker-client#can-i-deploy" target="_blank">Pact CLI offers with the can-i-deploy</a> the possibility of using two parameters to configure this behavior:
 
-* `--retry-while-unknown=TIMES`  
-* `--retry-interval=SECONDS`
+- `--retry-while-unknown=TIMES`
+- `--retry-interval=SECONDS`
 
 It simplifies a lot of the implementation, but you would be missing the exponential backoff.
 
@@ -114,7 +114,7 @@ There’s a clear alternative that is usually suggested by the clients: to make 
 
 ## Context
 
-As a quick definition, the **consumer version selectors** are a bunch of parameters, available in multiple languages and plugins, that allows **you to filter the consumer contracts that are going to be downloaded & validated by a provider.** This is a topic not deeply covered in technical articles, and it can become a headache if not understood and set up properly in your pipelines. You can find a lot of information related to the  <a href="https://docs.pact.io/pact_broker/advanced_topics/consumer_version_selectors" target="_blank">PacFlow official documentation</a>, even related directly to your favorite plugins (<a href="https://docs.pact.io/implementation_guides/jvm/provider/junit5#selecting-the-pacts-to-verify-with-consumer-version-selectors-4312" target="_blank">like the Junit5 for example</a>). 
+As a quick definition, the **consumer version selectors** are a bunch of parameters, available in multiple languages and plugins, that allows **you to filter the consumer contracts that are going to be downloaded & validated by a provider.** This is a topic not deeply covered in technical articles, and it can become a headache if not understood and set up properly in your pipelines. You can find a lot of information related to the <a href="https://docs.pact.io/pact_broker/advanced_topics/consumer_version_selectors" target="_blank">PacFlow official documentation</a>, even related directly to your favorite plugins (<a href="https://docs.pact.io/implementation_guides/jvm/provider/junit5#selecting-the-pacts-to-verify-with-consumer-version-selectors-4312" target="_blank">like the Junit5 for example</a>).
 
 Just to make it a little more complex, imagine that we are working in an enterprise environment that has a dedicated pipeline for deployments. Meaning that the build and creation of a release candidate is done in a different pipeline than the deployment itself. It’s a pretty common situation in large companies, although in the demos we handle everything in just one pipeline thread. Being able to generate a repeatable version number is pretty important to make our lives easier, tools <a href="https://www.npmjs.com/package/absolute-version?activeTab=readme" target="_blank">like this NPM package</a> can be super helpful.
 
@@ -123,7 +123,7 @@ Just to make it a little more complex, imagine that we are working in an enterpr
 Depending on how you have configured your CI/CD, you will need to filter the contracts in one way or another. If you have a solution similar to the one defined in this article until now (with a dedicated verification pipeline isolated from the common build) the most simple way to do it is to apply the following criteria:
 
 | Build                 | Strategy                                                        |
-|-----------------------|-----------------------------------------------------------------|
+| --------------------- | --------------------------------------------------------------- |
 | Common build          | Contracts deployed in all environments \+ latest one published. |
 | Verification pipeline | Only the contract that has triggered the verification           |
 
@@ -131,24 +131,24 @@ To accomplish that, we can make use of the properties: **deployed, latest & bran
 All of them are pretty self-explanatory, just keep in mind that the way to use them will depend on the code or plugin used for your validation. Some languages may have it included to be used in a specific way, some others may not. The good news is that all of them should at least support the raw JSON version selectors. An example using <a href="https://docs.pact.io/implementation_guides/jvm/provider/junit5spring" target="_blank">the Junit5 plugin</a> with raw JSON selectors:
 
 |                                      Common build                                      |
-|:--------------------------------------------------------------------------------------:|
+| :------------------------------------------------------------------------------------: |
 | `-Dpactbroker.consumerversionselectors.rawjson=[{"deployed": true}, {"latest": true}]` |
 
 |                               Verification Pipeline                               |
-|:---------------------------------------------------------------------------------:|
+| :-------------------------------------------------------------------------------: |
 | `-Dpactbroker.consumerversionselectors.rawjson=[{"branch": " + branchName + " }]` |
 
 But, why this setup? Let’s explain in detail the configuration selected.
 
 **_Why do we need to validate all the deployed contracts in our common build?_**
 
-If you recall, we are building an isolated pipeline that is not going to be the one deploying. For that reason, we would need to perform the validation of every deployed contract, to have all the cases covered. 
+If you recall, we are building an isolated pipeline that is not going to be the one deploying. For that reason, we would need to perform the validation of every deployed contract, to have all the cases covered.
 
 **_And why the "latest" published?_**
 
 This is a tricky one\! Imagine your first iteration. Your consumer publishes a contract, but it cannot deploy (as there is no provider verification available yet). You build your provider, and if you just validate the deployed contracts… this new contract will not be validated ever. That’s why you need to validate as well all the latest versions of each contract, to give coverage to this very specific situation.
 
-**_But what happens if the consumer creates a new contract between my provider build and the deployment?_** 
+**_But what happens if the consumer creates a new contract between my provider build and the deployment?_**
 
 That’s precisely the reason why you have a PactFlow webhook configured to trigger your verification pipeline. The webhook will provide the branch from the consumer that has created the event <a href="https://docs.pactflow.io/docs/user-interface/settings/webhooks/#contract-published-that-requires-verification" target="_blank">contract published that requires verification</a> and the pipeline will build & perform the verification using the related provider code. Remember that **the webhook will trigger the verification of each one of the providers related**. Meaning that if the new version is for a contract present in DEV, NON-PROD, and PROD it will trigger three verification runs (one per each provider version related).
 
@@ -162,11 +162,11 @@ There are quite a lot of alternatives. You can mix and combine different pipelin
 
 ## Context
 
-As you may know, <a href="https://docs.pact.io/pact_broker/advanced_topics/pacticipant" target="_blank">a pacticipant is a party that participates in a contract</a> (ie. a consumer or a provider). With that in mind, you may also know that the pacticipant id is defined in code while developing the tests themselves. For example:  
+As you may know, <a href="https://docs.pact.io/pact_broker/advanced_topics/pacticipant" target="_blank">a pacticipant is a party that participates in a contract</a> (ie. a consumer or a provider). With that in mind, you may also know that the pacticipant id is defined in code while developing the tests themselves. For example:
 
 ![Alt](/assets/images/diagram-pacticipant-id.png)
 
-On the other hand, we have people that work in platform management and toolchain. The kind of people that hates leaving core configurations open to the developers. *I’m pretty sure you can see where this is taking us, right?*
+On the other hand, we have people that work in platform management and toolchain. The kind of people that hates leaving core configurations open to the developers. _I’m pretty sure you can see where this is taking us, right?_
 
 **One very common request is to filter out any contract that is not related to an accepted pacticipant id.** Although this is pretty complicated to achieve with 100% certainty, there are some easy tricks you can do to improve the validation of these ids.
 
@@ -176,7 +176,7 @@ If you want to validate the participant id, it means that you must have the valu
 
 With the given context, the last important point to have in mind is that the **contracts generated** in a consumer are available in the build directory as a file, and they **always have the following name convention:** `[consumer-pacticipant-id]-[provider-pacticipant-id].[extension]`
 
-![Alt](/assets/images/diagram-contract-naming.png) 
+![Alt](/assets/images/diagram-contract-naming.png)
 
 Based on our previous example, the consumer pacticipant ID would be **consumer-poc**, and the provider pacticipant ID would be **provider-poc**.
 
@@ -192,8 +192,8 @@ Personally I cannot imagine a good alternative for this situation, it’s a pret
 
 ## Context
 
-When you’re working in a POC, or in your first tests, it’s pretty common to think about the environments like isolated regions. Your DEV deployment should be validated against the services deployed in DEV, right?   
-In our experience, this is not so easy in the real world. **How many times have you deployed in your DEV environment pointing to a service deployed in (for example) UAT?** It makes sense because the provider belongs to a different team. And that team will be maintaining and developing their own applications, so their DEV will not be stable precisely. And to avoid disruptions and problems during your development, they propose you use a higher environment.   
+When you’re working in a POC, or in your first tests, it’s pretty common to think about the environments like isolated regions. Your DEV deployment should be validated against the services deployed in DEV, right?  
+In our experience, this is not so easy in the real world. **How many times have you deployed in your DEV environment pointing to a service deployed in (for example) UAT?** It makes sense because the provider belongs to a different team. And that team will be maintaining and developing their own applications, so their DEV will not be stable precisely. And to avoid disruptions and problems during your development, they propose you use a higher environment.  
 But there’s more, maybe you’re consuming 3 services. One in DEV, the second one in UAT, and the third in SIT. Everything starts to get a bit complicated.
 
 **If we have to standardize and implement contract testing in a large organization, it is a situation we will almost certainly face.**
@@ -215,9 +215,9 @@ So, let's suppose we have the situation shown in the previous picture. For our d
 
 ## Alternatives
 
-If there is any alternative for this situation, I´m all ears... please contact me :). 
+If there is any alternative for this situation, I´m all ears... please contact me :).
 
-I'd love to know about other ways to handle this situation. As of now, this is the easiest and most efficient way I have identified.  
+I'd love to know about other ways to handle this situation. As of now, this is the easiest and most efficient way I have identified.
 
 **The con this solution has is that this kind of validation use to be impossible to apply on the provider side.** The provider does not know about their consumers, so in that case, we rely on the classic method of validating just the environment you’re going to be deployed on. We should keep in mind that this kind of deployment style usually happens just in the lower environments.
 

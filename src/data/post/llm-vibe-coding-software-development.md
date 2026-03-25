@@ -1,14 +1,15 @@
 ---
 publishDate: 2025-05-13T00:00:00Z
 title: LLMs, Vibe Coding y el desarrollo de software
-excerpt: Reflexión sobre el uso de LLMs, el vibe coding y algunos conceptos clave
+excerpt:
+  Reflexión sobre el uso de LLMs, el vibe coding y algunos conceptos clave
   para un uso responsable de la IA.
 category: IA
 image: ~/assets/images/teaser-llm-vibe-coding-software.png
 tags:
-- Vibe Coding
-- LLM
-- Software Development
+  - Vibe Coding
+  - LLM
+  - Software Development
 ---
 
 # LLMs, Vibe Coding y el desarrollo de software
@@ -43,10 +44,10 @@ Pero **todo cambia cuando se plantea trasladar este estilo de trabajo a un entor
 
 Algunas problemáticas concretas:
 
-* **La calidad del código:** A bajo nivel, la incoherencia, <a href="https://www.gitclear.com/ai_assistant_code_quality_2025_research" target="_blank">la falta de patrones de diseño sólidos y la perpetuación de soluciones erróneas</a>[^1] (aprendidas por el LLM de sus datos de entrenamiento) hacen que el software sea difícil de mantener y escalar. Pero sobre todo, personalmente me preocupa a alto nivel, la falta de una arquitectura coherente derivada de múltiples intervenciones aisladas de la IA compromete seriamente la integridad del sistema.
-* **Las vulnerabilidades:** Surgen tanto del uso incorrecto o no supervisado de librerías y funcionalidades, como de las propias alucinaciones de los LLMs. Son ya un <a href="https://www.theregister.com/2025/04/12/ai_code_suggestions_sabotage_supply_chain/" target="_blank">vector de riesgo identificado e importante</a>[^2]. Por ejemplo, el exploit de alucinaciones en imports comunes ha dado lugar a una nueva forma de <a href="https://capec.mitre.org/data/definitions/630.html" target="_blank">typosquatting</a>[^3], rebautizada como "<a href="https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks" target="_blank">slopsquatting</a>"[^4].
-* **Soluciones ineficaces o subóptimas:** Causadas por la tendencia natural de los LLMs hacia el uso de fuerza bruta en sus soluciones. Algoritmos ineficientes que impactan negativamente en el rendimiento y la mantenibilidad. <a href="https://arxiv.org/pdf/2502.12115" target="_blank">Este efecto se acentúa en los contextos grandes, en proyectos reales.</a>[^5]
-* **Dependencia excesiva de la IA:** Esta situación puede incluso derivar en una forma de vendor lock-in con la propia IA. Debido a las problemáticas listadas, es sencillo entrar en un modelo de dependencia, donde sólo una IA parece capaz de entender el código, creando una efecto bola de nieve y haciendo insostenible una solución a largo plazo.
+- **La calidad del código:** A bajo nivel, la incoherencia, <a href="https://www.gitclear.com/ai_assistant_code_quality_2025_research" target="_blank">la falta de patrones de diseño sólidos y la perpetuación de soluciones erróneas</a>[^1] (aprendidas por el LLM de sus datos de entrenamiento) hacen que el software sea difícil de mantener y escalar. Pero sobre todo, personalmente me preocupa a alto nivel, la falta de una arquitectura coherente derivada de múltiples intervenciones aisladas de la IA compromete seriamente la integridad del sistema.
+- **Las vulnerabilidades:** Surgen tanto del uso incorrecto o no supervisado de librerías y funcionalidades, como de las propias alucinaciones de los LLMs. Son ya un <a href="https://www.theregister.com/2025/04/12/ai_code_suggestions_sabotage_supply_chain/" target="_blank">vector de riesgo identificado e importante</a>[^2]. Por ejemplo, el exploit de alucinaciones en imports comunes ha dado lugar a una nueva forma de <a href="https://capec.mitre.org/data/definitions/630.html" target="_blank">typosquatting</a>[^3], rebautizada como "<a href="https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks" target="_blank">slopsquatting</a>"[^4].
+- **Soluciones ineficaces o subóptimas:** Causadas por la tendencia natural de los LLMs hacia el uso de fuerza bruta en sus soluciones. Algoritmos ineficientes que impactan negativamente en el rendimiento y la mantenibilidad. <a href="https://arxiv.org/pdf/2502.12115" target="_blank">Este efecto se acentúa en los contextos grandes, en proyectos reales.</a>[^5]
+- **Dependencia excesiva de la IA:** Esta situación puede incluso derivar en una forma de vendor lock-in con la propia IA. Debido a las problemáticas listadas, es sencillo entrar en un modelo de dependencia, donde sólo una IA parece capaz de entender el código, creando una efecto bola de nieve y haciendo insostenible una solución a largo plazo.
 
 Tras la parte negativa, ahora toca destacar que **estos problemas no son una condena inevitable**, sino que **se relacionan directamente con la ausencia de un marco de uso responsable y una supervisión crítica constante**. El _Vibe Coding_, como Karpathy dijo, es divertido y útil, pero la adopción en entornos productivos de la IA requiere un enfoque diferente. Un enfoque que a menudo se ve comprometido por la urgencia y las presiones del mercado.
 
@@ -54,9 +55,9 @@ Tras la parte negativa, ahora toca destacar que **estos problemas no son una con
 
 Hoy en día el FOMO _(Fear of Missing Out)_ es bien conocido por todo el mundo. Industrias como las relacionadas con el entretenimiento (videojuegos, cine y series, música…) giran en torno a este concepto: si no estás ahí YA y AHORA, _"no disfrutas"_.
 
-Pero ese miedo no es exclusivo de ellas, existe en también en el desarrollo de software, y unido a la presión competitiva del contexto actual, es muy difícil de ignorar.  El problema es que suele llevar a tomar decisiones precipitadas, a menudo sin una debida reflexión ni planificación estratégica sólida.
+Pero ese miedo no es exclusivo de ellas, existe en también en el desarrollo de software, y unido a la presión competitiva del contexto actual, es muy difícil de ignorar. El problema es que suele llevar a tomar decisiones precipitadas, a menudo sin una debida reflexión ni planificación estratégica sólida.
 
-Hay preguntas y dudas que resuenan en la mente de cualquiera:  _"¿Si todo el equipo utilizase IA, sobraría gente?", "Si no la usase, ¿seguiría siendo competitivo?", "¿Puedes siquiera ser competitivo a largo plazo sin utilizarla?"_
+Hay preguntas y dudas que resuenan en la mente de cualquiera: _"¿Si todo el equipo utilizase IA, sobraría gente?", "Si no la usase, ¿seguiría siendo competitivo?", "¿Puedes siquiera ser competitivo a largo plazo sin utilizarla?"_
 
 En mi opinión, no se trataría tanto de que "sobrara gente", sino de que **la productividad del equipo se dispararía exponencialmente si se adopta con un enfoque adecuado**. Por otra parte, un equipo talentoso y bien organizado creo firmemente que puede seguir siendo competitivo sin adoptar la IA, sin duda, pero estaría renunciando a un multiplicador de fuerza e innovación significativo. Con el impacto que eso puede tener cuando hablamos de largo plazo.
 
@@ -92,10 +93,10 @@ El concepto de <a href="https://www.sciencedirect.com/science/article/abs/pii/S1
 
 Es precisamente en este punto donde la descarga cognitiva estratégica se vuelve clave. No implica una renuncia, pero sí **es recomendable ser cuidadoso y selectivo sobre qué tareas delegamos y cuáles reservamos para nuestro _"músculo mental"_**. La tendencia que a priori suena más lógica es, precisamente, reservar nuestra energía para aquellas actividades que requieran un elevado juicio crítico, creatividad, o un profundo conocimiento del dominio y el contexto. Algunas de estas actividades podrían incluir:
 
-* Diseño de arquitecturas.
-* Revisión del código, especialmente el generado por IA.
-* Resolución de problemas complejos, que requieran una comprensión holística del sistema.
-* Toma de decisiones estratégicas sobre tecnologías a utilizar o estrategias a aplicar.
+- Diseño de arquitecturas.
+- Revisión del código, especialmente el generado por IA.
+- Resolución de problemas complejos, que requieran una comprensión holística del sistema.
+- Toma de decisiones estratégicas sobre tecnologías a utilizar o estrategias a aplicar.
 
 Esto tiene un aspecto positivo importante, y es que al enfocar nuestro esfuerzo en aspectos de mayor nivel, no sólo mitigamos el desaprendizaje, sino que podemos incluso refinar y profundizar en competencias nuevas o más valiosas.
 
@@ -127,9 +128,9 @@ Tomando como partida los puntos anteriores, se desprende claramente que la figur
 
 Se introducen **nuevos desafíos que exigen una evolución en las prácticas tradicionales de QA/QE**, el más claro es la naturaleza no determinista de los sistemas basados en LLMs. Ya no es suficiente con probar funcionalidades con entradas y salidas predecibles, es necesario adaptarse a esa variabilidad y posibles comportamientos inesperados. El nuevo alcance no se limita sólo a la validación del código generado, también deberá abarcar aspectos como:
 
-* **Validación del proceso de generación:** Calidad y robustez de los prompts y configuraciones que generan código. Evaluar reacciones ante entradas inesperadas o maliciosas.
-* **Detección de alucinaciones y sesgos:** Identificar cuándo el LLM inventa o reproduce sesgos indeseados.
-* **Pruebas de regresión sobre modelos:** Asegurar que las nuevas versiones de los LLMs o los reentrenamientos no degradan o rompen funcionalidades previas.
+- **Validación del proceso de generación:** Calidad y robustez de los prompts y configuraciones que generan código. Evaluar reacciones ante entradas inesperadas o maliciosas.
+- **Detección de alucinaciones y sesgos:** Identificar cuándo el LLM inventa o reproduce sesgos indeseados.
+- **Pruebas de regresión sobre modelos:** Asegurar que las nuevas versiones de los LLMs o los reentrenamientos no degradan o rompen funcionalidades previas.
 
 La relevancia de estas prácticas y retos es evidente. Nuestro compañero Fran Moreno <a href="https://www.linkedin.com/posts/franciscomorenosanz\_explorando-los-retos-en-el-testing-de-activity-7235214432476246018-Sea\_" target="_blank">ya había comentado desafíos similares</a>[^15] a los que se enfrentó en la implementación real de proyectos. En su caso, una estrategia de regresión sobre modelos entrenados para utilizar otro modelo como validador, solventando el problema del no determinismo en la respuesta.
 
@@ -147,32 +148,32 @@ Usar la IA como un "copiloto", con el humano siempre conduciendo. Balancear velo
 
 La humildad epistémica, el compromiso técnico, la estrategia de _prompts-as-a-code_, la definición de una gobernanza sólida o la importancia de una estrategia de calidad adecuada no son más que los mimbres con los que lograr el objetivo que apuntábamos al principio: la adopción exitosa, y evitar que tanto máquinas como humanos _"alucinemos"_ en el proceso.
 
-[^1]:  [https://www.gitclear.com/ai\_assistant\_code\_quality\_2025\_research](https://www.gitclear.com/ai_assistant_code_quality_2025_research)
+[^1]: [https://www.gitclear.com/ai_assistant_code_quality_2025_research](https://www.gitclear.com/ai_assistant_code_quality_2025_research)
 
-[^2]:  [https://www.theregister.com/2025/04/12/ai\_code\_suggestions\_sabotage\_supply\_chain/](https://www.theregister.com/2025/04/12/ai_code_suggestions_sabotage_supply_chain/)
+[^2]: [https://www.theregister.com/2025/04/12/ai_code_suggestions_sabotage_supply_chain/](https://www.theregister.com/2025/04/12/ai_code_suggestions_sabotage_supply_chain/)
 
-[^3]:  [https://capec.mitre.org/data/definitions/630.html](https://capec.mitre.org/data/definitions/630.html)
+[^3]: [https://capec.mitre.org/data/definitions/630.html](https://capec.mitre.org/data/definitions/630.html)
 
-[^4]:  [https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks](https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks)
+[^4]: [https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks](https://socket.dev/blog/slopsquatting-how-ai-hallucinations-are-fueling-a-new-class-of-supply-chain-attacks)
 
-[^5]:  [https://arxiv.org/pdf/2502.12115](https://arxiv.org/pdf/2502.12115)
+[^5]: [https://arxiv.org/pdf/2502.12115](https://arxiv.org/pdf/2502.12115)
 
-[^6]:  [https://www.linkedin.com/pulse/epistemic-humility-ai-fork-road-knowledge-creation-daisy-thomas-saqge/](https://www.linkedin.com/pulse/epistemic-humility-ai-fork-road-knowledge-creation-daisy-thomas-saqge/)
+[^6]: [https://www.linkedin.com/pulse/epistemic-humility-ai-fork-road-knowledge-creation-daisy-thomas-saqge/](https://www.linkedin.com/pulse/epistemic-humility-ai-fork-road-knowledge-creation-daisy-thomas-saqge/)
 
-[^7]:  [https://www.pdcnet.org/8525737F00583637/file/57470D980359184D85258316006B0C15/$FILE/jpr\_2018\_0043\_0000\_0005\_0024.pdf](https://www.pdcnet.org/8525737F00583637/file/57470D980359184D85258316006B0C15/$FILE/jpr_2018_0043_0000_0005_0024.pdf)
+[^7]: [https://www.pdcnet.org/8525737F00583637/file/57470D980359184D85258316006B0C15/$FILE/jpr_2018_0043_0000_0005_0024.pdf](https://www.pdcnet.org/8525737F00583637/file/57470D980359184D85258316006B0C15/$FILE/jpr_2018_0043_0000_0005_0024.pdf)
 
-[^8]:  [https://www.sciencedirect.com/science/article/abs/pii/S1364661316300985](https://www.sciencedirect.com/science/article/abs/pii/S1364661316300985)
+[^8]: [https://www.sciencedirect.com/science/article/abs/pii/S1364661316300985](https://www.sciencedirect.com/science/article/abs/pii/S1364661316300985)
 
-[^9]:  [https://www.mdpi.com/2075-4698/15/1/6](https://www.mdpi.com/2075-4698/15/1/6)
+[^9]: [https://www.mdpi.com/2075-4698/15/1/6](https://www.mdpi.com/2075-4698/15/1/6)
 
-[^10]:  [https://drphilippahardman.substack.com/p/the-impact-of-gen-ai-on-human-learning](https://drphilippahardman.substack.com/p/the-impact-of-gen-ai-on-human-learning)
+[^10]: [https://drphilippahardman.substack.com/p/the-impact-of-gen-ai-on-human-learning](https://drphilippahardman.substack.com/p/the-impact-of-gen-ai-on-human-learning)
 
-[^11]:  ​​[https://medium.com/data-science-collective/version-control-for-prompts-why-it-matters-and-how-to-do-it-right-af2e334dd22c](https://medium.com/data-science-collective/version-control-for-prompts-why-it-matters-and-how-to-do-it-right-af2e334dd22c)
+[^11]: ​​[https://medium.com/data-science-collective/version-control-for-prompts-why-it-matters-and-how-to-do-it-right-af2e334dd22c](https://medium.com/data-science-collective/version-control-for-prompts-why-it-matters-and-how-to-do-it-right-af2e334dd22c)
 
-[^12]:  [https://www.sciencedirect.com/science/article/pii/S0963868724000672](https://www.sciencedirect.com/science/article/pii/S0963868724000672)
+[^12]: [https://www.sciencedirect.com/science/article/pii/S0963868724000672](https://www.sciencedirect.com/science/article/pii/S0963868724000672)
 
-[^13]:  [https://www.sngular.com/es/insights/356/gobernanza-de-la-inteligencia-artificial-desafios-y-perspectivas](https://www.sngular.com/es/insights/356/gobernanza-de-la-inteligencia-artificial-desafios-y-perspectivas)
+[^13]: [https://www.sngular.com/es/insights/356/gobernanza-de-la-inteligencia-artificial-desafios-y-perspectivas](https://www.sngular.com/es/insights/356/gobernanza-de-la-inteligencia-artificial-desafios-y-perspectivas)
 
-[^14]:  [https://www.sngular.com/es/insights/365/fakeeh-care-group-y-sngular-se-alian-para-impulsar-la-inteligencia-artificial-en-el-sector-sanitario-de-arabia-saudi](https://www.sngular.com/es/insights/365/fakeeh-care-group-y-sngular-se-alian-para-impulsar-la-inteligencia-artificial-en-el-sector-sanitario-de-arabia-saudi)
+[^14]: [https://www.sngular.com/es/insights/365/fakeeh-care-group-y-sngular-se-alian-para-impulsar-la-inteligencia-artificial-en-el-sector-sanitario-de-arabia-saudi](https://www.sngular.com/es/insights/365/fakeeh-care-group-y-sngular-se-alian-para-impulsar-la-inteligencia-artificial-en-el-sector-sanitario-de-arabia-saudi)
 
-[^15]:  [https://www.linkedin.com/posts/franciscomorenosanz\_explorando-los-retos-en-el-testing-de-activity-7235214432476246018-Sea\_](https://www.linkedin.com/posts/franciscomorenosanz_explorando-los-retos-en-el-testing-de-activity-7235214432476246018-Sea_)
+[^15]: [https://www.linkedin.com/posts/franciscomorenosanz_explorando-los-retos-en-el-testing-de-activity-7235214432476246018-Sea\_](https://www.linkedin.com/posts/franciscomorenosanz_explorando-los-retos-en-el-testing-de-activity-7235214432476246018-Sea_)

@@ -1,12 +1,12 @@
 ---
 publishDate: 2024-11-21T00:00:00Z
-title: 'Contract Testing as a service: Support your clients'
+title: "Contract Testing as a service: Support your clients"
 excerpt: An alternative use of Contract Testing for enhancing your API business.
 category: Contract Testing
 image: ~/assets/images/teaser-contract-testing-aas.png
 tags:
-- Adoption
-- PactFlow
+  - Adoption
+  - PactFlow
 ---
 
 # Introduction
@@ -25,7 +25,6 @@ So, instead of sticking with the traditional API versioning approach _(and chasi
 
 At the end of the road, in this business case, that specific API integration was crucial for everyone involved.
 
-
 # Challenges
 
 In our conversations with the client, we identified several challenges they faced while managing their API. One of the primary issues was the **ongoing management of changes to the API**. Each modification created a ripple effect, forcing the maintenance of compatibility across various integrations and leading to an **overwhelming historical record of versions**.
@@ -38,11 +37,11 @@ Additionally, since the service they offered through this API was core to their 
 
 We proposed offering Contract Testing as a service through a PactFlow instance, enabling clients to conduct testing collaboratively. This service could be offered exclusively to 'VIP' clients, extended to all, or even packaged as a perk for specific subscription tiers. While clients would need to provide effort from their side _(you know, small details like developing tests and publishing consumer contracts…)_, the potential benefits for both sides are significant:
 
-* Increased agility in development.
-* Drastic reduction of risks and conflicts with each update.
-* Instant feedback and insights on API usage.
-* Out-of-the-box mocks for all API versions and contracts.
-* Substantial enhancement of the developer (client) experience.
+- Increased agility in development.
+- Drastic reduction of risks and conflicts with each update.
+- Instant feedback and insights on API usage.
+- Out-of-the-box mocks for all API versions and contracts.
+- Substantial enhancement of the developer (client) experience.
 
 I really like the last point. **Enhancing the developer experience should always be a top priority.** Remember that we will improve the stability of integrations and reduce the MTTI (Mean Time To Integration). A seamless integration process is key for new clients to quickly adopt the API, while ensuring existing use cases continue without disruption. This agility allows developers to focus on innovation rather than dealing with compatibility issues.
 
@@ -58,7 +57,7 @@ This is not just about offering a technical tool. **It's about establishing a de
 
 When deciding between bi-directional and consumer-driven in this scenario, it's important to note that **the impact of the decision on clients is minimal**. It mainly impacts the provider. In a bi-directional setup, the provider chooses to publish their OpenAPI to PactFlow, relying on PactFlow to do its magic. On the other hand, in a consumer-driven approach, the provider needs to implement tests, covering the specific states specified in consumer contracts.
 
-So, our two cents on this topic: If you decide to go with the *"VIP only"* approach, **a consumer-driven strategy may yield more comprehensive integration testing**, and although it would require greater effort on your part to cover different scenarios, it will also enhance your understanding of your client's needs.
+So, our two cents on this topic: If you decide to go with the _"VIP only"_ approach, **a consumer-driven strategy may yield more comprehensive integration testing**, and although it would require greater effort on your part to cover different scenarios, it will also enhance your understanding of your client's needs.
 
 However, **if the service is extended to a broader client base**, managing states for numerous contracts can be complex. You'd need to focus on homogenizing the states used by all your clients to simplify your life. And good luck with that… you'll end up having changed one problem for another. That's why, in such cases, **sticking with a bi-directional approach may simplify management** while ensuring reliable API integrations.
 
@@ -68,9 +67,9 @@ Let me do a bit of self-promotion and invite you to read <a href="/blog/contract
 
 While the benefits of adopting Contract Testing as a Service are clear, some considerations should not be ignored when adopting a strategy like this:
 
-* **Complexity in Business Relationships:** Sharing testing responsibilities with clients can be empowering, but it may also elevate expectations around API stability. VIP clients might anticipate quicker resolutions or personalized attention, which could lead to friction with standard-tier clients if not carefully managed. Setting clear expectations across different client tiers is essential to maintain balance.
-* **Operational Overhead:** Clients will need to invest time in developing and maintaining their contract tests. On the provider's side, managing and supporting multiple contracts will require additional coordination to ensure all contracts are effectively handled. However, well-structured processes and automation can help minimize these challenges.
-* **Contractual Risks:** While passing contract tests increases confidence in API changes, it doesn't eliminate the risk of failures. If not carefully managed, this could create a false sense of security. Clear communication about the limitations of testing and compliance expectations should be maintained to avoid misunderstandings.
+- **Complexity in Business Relationships:** Sharing testing responsibilities with clients can be empowering, but it may also elevate expectations around API stability. VIP clients might anticipate quicker resolutions or personalized attention, which could lead to friction with standard-tier clients if not carefully managed. Setting clear expectations across different client tiers is essential to maintain balance.
+- **Operational Overhead:** Clients will need to invest time in developing and maintaining their contract tests. On the provider's side, managing and supporting multiple contracts will require additional coordination to ensure all contracts are effectively handled. However, well-structured processes and automation can help minimize these challenges.
+- **Contractual Risks:** While passing contract tests increases confidence in API changes, it doesn't eliminate the risk of failures. If not carefully managed, this could create a false sense of security. Clear communication about the limitations of testing and compliance expectations should be maintained to avoid misunderstandings.
 
 # Conclusion
 
@@ -83,4 +82,3 @@ For businesses whose clients rely on their API as a core component of their oper
 Ultimately, the right strategy will depend on the client base and the specific challenges faced, paving the way for a more resilient API ecosystem.
 
 Thanks for reading!
-

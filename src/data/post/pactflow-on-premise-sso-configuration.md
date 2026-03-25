@@ -1,11 +1,11 @@
 ---
 publishDate: 2023-07-23T00:00:00Z
-title: 'PactFlow on-premise: SSO Configuration'
+title: "PactFlow on-premise: SSO Configuration"
 excerpt: How to configure SSO for an on-premise PactFlow instance.
 category: Contract Testing
 image: ~/assets/images/teaser-sso.png
 tags:
-- PactFlow
+  - PactFlow
 ---
 
 # Introduction
@@ -48,15 +48,15 @@ Before explaining the configuration steps, it might be useful to visualize how t
 
 ## Supported features
 
-* **SP-initiated login:** The login flow is started by PactFlow, at present, the IdP-initiated login is not supported.
-* **Authorization from an external IdP:** PactFlow will be able to assign roles and teams to the users based on the authorization/entitlements existing on your IdP/AD. Any update on the IdP will be reflected in PactFlow, including the deactivation of access. This feature requires the <a href="https://docs.pactflow.io/docs/on-premises/scim/" target="_blank">SCIM API configuration</a>.
-* **Automated user provisioning:** The users can be automatically provisioned in PactFlow when created in your IdP service. Again, this feature requires the <a href="https://docs.pactflow.io/docs/on-premises/scim/" target="_blank">SCIM API configuration</a>.
+- **SP-initiated login:** The login flow is started by PactFlow, at present, the IdP-initiated login is not supported.
+- **Authorization from an external IdP:** PactFlow will be able to assign roles and teams to the users based on the authorization/entitlements existing on your IdP/AD. Any update on the IdP will be reflected in PactFlow, including the deactivation of access. This feature requires the <a href="https://docs.pactflow.io/docs/on-premises/scim/" target="_blank">SCIM API configuration</a>.
+- **Automated user provisioning:** The users can be automatically provisioned in PactFlow when created in your IdP service. Again, this feature requires the <a href="https://docs.pactflow.io/docs/on-premises/scim/" target="_blank">SCIM API configuration</a>.
 
 ## Unsupported features
 
-* **IdP-initiated login:** The login process should be initiated by PactFlow.
-* **SP-initiated logout flow:** This feature, which would allow the SP to initiate a logout that logs the user out of all the parties in the current session (other SPs), is not supported.
-* **Automated user deletion:** Even though the users will lose access to PactFlow if the defined entitlement is revoked, the user will still exist in the platform. This feature requires the <a href="https://docs.pactflow.io/docs/on-premises/scim/" target="_blank">SCIM API configuration</a>.
+- **IdP-initiated login:** The login process should be initiated by PactFlow.
+- **SP-initiated logout flow:** This feature, which would allow the SP to initiate a logout that logs the user out of all the parties in the current session (other SPs), is not supported.
+- **Automated user deletion:** Even though the users will lose access to PactFlow if the defined entitlement is revoked, the user will still exist in the platform. This feature requires the <a href="https://docs.pactflow.io/docs/on-premises/scim/" target="_blank">SCIM API configuration</a>.
 
 ## SCIM API & Authorization
 
@@ -72,11 +72,11 @@ As mentioned above, PactFlow only supports the SP-initiated login. This means th
 
 ![Alt](/assets/images/diagram-sso-login-flow.png)
 
-1. **The users access PactFlow using the DNS/FQDN** ```https://<your PactFlow host>```. They will find a landing page with a SSO Login button.
+1. **The users access PactFlow using the DNS/FQDN** `https://<your PactFlow host>`. They will find a landing page with a SSO Login button.
 
 2. **The SSO Login button will redirect users to the configured SAML target URL** (the IdP Provider). At this point is when the SSO happens, verifying that the user is allowed to access the platform.
 
-3. **The IdP Provider then posts the SAML assertion to PactFlow**, communicating with the SAML callback endpoint:: ```https://<your PactFlow host>/auth/saml/callback```
+3. **The IdP Provider then posts the SAML assertion to PactFlow**, communicating with the SAML callback endpoint:: `https://<your PactFlow host>/auth/saml/callback`
 
 4. **If authorized, PactFlow will redirect the users back to the landing page.** If not, the custom error from the IdP provider will be shown.
 
@@ -84,15 +84,15 @@ As mentioned above, PactFlow only supports the SP-initiated login. This means th
 
 The onboarding process for a new SP in an IdP service can be initiated in two different ways
 
-* **Initiated in the IdP**
+- **Initiated in the IdP**
 
 It means that the IdP provider preconfigures PactFlow as SP and provides the metadata to the PatFlow team, so they can include the full SAML configuration in their first deployment.
 
-* **Initiated in the SP**
+- **Initiated in the SP**
 
 PactFlow must be deployed with an incomplete SAML configuration to have available the SP metadata URL. Then this information is provided to the IdP service to configure PactFlow as SP.
 
-In my experience, the second approach is more commonly used in enterprise environments. So I'll cover that process in this section. Anyway, using one or another approach *"only"* impacts saving the initial "dummy" deployment of PactFlow, and this guide would be still useful. I would like to highlight the *"only"* because when you're working in very strict environments the "dummy" deployment can imply some extra processes and a significant time lost. Having that in mind, there are some tricks we can use to save some time in upper environments. We'll discuss this when we reach that stage in the process description.
+In my experience, the second approach is more commonly used in enterprise environments. So I'll cover that process in this section. Anyway, using one or another approach _"only"_ impacts saving the initial "dummy" deployment of PactFlow, and this guide would be still useful. I would like to highlight the _"only"_ because when you're working in very strict environments the "dummy" deployment can imply some extra processes and a significant time lost. Having that in mind, there are some tricks we can use to save some time in upper environments. We'll discuss this when we reach that stage in the process description.
 
 ## 1. Dummy PactFlow deployment
 
@@ -101,35 +101,36 @@ This phase will imply the deployment of PactFlow with the minimum SSO SAML confi
 ```yaml
 #SSO SAML
 - name: PACTFLOW_SAML_AUTH_ENABLED
-  value: 'true'
+  value: "true"
 - name: PACTFLOW_SAML_ISSUER
-  value: 'https://dev.pactflow.com'
+  value: "https://dev.pactflow.com"
 - name: PACTFLOW_SAML_IDP_NAME
-  value: 'SSO Login'
+  value: "SSO Login"
 - name: PACTFLOW_SAML_IDP_METADATA_URL
-  value: 'https://fake-url.com/metadata'
+  value: "https://fake-url.com/metadata"
 - name: PACTFLOW_SAML_IDP_ID_ATTRIBUTE
-  value: 'http://schemas.microsoft.com/identity/claims/objectidentifier'
+  value: "http://schemas.microsoft.com/identity/claims/objectidentifier"
 - name: PACTFLOW_SAML_EMAIL_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
 - name: PACTFLOW_SAML_NAME_ATTRIBUTE
-  value: 'http://schemas.microsoft.com/identity/claims/displayname'
+  value: "http://schemas.microsoft.com/identity/claims/displayname"
 - name: PACTFLOW_SAML_FIRST_NAME_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
 - name: PACTFLOW_SAML_LAST_NAME_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"
 ```
+
 - <a href="https://docs.pactflow.io/docs/on-premises/environment-variables/#pactflow_saml_issuer">PACTFLOW_SAML_ISSUER</a>: This is just an id for your application. It's used to identify your application on the IdP side. It should be unique. From our side, to keep it simple, we tend to use the PactFlow DNS/FQDN.
-- <a href="https://docs.pactflow.io/docs/on-premises/environment-variables#pactflow_saml_idp_name" target="_blank">PACTFLOW_SAML_IDP_NAME</a>: This is the text that will be used as a link to the IdP SSO URL on the login page. We tend to use just *"SSO Login"* text because many developers will not even know they are relying on Azure AD or Ping for the login process.
+- <a href="https://docs.pactflow.io/docs/on-premises/environment-variables#pactflow_saml_idp_name" target="_blank">PACTFLOW*SAML_IDP_NAME</a>: This is the text that will be used as a link to the IdP SSO URL on the login page. We tend to use just *"SSO Login"\_ text because many developers will not even know they are relying on Azure AD or Ping for the login process.
 
 - <a href="https://docs.pactflow.io/docs/on-premises/environment-variables/#pactflow_saml_idp_metadata_url" target="_blank">PACTFLOW_SAML_IDP_METADATA_URL</a>: This should theoretically point to the metadata URL published by the IdP provider. That will be shared by the IdP once PactFlow is configured as SP. In our case, we don't have this information yet so we should include a fake URL.
 - <a href="https://docs.pactflow.io/docs/on-premises/environment-variables/#pactflow_saml_idp_id_attribute" target="_blank">PACTFLOW_SAML_XXX_ATTRIBUTE</a>: List of attributes required by PactFlow to map the user information when creating users in its own database. The values of these fields should be agreed upon with the IdP provider, they are responsible for specifying the attribute value where you should gather that information. In the example, we put some typical values from Azure AD. You may have this information at this point, or not, just keep in mind that you should update them if you didn't set the correct values at this moment.
 
-Having this minimum SAML SSO information fulfilled, PactFlow should be able to start up. Nobody will be able to log in, but we will have available the metadata.xml in the following URL: ```https://<your PactFlow host>/auth/saml/metadata```
+Having this minimum SAML SSO information fulfilled, PactFlow should be able to start up. Nobody will be able to log in, but we will have available the metadata.xml in the following URL: `https://<your PactFlow host>/auth/saml/metadata`
 
 ## 2. Request registration in your IdP
 
-If we take into consideration the values configured in our example, the metadata URL should be available at ```https://dev.pactflow.com/auth/saml/metadata```
+If we take into consideration the values configured in our example, the metadata URL should be available at `https://dev.pactflow.com/auth/saml/metadata`
 
 That URL is the value to be shared with the IdP team. If you check the content of that XML, it should have something like
 
@@ -146,19 +147,19 @@ That URL is the value to be shared with the IdP team. If you check the content o
            index="0" isDefault="true" />
        <md:AttributeConsumingService index="1" isDefault="true">
            <md:ServiceName xml:lang="en">Required attributes</md:ServiceName>
-           <md:RequestedAttribute FriendlyName="Email address" 
+           <md:RequestedAttribute FriendlyName="Email address"
               Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
                NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
                isRequired="false" />
-           <md:RequestedAttribute FriendlyName="Full name" 
+           <md:RequestedAttribute FriendlyName="Full name"
               Name="http://schemas.microsoft.com/identity/claims/displayname"
                NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
                isRequired="false" />
-           <md:RequestedAttribute FriendlyName="Given name" 
+           <md:RequestedAttribute FriendlyName="Given name"
               Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
                NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
                isRequired="false" />
-           <md:RequestedAttribute FriendlyName="Family name" 
+           <md:RequestedAttribute FriendlyName="Family name"
               Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"
                NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:basic"
                isRequired="false" />
@@ -180,7 +181,7 @@ There are two possible situations:
 - **IdP team shares the metadata in a URL.** In this case, the SSO URL used to be included in the published metadata.
 - **IdP team shares the metadata as an XML file.** In this case, they use to provide the SSO URL separately.
 
-The SSO Url could be something similar to: ```https://idpservice.com/idp/startSSO.Ping?PartnerSpId=https%3A%2F%2Fdev.pactflow.com```  
+The SSO Url could be something similar to: `https://idpservice.com/idp/startSSO.Ping?PartnerSpId=https%3A%2F%2Fdev.pactflow.com`  
 As you can see, the PartnerSpId corresponds to the value we configured in our deployment as PACTFLOW_SAML_ISSUER. This example SSO URL is based on <a href="https://www.pingidentity.com/en.html" target="_blank">Ping</a> approach.
 
 The metadata XML file will have a structure similar to the following:
@@ -243,28 +244,28 @@ With the information received from the IdP team, we can complete our deployment 
 
 ### Metadata URL is provided by the IdP team
 
-You're lucky, this is the simplest path. You will just need to add that URL as <a href="https://docs.pactflow.io/docs/on-premises/environment-variables/#pactflow_saml_idp_metadata_url" target="_blank">PACTFLOW_SAML_IDP_METADATA_URL</a> and your final configuration will be pretty similar to the dummy deployment one we shared before. Let's suppose the IdP metadata URL is: ```https://idpservice.com/idp/pactflow/metadata```
+You're lucky, this is the simplest path. You will just need to add that URL as <a href="https://docs.pactflow.io/docs/on-premises/environment-variables/#pactflow_saml_idp_metadata_url" target="_blank">PACTFLOW_SAML_IDP_METADATA_URL</a> and your final configuration will be pretty similar to the dummy deployment one we shared before. Let's suppose the IdP metadata URL is: `https://idpservice.com/idp/pactflow/metadata`
 
 ```yaml
 #SSO SAML
 - name: PACTFLOW_SAML_AUTH_ENABLED
-  value: 'true'
+  value: "true"
 - name: PACTFLOW_SAML_ISSUER
-  value: 'https://dev.pactflow.com'
+  value: "https://dev.pactflow.com"
 - name: PACTFLOW_SAML_IDP_NAME
-  value: 'SSO Login'
+  value: "SSO Login"
 - name: PACTFLOW_SAML_IDP_METADATA_URL
-  value: 'https://idpservice.com/idp/pactflow/metadata'
+  value: "https://idpservice.com/idp/pactflow/metadata"
 - name: PACTFLOW_SAML_IDP_ID_ATTRIBUTE
-  value: 'http://schemas.microsoft.com/identity/claims/objectidentifier'
+  value: "http://schemas.microsoft.com/identity/claims/objectidentifier"
 - name: PACTFLOW_SAML_EMAIL_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
 - name: PACTFLOW_SAML_NAME_ATTRIBUTE
-  value: 'http://schemas.microsoft.com/identity/claims/displayname'
+  value: "http://schemas.microsoft.com/identity/claims/displayname"
 - name: PACTFLOW_SAML_FIRST_NAME_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
 - name: PACTFLOW_SAML_LAST_NAME_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"
 ```
 
 ### Metadata is provided as an XML file by the IdP team
@@ -273,7 +274,7 @@ This is the most common scenario. In this case, we cannot use <a href="https://d
 
 - <a href="https://docs.pactflow.io/docs/on-premises/environment-variables/#pactflow_saml_idp_sso_target_url" target="_blank">PACTFLOW_SAML_IDP_SSO_TARGET_URL</a>
 
-This Url should have been provided by the IdP team, in our example, we will use the following value: ```https://idpservice.com/idp/startSSO.Ping?PartnerSpId=https%3A%2F%2Fdev.pactflow.com```
+This Url should have been provided by the IdP team, in our example, we will use the following value: `https://idpservice.com/idp/startSSO.Ping?PartnerSpId=https%3A%2F%2Fdev.pactflow.com`
 
 - <a href="https://docs.pactflow.io/docs/on-premises/environment-variables/#pactflow_saml_idp_entity_id" target="_blank">PACTFLOW_SAML_IDP_ENTITY_ID</a>
 
@@ -283,7 +284,7 @@ Entity ID from the IdP provider, we can have that value from the entityId attrib
 
 - <a href="https://docs.pactflow.io/docs/on-premises/environment-variables/#pactflow_saml_idp_cert_fingerprint" target="_blank">PACTFLOW_SAML_IDP_CERT_FINGERPRINT</a>
 
-This will be the SHA1 fingerprint of the certificate used for communication with the IdP. To have this value, we should use the certificate included in the metadata:  
+This will be the SHA1 fingerprint of the certificate used for communication with the IdP. To have this value, we should use the certificate included in the metadata:
 
 ![Alt](/assets/images/diagram-sso-certificate.png)
 
@@ -292,9 +293,10 @@ With that value, we will be able to generate the SHA1 fingerprint, following the
 #### Isolate the certificate into a .crt file
 
 Just copy and paste the certificate value in a new file including the certificate headers:
+
 ```txt
-\-----BEGIN CERTIFICATE-----  
-MIIDxTCCAq2gAwIBAg.....NLR9N4jtGulF  
+\-----BEGIN CERTIFICATE-----
+MIIDxTCCAq2gAwIBAg.....NLR9N4jtGulF
 \-----END CERTIFICATE-----
 ```
 
@@ -303,45 +305,50 @@ MIIDxTCCAq2gAwIBAg.....NLR9N4jtGulF
 ```bash
 > openssl x509 -noout -fingerprint -sha1 -inform pem -in [certificate-file.crt]
 ```
-The output of that command will be something similar to ```1E:DD:AD:32:C3:54:3F:C3:6F:7F:94:51:8D:5E:F7:ED:7C:DB:5D:A5```
+
+The output of that command will be something similar to `1E:DD:AD:32:C3:54:3F:C3:6F:7F:94:51:8D:5E:F7:ED:7C:DB:5D:A5`
 
 At this point, we already have the three values we need to finish our configuration, following our example values it should be something like:
 
 ```yaml
 #SSO SAML
 - name: PACTFLOW_SAML_AUTH_ENABLED
-  value: 'true'
+  value: "true"
 - name: PACTFLOW_SAML_ISSUER
-  value: 'https://dev.pactflow.com'
+  value: "https://dev.pactflow.com"
 - name: PACTFLOW_SAML_IDP_NAME
-  value: 'SSO Login'
+  value: "SSO Login"
 - name: PACTFLOW_SAML_IDP_SSO_TARGET_URL
-  value: 'https://idpservice.com/idp/startSSO.Ping?PartnerSpId=https%3A%2F%2Fdev.pactflow.com'
+  value: "https://idpservice.com/idp/startSSO.Ping?PartnerSpId=https%3A%2F%2Fdev.pactflow.com"
 - name: PACTFLOW_SAML_IDP_SSO_ENTITY_ID
-  value: 'secure.idp.com'
+  value: "secure.idp.com"
 - name: PACTFLOW_SAML_IDP_SSO_CERT_FINGERPRINT
-  value: '1E:DD:AD:32:C3:54:3F:C3:6F:7F:94:51:8D:5E:F7:ED:7C:DB:5D:A5'
+  value: "1E:DD:AD:32:C3:54:3F:C3:6F:7F:94:51:8D:5E:F7:ED:7C:DB:5D:A5"
 - name: PACTFLOW_SAML_IDP_ID_ATTRIBUTE
-  value: 'http://schemas.microsoft.com/identity/claims/objectidentifier'
+  value: "http://schemas.microsoft.com/identity/claims/objectidentifier"
 - name: PACTFLOW_SAML_EMAIL_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
 - name: PACTFLOW_SAML_NAME_ATTRIBUTE
-  value: 'http://schemas.microsoft.com/identity/claims/displayname'
+  value: "http://schemas.microsoft.com/identity/claims/displayname"
 - name: PACTFLOW_SAML_FIRST_NAME_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
 - name: PACTFLOW_SAML_LAST_NAME_ATTRIBUTE
-  value: 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'
+  value: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"
 ```
+
 Congratulations!! at this moment you should have already your PactFlow instance up & running with SAML SSO configured 🙂
 
 # Troubleshooting
+
 The simplest approach to troubleshooting any issues arising after configuration involves using your **browser's developer tools to examine the traffic between PactFlow and the IdP**. The two primary elements to verify are the SSOLogin request (initiated by PactFlow to IdP) and the callback (from IdP back to PactFlow).
 
 ## PactFlow SSO Login request
+
 To be honest, I have never faced any problem with this request, but it's mandatory to mention that this is the one related to the request from PactFlow to the IdP. If you encounter communication issues with the IdP platform, or if they are lacking any information from you, this should be your first point of investigation.
 ![Alt](/assets/images/diagram-sso-webtools.png)
 
 ## Idp callback to PactFlow
+
 In the response from the IdP, we will have more information that could be useful for troubleshooting. Decoding the base64 payload allows us to access the assertion response.
 ![Alt](/assets/images/diagram-sso-webtools-callback.png)
 
@@ -352,4 +359,3 @@ The content of the assertion is pretty big so we will not include an example sna
 # Conclusions
 
 As we've observed, the configuration and process aren't overly complex yet have unique aspects. On the other hand, this is a mandatory configuration in every On-Premise PactFlow deployment and when I first started to work with PactFlow, I was not able to find much information related. Although the configuration or process may closely resemble those of other applications, I discovered the absence of a step-by-step guide to be a significant time drain. The idea behind this article creation is to save time for anyone struggling with this SSO setup out there, and probably even help myself in the future.
-

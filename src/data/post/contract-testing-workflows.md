@@ -11,7 +11,7 @@ tags:
 
 # Intro
 
-This is the first of a series of articles aiming to cover common processes or configurations you will need to face on your _road to PactFlow Enterprise_.   
+This is the first of a series of articles aiming to cover common processes or configurations you will need to face on your _road to PactFlow Enterprise_.  
 We are going to cover here the very first topic that you will want to talk about when starting the process of adopting contract testing at the enterprise level: **The Workflows.**
 
 At this point, you probably already know what contract testing is, you have been playing with a PoC (proof of concept), and even maybe you have an MVP (minimum viable product). But now **it's the moment of defining the workflows to be applied in real-world scenarios**. That is the exact point when things start to get a little bit more complicated, and I´m going to share with you some tips I´ve learned along the way.
@@ -24,8 +24,8 @@ The details included in these workflows will go deeper than any typical hands-on
 
 As you may know, there are two main methodologies when talking about contract testing:
 
-* **Consumer Driven:** The flow is started (*and fully handled*) by the consumers. Providers must validate the contract, requiring them to include code in their testing phase. <a href="https://dzone.com/articles/improve-microservice-testing-with-contract-testing" target="_blank">Check out this article</a> if you want more information.  
-* **Bi-directional:** For situations where there is no control over the provider's code (or maybe there is control, but there's no will to include new testing code in their source). We have published at Sngular <a href="https://www.sngular.com/the-easy-way-to-get-started-with-bi-directional-contract-testing/" target="_blank">some nice articles related</a>.
+- **Consumer Driven:** The flow is started (_and fully handled_) by the consumers. Providers must validate the contract, requiring them to include code in their testing phase. <a href="https://dzone.com/articles/improve-microservice-testing-with-contract-testing" target="_blank">Check out this article</a> if you want more information.
+- **Bi-directional:** For situations where there is no control over the provider's code (or maybe there is control, but there's no will to include new testing code in their source). We have published at Sngular <a href="https://www.sngular.com/the-easy-way-to-get-started-with-bi-directional-contract-testing/" target="_blank">some nice articles related</a>.
 
 Bi-directional and consumer-driven are much more similar than expected, there is a slight difference in how the provider is handled (for obvious reasons), but the workflows in bi-directional could be understood as a subgroup of the workflows defined as consumer-driven with minimum differences. In this article, I will focus on the consumer-driven approach, as covering both would create a very long entry, but I will go over the bi-directional in future articles.
 
@@ -35,41 +35,41 @@ Bi-directional and consumer-driven are much more similar than expected, there is
 
 ## First Execution \- Consumer Driven
 
-Everything should start with a meeting (*yeah, I know you were thinking we would get rid of meetings if we used contract testing, right? Well, that's partially true… you will have fewer of them, but no one will save you from the kick-off ones*). 
+Everything should start with a meeting (_yeah, I know you were thinking we would get rid of meetings if we used contract testing, right? Well, that's partially true… you will have fewer of them, but no one will save you from the kick-off ones_).
 
-Both teams will present their needs to ensure that communication between the two systems remains correct, and the requests and expected responses for each of them must be agreed upon. It's pretty probable that your teams will not be starting from scratch, if that's the case you can just agree on the (*hopefully*) working versions you're using at that moment to use them as starting points. Once an agreement has been reached, the consumer side should generate, as soon as possible, a contract with the specification of the communications and publish it to PactFlow. From that moment on, both teams can work independently (*yay! no more meetings\!*)
+Both teams will present their needs to ensure that communication between the two systems remains correct, and the requests and expected responses for each of them must be agreed upon. It's pretty probable that your teams will not be starting from scratch, if that's the case you can just agree on the (_hopefully_) working versions you're using at that moment to use them as starting points. Once an agreement has been reached, the consumer side should generate, as soon as possible, a contract with the specification of the communications and publish it to PactFlow. From that moment on, both teams can work independently (_yay! no more meetings\!_)
 
-Both sides will be synchronized through CI's pipelines and the PactFlow webhooks. They will be constantly notified about changes, the pact's verification status, and most importantly: **if it is safe to deploy.** If a contract is not verified, the consumer will be blocked and unable to deploy (the same situation can happen for a provider). 
+Both sides will be synchronized through CI's pipelines and the PactFlow webhooks. They will be constantly notified about changes, the pact's verification status, and most importantly: **if it is safe to deploy.** If a contract is not verified, the consumer will be blocked and unable to deploy (the same situation can happen for a provider).
 
 Keep in mind that in your first run as a consumer, after publishing your contract, the <a href="https://docs.pact.io/pact_broker/can_i_deploy" target="_blank">can-i-deploy tool</a> will block the deployment. That is totally expected: the provider is not deployed, and your contract is not yet validated, so the framework can not allow you to deploy. That's why the provider CI needs to be run to validate the first version of the contract **and be deployed** in the target environment. This is a situation that you will face in almost any deployment that contains a communication change, your consumer will be forced to wait for the provider to include the changes on their side.
 
 > **Disclaimer!** The CIs for consumers or providers are being represented as timelines. When there's a webhook callback, even though we are using the same timeline it does not mean it should be the same execution (you may not want to pause your pipelines).
 
 ![Consumer Driven Workflow](/assets/images/diagram-consumer-driven-workflow.png)
-*Consumer Driven Workflow*
+_Consumer Driven Workflow_
 
 ## Consumer \- Deployment without impact on provider
 
-Common situation, it could be a simple hotfix or a new release done by the consumer. The point is that the consumer wants to update their service in an already working production environment. The changes included theoretically do not have an impact on the communication, but we should make sure about that. 
+Common situation, it could be a simple hotfix or a new release done by the consumer. The point is that the consumer wants to update their service in an already working production environment. The changes included theoretically do not have an impact on the communication, but we should make sure about that.
 
 The situation is pretty straightforward, the code will be developed and verified against the currently deployed version of the provider. If the verification is green, the changes can be safely deployed.
 
-In the following example, we are assuming that the contract has changed even though there's no impact on the communication (for example, your consumer has started   
-consuming one extra existing attribute). If the changes to the consumer didn't affect the contract (for example, just changes in your business code), PactFlow would be smart enough to pre-verify the contract without requesting the provider to build/validate it. This is a pretty important feature, that will save a lot of computing time on your pipelines.  
+In the following example, we are assuming that the contract has changed even though there's no impact on the communication (for example, your consumer has started  
+consuming one extra existing attribute). If the changes to the consumer didn't affect the contract (for example, just changes in your business code), PactFlow would be smart enough to pre-verify the contract without requesting the provider to build/validate it. This is a pretty important feature, that will save a lot of computing time on your pipelines.
 
 ![Consumer deployment without impact on provider](/assets/images/diagram-consumer-deploy-no-impact-provider.png)
-*Consumer deployment without impact on provider*
+_Consumer deployment without impact on provider_
 
 ## Provider \- Deployment without impact on consumer
 
 Opposite situation to our previous point, now we are trying to update our provider in production including updates/fixes/whatever… the point is that we expect our changes to not have an impact on the communication with the provider. The team will ensure that with the following process.
 
 ![Provider deployment without impact on consumer](/assets/images/diagram-provider-deploy-no-impact-consumer.png)
-*Provider deployment without impact on consumer*
+_Provider deployment without impact on consumer_
 
 ## Consumer \- Deployment with impact on provider
 
-This case is pretty similar to the [initial base case](#first-execution---consumer-driven). Actually, I will not include a diagram in this section, because is exactly the same.   
+This case is pretty similar to the [initial base case](#first-execution---consumer-driven). Actually, I will not include a diagram in this section, because is exactly the same.  
 The consumer has created a new contract version, different from the ones already validated in PactFlow. And furthermore, the new contract version is not compatible with the provider versions currently deployed. **The deployment of the new consumer version will be blocked until we have a compatible provider version.**
 
 The moment the new compatible provider version is available (and deployed), our consumer will be free to deploy. Keep in mind that even though the diagram shows this process as sequential, there could be days or even weeks before moving forward. **The teams are working asynchronously.** The good point is that PactFlow enables us even to automatically trigger the notification webhook to the consumer once the compatible provider version is available without requiring any human intervention.  
@@ -77,29 +77,29 @@ We have blocked a problematic deployment, and not only that… we have automatic
 
 ## Provider \- Deployment with impact on consumer
 
-Now let's see the opposite situation, a provider wants to include some changes that will cause a problem in the communication with one of its consumers. **The framework will stop the deployment and prevent errors in lower environments.**   
-Actually, **developers can be aware of that problem even while writing code** if the issue is related to the latest contract published by the consumer. When developing in the local environment, the framework will download the latest version of the contract to perform the validations on the provider (at least by default, of course, you would be able to point to a specific version or environment).  
-   
-But it can *(and will)* happen that in upper environments, the version deployed may not be the latest one. 
+Now let's see the opposite situation, a provider wants to include some changes that will cause a problem in the communication with one of its consumers. **The framework will stop the deployment and prevent errors in lower environments.**  
+Actually, **developers can be aware of that problem even while writing code** if the issue is related to the latest contract published by the consumer. When developing in the local environment, the framework will download the latest version of the contract to perform the validations on the provider (at least by default, of course, you would be able to point to a specific version or environment).
+
+But it can _(and will)_ happen that in upper environments, the version deployed may not be the latest one.
 
 The situation is a little bit more complicated than on the consumer side, when the provider tries to deploy a breaking change, it will be blocked. But if the consumer tries to create a new contract compatible with the "future" provider breaking change version, it will not be able to deploy either (as it will be not compatible with the currently deployed version of the provider).  
 To solve this, the logical steps are:
 
-1. The provider will need to include those breaking changes incrementally: **_"expand & contract"_**. If we are talking for example about a field (change from `name` to `firstName`), you will need to include in a first provider version both values for the field, the old one and the new one, to keep the compatibility with the consumer.  
-2. Consumer can now deploy the new version created, where they are only using `firstName` because is already supported by the provider.  
+1. The provider will need to include those breaking changes incrementally: **_"expand & contract"_**. If we are talking for example about a field (change from `name` to `firstName`), you will need to include in a first provider version both values for the field, the old one and the new one, to keep the compatibility with the consumer.
+2. Consumer can now deploy the new version created, where they are only using `firstName` because is already supported by the provider.
 3. Provider can create a new version and get rid of the old field `name`, as it is already not used by any consumer.
 
 ![Provider deployment with impact on consumer](/assets/images/diagram-provider-deploy-impact-consumer.png)
-*Provider deployment with impact on consumer*
+_Provider deployment with impact on consumer_
 
 ## Breaking Changes
 
-Although we have seen how to handle changes with impact from the consumer & provider side, it's important to clarify the advantage provided by the consumer-driven approach when dealing with breaking changes. 
+Although we have seen how to handle changes with impact from the consumer & provider side, it's important to clarify the advantage provided by the consumer-driven approach when dealing with breaking changes.
 
-**This is a methodology that puts the focus on the consumer**, any change on a provider API should (*or even must*) be originated due to a consumer need. Consumer-driven defends that we should try to evolve from those old days when the API changed its contract definition without caring about how the consumers are going to adapt (*"they'll need to be aware of my changes, I am providing the information"*).   
+**This is a methodology that puts the focus on the consumer**, any change on a provider API should (_or even must_) be originated due to a consumer need. Consumer-driven defends that we should try to evolve from those old days when the API changed its contract definition without caring about how the consumers are going to adapt (_"they'll need to be aware of my changes, I am providing the information"_).  
 Although that could make sense in some specific situations, in a modern microservice architecture scenario I personally agree that is not the way to go. That is the reason why any breaking-change flow is much easier to achieve if it's started from the consumer, [as explained in this section of the article](#consumer---deployment-with-impact-on-provider). Actually, if you think about it, [when you try to start the breaking change from the provider side](#provider---deployment-with-impact-on-consumer) you will be basically triggering a consumer to start its own breaking change process.
 
-On the other hand, don't worry, we also have those *"specific situation APIs"* covered. Maybe you're consuming a 3rd party API over which you have no control, or maybe you have in your company a big central API with a lot of consumers that will not agree to develop contract tests. For that kind of situation, we have <a href="https://www.sngular.com/the-easy-way-to-get-started-with-bi-directional-contract-testing/" target="_blank">the bi-directional approach</a>.
+On the other hand, don't worry, we also have those _"specific situation APIs"_ covered. Maybe you're consuming a 3rd party API over which you have no control, or maybe you have in your company a big central API with a lot of consumers that will not agree to develop contract tests. For that kind of situation, we have <a href="https://www.sngular.com/the-easy-way-to-get-started-with-bi-directional-contract-testing/" target="_blank">the bi-directional approach</a>.
 
 # Work strategy
 
@@ -107,10 +107,10 @@ This _bonus_ section will summarize some basic considerations to take into accou
 
 ## Test locally\!
 
-Pretty obvious, but extremely important.   
-Your users **must** have access to PactFlow (*but remember: read-only access, only your CI/CD tool should have permission to write in PactFlow*). Enabling the access, the users will be able to develop and execute all the tests locally, before even pushing them to their own branch. 
+Pretty obvious, but extremely important.  
+Your users **must** have access to PactFlow (_but remember: read-only access, only your CI/CD tool should have permission to write in PactFlow_). Enabling the access, the users will be able to develop and execute all the tests locally, before even pushing them to their own branch.
 
-**This is a powerful feature, as the feedback about your communication status is almost instantaneous**, avoiding discovering these issues in later development stages. 
+**This is a powerful feature, as the feedback about your communication status is almost instantaneous**, avoiding discovering these issues in later development stages.
 
 Having the developers familiarized with the framework will allow them to test their code compatibility against any environment, tag, or specific contract version. And that is a game changer, your time lost identifying and reporting bugs during the E2E or even during the functional tests will be reduced drastically.
 
@@ -130,7 +130,7 @@ The consumer 2.0 will be generated (ideally from a feature branch initially) and
 
 By enabling pending pacts, you're telling your provider to only break the build if the failure in the verification **is against an already verified contract** (consumer 1.0 in our case).
 
-At this point maybe you're asking yourself *"why would I want to validate the latest version of a contract then? If I remove that validation, I would not need the pending pacts feature at all"*. The answer is pretty straightforward: You need that validation for ANY update you want to do on your communication, the consumer will not be able to deploy without the provider verification.
+At this point maybe you're asking yourself _"why would I want to validate the latest version of a contract then? If I remove that validation, I would not need the pending pacts feature at all"_. The answer is pretty straightforward: You need that validation for ANY update you want to do on your communication, the consumer will not be able to deploy without the provider verification.
 
 Including this configuration enabled as the default is something that is over the table for a long time but has not been done yet (at least at the time this article was published). The reason is that this is the kind of configuration mandatory in a real-world environment, for proofs of concepts or demos everyone would be waiting for the build to fail.
 
