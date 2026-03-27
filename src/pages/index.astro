@@ -1,11 +1,11 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import Hero from '~/components/widgets/Hero.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import Layout from "~/layouts/PageLayout.astro";
+import Hero from "~/components/widgets/Hero.astro";
+import BlogLatestPosts from "~/components/widgets/BlogLatestPosts.astro";
+import CallToAction from "~/components/widgets/CallToAction.astro";
 
 const metadata = {
-  title: "Software Engineer's Journal",
+  title: "Alejandro Pena Lorenzo — Software Engineer",
   ignoreTitleTemplate: true,
 };
 ---
@@ -14,36 +14,37 @@ const metadata = {
   <!-- Hero Widget ******************* -->
 
   <Hero
+    id="hero"
+    title="Alejandro Pena Lorenzo"
     actions={[
       {
-        variant: 'primary',
-        text: 'Read the blog',
-        href: '/blog',
-        icon: 'tabler:book',
+        variant: "primary",
+        text: "Read the blog",
+        href: "/blog",
+        icon: "tabler:book",
       },
       {
-        text: 'About me',
-        href: '/about',
+        text: "About me",
+        href: "/about",
       },
     ]}
-    image={{ src: '~/assets/images/bio-photo.jpg', alt: 'Alejandro Pena Lorenzo' }}
   >
-    <Fragment slot="title">
-      Hi, I'm <span class="text-accent dark:text-white">Alex</span>
-    </Fragment>
-
     <Fragment slot="subtitle">
-      <span class="font-semibold">Software Engineer</span> · Backend Chapter Lead at Sngular · Based in Galicia, Spain.
+      16+ years building resilient platforms and leading cross-functional teams.
       <br />
-      I write about backend development, quality engineering, DevOps, and contract testing.
+      Specialized in Backend systems, with focus on Quality Engineering, DevOps &
+      Platform engineering.
     </Fragment>
   </Hero>
 
   <!-- Latest Blog Posts ************* -->
 
   <BlogLatestPosts
+    id="blog"
     title="Latest articles"
-    information="Thoughts and insights on software engineering, contract testing, and building reliable systems."
+    information="Thoughts and insights on software engineering, management, and scaling teams and technology."
+    layout="list"
+    count={3}
   />
 
   <!-- Talks CTA ********************* -->
@@ -51,19 +52,18 @@ const metadata = {
   <CallToAction
     actions={[
       {
-        variant: 'primary',
-        text: 'Watch the talks',
-        href: '/talks',
-        icon: 'tabler:player-play',
+        variant: "primary",
+        text: "Watch the talks",
+        href: "/talks",
+        icon: "tabler:player-play",
       },
     ]}
   >
-    <Fragment slot="title">
-      Live collaborations & talks
-    </Fragment>
+    <Fragment slot="title"> Live collaborations & talks </Fragment>
 
     <Fragment slot="subtitle">
-      Conference talks and live events on contract testing, API management, and software quality. Three recordings available — more to come.
+      Conference talks and live events on contract testing, API management, and
+      software quality.
     </Fragment>
   </CallToAction>
 </Layout>
