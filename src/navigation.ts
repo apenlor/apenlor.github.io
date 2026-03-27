@@ -20,6 +20,18 @@ export const headerData = {
     },
   ],
   actions: [],
+  socialLinks: [
+    {
+      ariaLabel: "LinkedIn",
+      icon: "tabler:brand-linkedin",
+      href: "https://www.linkedin.com/in/alejandropenalorenzo",
+    },
+    {
+      ariaLabel: "GitHub",
+      icon: "tabler:brand-github",
+      href: "https://github.com/apenlor",
+    },
+  ],
 };
 
 export const footerData = {
