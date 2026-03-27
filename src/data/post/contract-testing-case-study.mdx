@@ -9,21 +9,30 @@ tags:
   - PactFlow
 ---
 
-# Introduction
+import Image from "~/components/common/Image.astro";
+import diagramMvpCaseStudy from "~/assets/images/diagram-mvp-case-study.png";
+import { YouTube } from "astro-embed";
+
+## Introduction
 
 In today's article, I'll walk you through an anonymized **real-case scenario of a large financial institution in the US** adopting Contract Testing. By analyzing the context, challenge, proposed solution, project execution, and key learnings, we will construct a comprehensive picture of a project that exemplifies an ideal context for contract testing adoption.
 
-For those interested in a deeper dive, I also have a <a href="https://www.youtube.com/watch?v=LyVSmRtwFkc" target="_blank">YouTube collaboration with the PactFlow team</a> that goes over the same business case and analyzes all these points in detail with our colleagues from PactFlow.
+For those interested in a deeper dive, I also have a [YouTube collaboration with the PactFlow team](https://www.youtube.com/watch?v=LyVSmRtwFkc) that goes over the same business case and analyzes all these points in detail with our colleagues from PactFlow.
 
-[Watch on YouTube: Reducing the cost of testing in application modernization](https://www.youtube.com/watch?v=LyVSmRtwFkc)
+<div class="mx-auto max-w-2xl">
+  <YouTube
+    id="https://www.youtube.com/watch?v=LyVSmRtwFkc"
+    title="Reducing the cost of testing in application modernization"
+  />
+</div>
 
-# Challenge
+## Challenge
 
-In today's fast-paced tech environment, companies must optimize their delivery pipelines to remain competitive. The need for rapid deployment, cost reduction, and increased team confidence has driven many to embrace early bug detection and automation (I'm pretty fan of <a href="https://en.wikipedia.org/wiki/Shift-left_testing" target="_blank">Shift-Left Testing</a> 😊).
+In today's fast-paced tech environment, companies must optimize their delivery pipelines to remain competitive. The need for rapid deployment, cost reduction, and increased team confidence has driven many to embrace early bug detection and automation (I'm pretty fan of [Shift-Left Testing](https://en.wikipedia.org/wiki/Shift-left_testing) 😊).
 
 For this U.S. client, the transition from monolithic applications to a microservices architecture presented significant challenges. **They had previously relied heavily on manual end-to-end (E2E) testing, but with nearly 200 applications that needed to communicate seamlessly, this approach quickly proved impossible**. The dramatic increase in E2E testing led to higher costs, longer development times, and greater complexity in managing integration points, creating an urgent need for a more efficient and scalable testing approach.
 
-# Proposed Solution
+## Proposed Solution
 
 To address this challenge, SNGULAR is brought in to establish a comprehensive testing practice, starting with PactFlow and Contract Testing. Leveraging our experience with similar projects, we identify three core concepts that define the foundation for large-scale adoption:
 
@@ -33,15 +42,21 @@ To address this challenge, SNGULAR is brought in to establish a comprehensive te
 
 So, we're all aligned, and everyone is ready to start the journey. How do we execute that crucial initial MVP and GoP establishment to set up the practice foundation?
 
-# Execution
+## Execution
 
-## MVP development
+### MVP development
 
 The execution phase initially focused on the development of the MVP to demonstrate the value of contract testing using PactFlow. The project was structured into three work streams:
-![MVP Planning](/assets/images/diagram-mvp-case-study.png)
-_MVP Planning_
 
-### Tech Capability
+<Image
+  src={diagramMvpCaseStudy}
+  widths={[400, 1024]}
+  sizes="(max-width: 1024px) 400px, 1024px"
+  alt="MVP Planning diagram"
+  class="mx-auto"
+/>
+
+#### Tech Capability
 
 Concentrated on establishing the necessary technical capability and infrastructure. Over **three sprints**, the team achieved the following:
 
@@ -50,7 +65,7 @@ Concentrated on establishing the necessary technical capability and infrastructu
 - Configured and integrated PactFlow with the corporation's ecosystem.
 - Implemented CI/CD pipelines for basic Contract Testing.
 
-### Onboarding Teams
+#### Onboarding Teams
 
 The second work stream focused on onboarding teams and building internal expertise. Over **four sprints**, the team accomplished:
 
@@ -59,7 +74,7 @@ The second work stream focused on onboarding teams and building internal experti
 - Provided demos and tech talks to introduce the methodology.
 - Provided training to teams to become self-sustaining with PactFlow and Contract Testing.
 
-### Setting Up the Group of Practice
+#### Setting Up the Group of Practice
 
 The third work stream focused on establishing the GoP to ensure continuous improvement and widespread adoption of contract testing. Over **two sprints**, the team:
 
@@ -69,15 +84,15 @@ The third work stream focused on establishing the GoP to ensure continuous impro
 - Agreed on report contents for stakeholders.
 - Defined continuous improvement strategy.
 
-## GoP Duties
+### GoP Duties
 
 The Group of Practice is essential in ensuring the effective and widespread adoption of contract testing within the organization. Here's how they contribute to the process:
 
-### Metrics
+#### Metrics
 
 The GoP establishes and tracks various metrics and KPIs to measure the speed and success of contract testing adoption across the organization. These metrics help in evaluating the impact and effectiveness of the new processes.
 
-#### Quantitative Metrics
+##### Quantitative Metrics
 
 Quantitative metrics are crucial for measuring tangible outcomes and adoption rates. They can be categorized into two main types: engagement and impact. Some examples below:
 
@@ -89,7 +104,7 @@ Quantitative metrics are crucial for measuring tangible outcomes and adoption ra
 |                                                | Change failure rates.         |
 |                                                | Mean time to recovery (MTTR). |
 
-#### Qualitative Metrics
+##### Qualitative Metrics
 
 Qualitative metrics provide insights into the overall satisfaction and effectiveness of the new tools. They should be tracked regularly and ideally using anonymous (blameless) surveys.
 
@@ -98,55 +113,55 @@ Qualitative metrics provide insights into the overall satisfaction and effective
 - PactFlow Activity.
 - Community Engagement. How active and supportive is the community?
 
-### Processes
+#### Processes
 
 Developing a standard methodology for team adoption is a crucial duty of the GoP. This includes creating step-by-step instructions for the workflow of all contract testing-related tasks within each sprint. The GoP also will recommend a development model that aligns with the release cycle ideally using a branching strategy. Additionally, they adapt the SDLC to incorporate contract testing and define onboarding and monitoring processes for all relevant teams.
 
-### Support
+#### Support
 
 Effective communication is always vital for the success of any structural change. The GoP facilitates real-time collaboration by enabling the rapid collection of data and ideas. Regular "open sessions" are organized to address and resolve any questions or issues. Furthermore, the GoP holds regular meetings with stakeholders, including development, quality assurance, site reliability engineering, and product owners to track progress. An open commenting and annotation system is also created to involve others and enhance coverage.
 
-### Tracking
+#### Tracking
 
 The GoP is responsible for reporting KPI progress to all key stakeholders. They provide support and follow-up for all teams to ensure continuous improvement. Feedback is gathered to refine and enhance all processes and practices, ensuring that the adoption of contract testing is both effective and efficient.
 
-On the other hand, if you're interested in learning more about how we manage the onboarding process for each team, check out the 'Onboarding New Teams' section in the <a href="/blog/contract-testing-and-development#onboarding-new-teams" target="_blank">Contract Testing & Development article</a>.
+On the other hand, if you're interested in learning more about how we manage the onboarding process for each team, check out the 'Onboarding New Teams' section in the [Contract Testing & Development article](/blog/contract-testing-and-development#onboarding-new-teams).
 
-# Success and Full Adoption
+## Success and Full Adoption
 
 The MVP phase successfully demonstrated the value of contract testing, leading to substantial improvements in testing efficiency, cost reduction, and deployment speed. This success convinced company VIPs to fully adopt contract testing across the organization. The decision marked the beginning of a comprehensive rollout, supported by the established technical infrastructure and the Group of Practice, ensuring ongoing success and continuous improvement.
 
-## MVP results after 9 sprints
+### MVP results after 9 sprints
 
 Throughout nine sprints, the implementation of contract testing yielded tangible results that underscored its effectiveness:
 
-### Governance
+#### Governance
 
 - **Training and Expertise:** Two teams were fully trained in contract testing techniques, with four members becoming Contract Testing champions.
 - **KPIs and GoP:** Eight KPIs were defined, and the GoP was established to engage teams and ensure ongoing adoption.
 - **Security:** Role-Based Access Control, user authentication, and secure access with traceability were successfully implemented.
 
-### Technical Achievements
+#### Technical Achievements
 
 - **Coverage:** Six critical endpoints were covered by contract testing.
 - **Integration:** Two Jenkins pipelines were fully integrated with PactFlow, streamlining the testing process.
 - **Bug Detection:** The approach was effective, as two bugs in production environments were detected through contract testing.
 
-### Time Efficiency
+#### Time Efficiency
 
 - **First Test:** The first test was developed in just 8 hours.
 - **Pipeline Integration:** Integration of the first pipeline took 3 weeks.
 - **Bug Discovery:** Within 4 weeks of project initiation, the first bug was discovered and addressed.
 
-## Client estimated impact on cost savings
+### Client estimated impact on cost savings
 
 The transition to contract testing streamlined processes and resulted in significant savings. After an internal analysis of the results, **the client estimated a 66% reduction in both time and costs associated with manual E2E testing**.
 
-This estimate does not account for additional savings, such as the reduced time needed to resolve bugs detected by E2E tests, lower costs related to environment provisioning, and the anticipated future improvements in testing expertise and speed across teams. Again, if you want to learn more about Contract Testing ROI, <a href="/blog/understanding-roi-contract-testing" target="_blank">here´s the related article</a>.
+This estimate does not account for additional savings, such as the reduced time needed to resolve bugs detected by E2E tests, lower costs related to environment provisioning, and the anticipated future improvements in testing expertise and speed across teams. Again, if you want to learn more about Contract Testing ROI, [here´s the related article](/blog/understanding-roi-contract-testing).
 
 The implementation of contract testing has proven to be a transformative step for the organization, offering a scalable, efficient, and cost-effective solution that perfectly aligns with their transition to a microservices architecture. This success is the key reason behind fully adopting contract testing across the organization.
 
-# Key Learnings
+## Key Learnings
 
 Just to finish, some of the key learnings we gained from this experience include:
 
