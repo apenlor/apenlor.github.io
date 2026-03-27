@@ -39,11 +39,6 @@ export const footerData = {
   secondaryLinks: [],
   socialLinks: [
     {
-      ariaLabel: "Bluesky",
-      icon: "tabler:brand-bluesky",
-      href: "https://bsky.app/profile/apenlor.github.io",
-    },
-    {
       ariaLabel: "LinkedIn",
       icon: "tabler:brand-linkedin",
       href: "https://www.linkedin.com/in/alejandropenalorenzo",
