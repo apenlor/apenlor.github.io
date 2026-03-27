@@ -1,39 +1,54 @@
 # Agent Directives for Astro / AstroWind Repository
 
-This `AGENTS.md` provides crucial context, operational commands, and coding standards for autonomous coding agents operating within this repository.
+This `AGENTS.md` provides context, commands, and coding standards for autonomous coding agents
+operating in this repository. Read it fully before making any change.
 
-This repository is a static site built with **Astro 5** and the **AstroWind** template. It is deployed to **GitHub Pages** via GitHub Actions.
+This site is built with **Astro 6**, the **AstroWind** template, **Tailwind CSS v4**, and
+**TypeScript**. It is deployed to **GitHub Pages** on every push to `main`.
 
 ---
 
 ## 1. Project Overview & Architecture
 
-- **Static Site Generator:** Astro 5.x
-- **Template:** AstroWind (Tailwind CSS, TypeScript)
-- **Primary Languages:** TypeScript, Astro components, Markdown, YAML.
-- **Hosting / Deployment:** GitHub Pages (branch: `main` triggers deploy).
-- **Search:** Pagefind (indexed at build time, served from `dist/pagefind/`).
+- **Static Site Generator:** Astro 6.x (`output: "static"`)
+- **Template:** AstroWind (Tailwind CSS v4, TypeScript)
+- **Primary Languages:** TypeScript, Astro components (`.astro`), Markdown / MDX, YAML
+- **Hosting / Deployment:** GitHub Pages — `main` branch triggers `.github/workflows/deploy.yml`
+- **Search:** Pagefind — indexed automatically at build time into `dist/pagefind/`
+- **Icons:** `astro-icon` with `@iconify-json/tabler` (all tabler icons) and a subset of `flat-color-icons`
+- **Node version:** `>=22.12.0` (enforced in `package.json`)
 
 ### Key directory structure
 
 ```
 src/
   config.yaml          — Site-wide config (name, URL, blog settings, analytics)
-  navigation.ts        — Header and footer navigation links
-  pages/               — Astro pages (index.astro, about.astro, talks.astro, search.astro, ...)
-  data/post/           — Blog posts as Markdown (Astro Content Collection)
-  assets/images/       — All images (referenced as ~/assets/images/...)
-  components/widgets/  — AstroWind widget components (Hero, Content, BlogLatestPosts, ...)
-  content/config.ts    — Content collection schema (post schema with publishDate, title, etc.)
-  layouts/             — Page layouts (PageLayout.astro wraps all pages)
-astro.config.ts        — Astro config (site, output, integrations including Pagefind)
-.github/workflows/deploy.yml — CI/CD: builds and deploys to GitHub Pages on push to main
-plan/                  — Migration plan (git-ignored, do not commit)
+  navigation.ts        — Header & footer navigation links
+  content.config.ts    — Content collection schema (Astro Content Layer API)
+  pages/               — Astro pages (index.astro, about.astro, talks.astro, search.astro, …)
+  data/post/           — Blog posts as Markdown / MDX (Content Collection)
+  assets/images/       — All images (referenced via ~/assets/images/…)
+  components/
+    widgets/           — AstroWind widget components (Hero, Steps, BlogLatestPosts, …)
+    ui/                — Low-level UI primitives (Button, ItemGrid, WidgetWrapper, …)
+    blog/              — Blog list/grid/item components
+    common/            — Shared utilities (Image, Favicons, Logo, …)
+  layouts/             — PageLayout.astro wraps every page
+  types.d.ts           — Global TypeScript type definitions
+  utils/               — Permalink helpers, frontmatter remark/rehype plugins
+astro.config.ts        — Astro config (integrations, image domains, markdown plugins, Vite alias)
+tailwind.config.js     — Tailwind theme extensions (custom colors via CSS vars, fonts, animations)
+eslint.config.js       — Flat ESLint config (astro + typescript-eslint)
+.github/workflows/
+  deploy.yml           — CI/CD: build → upload → deploy to GitHub Pages
 ```
 
 ---
 
-## 2. Build, Run, and Test Commands
+## 2. Build, Lint, and Check Commands
+
+There are **no automated tests** in this project. Validation is done via type checking, linting,
+and a production build.
 
 ```bash
 # Development server (hot reload) at http://localhost:4321
@@ -45,75 +60,150 @@ npm run build
 # Preview the production build locally
 npm run preview
 
-# TypeScript type checking
+# Run ALL checks (Astro type check + ESLint + Prettier)
 npm run check
 
-# Lint fix
-npm run fix
+# Individual checks — run these to isolate failures
+npm run check:astro      # astro check — TypeScript diagnostics for .astro files
+npm run check:eslint     # eslint .
+npm run check:prettier   # prettier --check .
+
+# Auto-fix lint and formatting issues
+npm run fix              # runs fix:eslint then fix:prettier
+npm run fix:eslint       # eslint --fix .
+npm run fix:prettier     # prettier -w .
 ```
 
-**Primary validation:** `npm run build` must complete with zero errors. Always run this after any structural changes.
+**Primary validation gate:** `npm run check && npm run build` must complete with **zero errors**.
+Always run this after any structural change (frontmatter, config, new pages, component edits).
 
 ---
 
-## 3. Code Style & Architecture Guidelines
+## 3. Code Style & Formatting
 
-### Blog Posts (`src/data/post/*.md`)
+### General
 
-- **Filename:** `kebab-case.md` — no date prefix (date is in frontmatter).
+- **Indentation:** 2 spaces. No tabs anywhere.
+- **Quotes:** Double quotes in TypeScript / `.astro` frontmatter (`"value"`). Prettier enforces this.
+- **Trailing commas:** Prettier default (ES5 — trailing commas in multi-line structures).
+- **Line length:** Prettier default (80 chars). Do not force-wrap already-short lines.
+- **Semicolons:** Yes (Prettier default).
+- Run `npm run fix` after bulk edits to auto-correct formatting before committing.
+
+### Imports
+
+- Use the `~` path alias for all `src/` imports: `import Foo from '~/components/ui/Foo.astro'`.
+- Never use relative `../` paths to cross component boundaries; use `~/` instead.
+- In `.astro` files, keep all imports inside the frontmatter fence (`---`).
+- Import order (enforced by ESLint/Prettier): external packages first, then `~/` aliases.
+
+### TypeScript
+
+- All logic in `.astro` frontmatter must be TypeScript.
+- Prefer explicit types for exported interfaces and props. Avoid `any`.
+- Use `type` imports where a value is only needed at the type level: `import type { Widget } from '~/types'`.
+- Unused variables prefixed with `_` are allowed (`argsIgnorePattern: "^_"`).
+- Non-null assertions (`!`) are permitted but prefer optional chaining (`?.`) where possible.
+- Global types live in `src/types.d.ts`. Do not duplicate type definitions inline.
+
+### Astro Components
+
+- Every page must use `PageLayout.astro` as its base layout.
+- Prefer AstroWind widgets (`~/components/widgets/`) over custom markup. Only write custom markup
+  when a widget's structure would require awkward workarounds.
+- When writing custom sections, wrap them in `<WidgetWrapper>` to get consistent padding,
+  dark-mode background, and intersection animations. `WidgetWrapper` accepts: `id`, `isDark`, `bg`,
+  `containerClass`, `as`.
+- Use `<Icon name="tabler:…" />` from `astro-icon/components` for all icons. Do not use inline SVG.
+- Use `<Image>` from `~/components/common/Image.astro` (not `astro:assets` directly) for
+  optimized images.
+- Component props must be typed via `export interface Props` or by importing from `~/types.d.ts`.
+- Do not add `isAfterContent` (or other widget-specific props) to `WidgetWrapper` — it does not
+  accept them. Check `src/types.d.ts` and the component's own `Props` interface before passing props.
+
+### CSS / Tailwind
+
+- Use Tailwind utility classes exclusively. Do not write custom CSS unless absolutely necessary.
+- Custom semantic colors are CSS-variable-backed tokens defined in `tailwind.config.js`:
+  `primary`, `secondary`, `accent`, `default`, `muted`. Prefer these over raw color utilities.
+- Dark mode is class-based (`dark:`). Always provide dark-mode variants for text and backgrounds.
+- Use `group` / `group-hover:` for interactive hover states on compound elements (e.g., card links).
+- `font-heading` applies the heading font family. Use it on `<h1>`–`<h3>` elements.
+- Avoid one-off magic numbers in inline styles; use Tailwind's spacing / sizing scale instead.
+
+---
+
+## 4. Content Guidelines
+
+### Blog Posts (`src/data/post/*.md` or `*.mdx`)
+
+- **Filename:** `kebab-case.md` — no date prefix; date lives in frontmatter.
 - **Required frontmatter:**
   ```yaml
-  publishDate: 2024-12-19T00:00:00Z # YAML native date — NO quotes
+  publishDate: 2024-12-19T00:00:00Z # unquoted — YAML native date, NOT a string
   title: "Post title"
-  excerpt: "Short description"
+  excerpt: "One-sentence description shown in listings"
   image: ~/assets/images/teaser-image.png
-  category: Contract Testing # single string
+  category: Contract Testing # single string, not an array
   tags:
     - Tag1
     - Tag2
   ```
-- **`publishDate` must be unquoted** so YAML parses it as a native date. Quoted ISO strings will fail the content collection schema validation (`z.date()`).
-- **Images** must use the `~/assets/images/...` path alias (not `/assets/images/...`).
-- **Headers:** Start content with `##` (H2); H1 is rendered from `title` frontmatter.
+- **`publishDate` must be unquoted.** Quoted ISO strings fail `z.date()` schema validation.
+- **`image`** must use the `~/assets/images/…` alias. No external URLs (Unsplash, etc.).
+- **Headers:** Start body content with `##` (H2). H1 is rendered from the `title` frontmatter field.
+- `draft: true` hides a post from listings without deleting it.
 
 ### Pages (`src/pages/*.astro`)
 
-- Use `PageLayout.astro` as the base layout.
-- Use AstroWind widgets (`Hero`, `Content`, `BlogLatestPosts`, `CallToAction`, `HeroText`, etc.) from `~/components/widgets/`.
-- Do not use external images (Unsplash URLs) — prefer local assets in `src/assets/images/`.
+- No demo or placeholder content. All content must be real and purposeful.
+- External links in body text use `target="_blank"` and include `rel="noopener noreferrer"` (or
+  rely on the `Button` component which sets these automatically when `target` is provided).
 
-### Configuration (`src/config.yaml`)
+### Accessibility
 
-- YAML with 2-space indentation. No tabs.
-- `apps.blog.post.permalink` is set to `/blog/%slug%`.
-
-### TypeScript / Astro
-
-- Prefer TypeScript for any logic in `.astro` frontmatter.
-- Follow existing patterns in `src/navigation.ts` for adding nav items.
-
-### CSS
-
-- Use Tailwind CSS utility classes. Do not write custom CSS unless strictly necessary.
-- Follow BEM naming if custom classes are added.
+- All `<a target="_blank">` elements must have `rel="noopener noreferrer"`.
+- Icon-only interactive elements must have an `aria-label`.
+- `<Image>` components must have a descriptive `alt` attribute. Never use `alt=""` for meaningful images.
 
 ---
 
-## 4. Content Collection Schema
+## 5. Component & Data Patterns
 
-Defined in `src/content/config.ts`. Key constraint:
+### Adding navigation items
 
-- `publishDate` is `z.date().optional()` — YAML must supply a native date (unquoted ISO 8601).
-- `category` is a single string, not an array.
-- `image` path uses the `~/assets/images/` alias.
+Edit `src/navigation.ts` — `headerData.links` for the top nav, `footerData.socialLinks` for footer icons.
+
+### Adding a new page
+
+1. Create `src/pages/my-page.astro` using `PageLayout.astro`.
+2. Add a `const metadata = { title: '…', description: '…' }` object and pass it to the layout.
+3. Add a nav link in `src/navigation.ts` if the page should appear in the header.
+4. Run `npm run check && npm run build` to verify.
+
+### ItemGrid
+
+`ItemGrid` renders a responsive grid of items with optional icons, titles, descriptions, and a
+`callToAction` (renders a `Button`). Use the `columns` prop (2, 3, or 4) and `classes` to
+customise layout. For fully custom card interactions (e.g., entire card as a link), write
+custom markup instead of relying on `callToAction` — see the certifications section in
+`src/pages/about.astro` for the established pattern.
+
+### BlogLatestPosts
+
+Accepts a `layout` prop (`'grid'` | `'list'`, default `'grid'`) and a `count` prop. The home
+page uses `layout="list" count={3}`.
 
 ---
 
-## 5. Agent Workflow Expectations
+## 6. Agent Workflow
 
-1. **Understand before modifying:** Read `src/config.yaml`, `src/navigation.ts`, and the relevant page before making changes.
-2. **Validate every change:** Run `npm run build` after any structural change (frontmatter, config, new pages).
-3. **No demo content:** Do not add AstroWind demo posts or placeholder content. All content must be real.
-4. **Search:** Pagefind is integrated. It indexes automatically at build time — no manual intervention needed.
-5. **Deployment:** Push to `main` triggers the GitHub Actions workflow in `.github/workflows/deploy.yml`. Do not push directly to `main` for development work; use `feat/` branches.
-6. **Migration plan:** `plan/migration.md` is git-ignored and authoritative. Do not commit the `plan/` directory.
+1. **Understand before modifying.** Read `src/config.yaml`, `src/navigation.ts`, and the relevant
+   page/component before making changes.
+2. **Validate every change.** Run `npm run check && npm run build` after any structural edit.
+3. **No new dependencies** without explicit user approval.
+4. **No demo content.** Do not add AstroWind placeholder posts or lorem ipsum.
+5. **Branch discipline.** Do not push directly to `main`. Use `feat/` branches for development work.
+6. **Commits.** Follow Conventional Commits (`feat:`, `fix:`, `refactor:`, `style:`, `docs:`, `chore:`).
+   Never commit unless the user explicitly requests it.
+7. **`plan/` directory** is git-ignored and must never be committed.
