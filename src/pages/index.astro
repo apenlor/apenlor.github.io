@@ -3,6 +3,7 @@ import Layout from "~/layouts/PageLayout.astro";
 import Hero from "~/components/widgets/Hero.astro";
 import BlogLatestPosts from "~/components/widgets/BlogLatestPosts.astro";
 import CallToAction from "~/components/widgets/CallToAction.astro";
+import avatarImage from "~/assets/images/bio-photo.jpg";
 
 const metadata = {
   title: "Alejandro Pena Lorenzo — Software Engineer",
@@ -15,7 +16,6 @@ const metadata = {
 
   <Hero
     id="hero"
-    title="Alejandro Pena Lorenzo"
     actions={[
       {
         variant: "primary",
@@ -29,11 +29,21 @@ const metadata = {
       },
     ]}
   >
+    <Fragment slot="title">
+      <img
+        src={avatarImage.src}
+        alt="Alejandro Pena Lorenzo"
+        class="w-24 h-24 rounded-full mx-auto mb-6 shadow-lg object-cover"
+        width="96"
+        height="96"
+        loading="eager"
+      />
+      Hi there! I'm Alex 👋
+    </Fragment>
+
     <Fragment slot="subtitle">
       16+ years building resilient platforms and leading cross-functional teams.
-      <br />
-      Specialized in Backend systems, with focus on Quality Engineering, DevOps &
-      Platform engineering.
+      Specialized in Backend, QE & DevOps - with a focus on Platform Engineering.
     </Fragment>
   </Hero>
 
@@ -42,7 +52,7 @@ const metadata = {
   <BlogLatestPosts
     id="blog"
     title="Latest articles"
-    information="Thoughts and insights on software engineering, management, and scaling teams and technology."
+    information="Thoughts, reflections, and practical takeaways from engineering management and system design."
     layout="list"
     count={3}
   />
@@ -62,8 +72,8 @@ const metadata = {
     <Fragment slot="title"> Live collaborations & talks </Fragment>
 
     <Fragment slot="subtitle">
-      Conference talks and live events on contract testing, API management, and
-      software quality.
+      On stage and on screen: scaling teams, driving quality culture, and
+      sharing what works (at least for me!)
     </Fragment>
   </CallToAction>
 </Layout>
