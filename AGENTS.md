@@ -121,6 +121,22 @@ Always run this after any structural change (frontmatter, config, new pages, com
 - Do not add `isAfterContent` (or other widget-specific props) to `WidgetWrapper` — it does not
   accept them. Check `src/types.d.ts` and the component's own `Props` interface before passing props.
 
+### Key types (from `src/types.d.ts`)
+
+Always import from `~/types` rather than re-declaring inline:
+
+- **`CallToAction`** — `{ variant?: "primary"|"secondary"|"tertiary"|"link"; text?: string; href?: string; icon?: string; target?: string; }`
+- **`Widget`** — base for all widgets: `{ id?: string; isDark?: boolean; bg?: string; classes?: Record<string, …> }`
+- **`Item`** — used by `ItemGrid`, `Steps`, etc.: `{ title?, description?, icon?, callToAction?, image? }`
+- **`MetaData`** — page SEO object passed to `PageLayout`: `{ title?, description?, robots?, openGraph?, twitter? }`
+
+### Hero widget constraint
+
+`Hero` renders `subtitle` via `<p set:html={subtitle} />`. **Never pass block-level HTML
+(`<div>`, `<section>`, etc.) in the `subtitle` prop** — the browser will auto-close the `<p>` and
+produce broken markup. Use the `<Fragment slot="subtitle">` named slot for rich subtitle content
+instead.
+
 ### CSS / Tailwind
 
 - Use Tailwind utility classes exclusively. Do not write custom CSS unless absolutely necessary.
@@ -150,7 +166,9 @@ Always run this after any structural change (frontmatter, config, new pages, com
     - Tag2
   ```
 - **`publishDate` must be unquoted.** Quoted ISO strings fail `z.date()` schema validation.
-- **`image`** must use the `~/assets/images/…` alias. No external URLs (Unsplash, etc.).
+- **`image`** must use the `~/assets/images/…` alias. No external URLs (Unsplash, etc.). The
+  schema stores it as a plain string (`z.string()`), not `ImageMetadata` — the alias is resolved
+  at build time by the image optimization pipeline.
 - **Headers:** Start body content with `##` (H2). H1 is rendered from the `title` frontmatter field.
 - `draft: true` hides a post from listings without deleting it.
 
@@ -203,7 +221,9 @@ page uses `layout="list" count={3}`.
 2. **Validate every change.** Run `npm run check && npm run build` after any structural edit.
 3. **No new dependencies** without explicit user approval.
 4. **No demo content.** Do not add AstroWind placeholder posts or lorem ipsum.
-5. **Branch discipline.** Do not push directly to `main`. Use `feat/` branches for development work.
-6. **Commits.** Follow Conventional Commits (`feat:`, `fix:`, `refactor:`, `style:`, `docs:`, `chore:`).
+5. **`src/config.yaml` is authoritative site config.** Do not invent new top-level keys — only
+   edit existing fields (e.g., `site.name`, `metadata.description`, `apps.blog.postsPerPage`).
+6. **Branch discipline.** Do not push directly to `main`. Use `feat/` branches for development work.
+7. **Commits.** Follow Conventional Commits (`feat:`, `fix:`, `refactor:`, `style:`, `docs:`, `chore:`).
    Never commit unless the user explicitly requests it.
-7. **`plan/` directory** is git-ignored and must never be committed.
+8. **`plan/` directory** is git-ignored and must never be committed.
