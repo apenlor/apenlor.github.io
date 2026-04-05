@@ -19,6 +19,8 @@ import {
   responsiveTablesRehypePlugin,
   lazyImagesRehypePlugin,
 } from "./src/utils/frontmatter";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -88,7 +90,56 @@ export default defineConfig({
 
   markdown: {
     remarkPlugins: [readingTimeRemarkPlugin],
-    rehypePlugins: [responsiveTablesRehypePlugin, lazyImagesRehypePlugin],
+    rehypePlugins: [
+      responsiveTablesRehypePlugin,
+      lazyImagesRehypePlugin,
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "append",
+          properties: {
+            class: "heading-anchor",
+            ariaHidden: true,
+            tabIndex: -1,
+          },
+          content: {
+            type: "element",
+            tagName: "svg",
+            properties: {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: 20,
+              height: 20,
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              strokeWidth: 2,
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              class: "inline-block ml-2 align-middle",
+            },
+            children: [
+              {
+                type: "element",
+                tagName: "path",
+                properties: {
+                  d: "M10 14a3.5 3.5 0 0 0 5 0l4-4a3.5 3.5 0 0 0-5-5l-.5.5",
+                },
+                children: [],
+              },
+              {
+                type: "element",
+                tagName: "path",
+                properties: {
+                  d: "M14 10a3.5 3.5 0 0 0-5 0l-4 4a3.5 3.5 0 0 0 5 5l.5-.5",
+                },
+                children: [],
+              },
+            ],
+          },
+        },
+      ],
+    ],
   },
 
   vite: {

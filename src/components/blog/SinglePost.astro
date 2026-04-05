@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
 import PostTags from '~/components/blog/Tags.astro';
 import SocialShare from '~/components/common/SocialShare.astro';
+import TableOfContents from '~/components/blog/TableOfContents.astro';
 
 import { getPermalink } from '~/utils/permalinks';
 import { getFormattedDate } from '~/utils/utils';
@@ -90,14 +91,73 @@ const { post, url } = Astro.props;
         )
       }
     </header>
-    <div
-      class="mx-auto px-6 sm:px-6 max-w-5xl prose prose-md lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px] prose-li:my-0"
-    >
-      <slot />
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 mt-8">
+      <div class="xl:grid xl:grid-cols-[1fr_220px] xl:gap-10">
+        {/* Main content */}
+        <div
+          class="prose prose-md lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg prose-headings:scroll-mt-[80px] prose-li:my-0 min-w-0"
+        >
+          <slot />
+        </div>
+        {/* Sidebar TOC */}
+        {post.headings && post.headings.length > 0 && (
+          <aside class="hidden xl:block">
+            <div class="sticky top-24">
+              <TableOfContents headings={post.headings} />
+            </div>
+          </aside>
+        )}
+      </div>
     </div>
-    <div class="mx-auto px-6 sm:px-6 max-w-5xl mt-8 flex justify-between flex-col sm:flex-row">
+    <div class="mx-auto px-4 sm:px-6 max-w-7xl mt-8 flex justify-between flex-col sm:flex-row">
       <PostTags tags={post.tags} class="mr-5 rtl:mr-0 rtl:ml-5" />
       <SocialShare url={url} text={post.title} class="mt-5 sm:mt-1 align-middle text-gray-500 dark:text-slate-600" />
     </div>
   </article>
 </section>
+
+<style is:global>
+  .heading-anchor {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    color: var(--color-muted, #6b7280);
+  }
+  *:hover > .heading-anchor,
+  .heading-anchor:focus {
+    opacity: 1;
+  }
+  .heading-anchor:hover {
+    color: var(--color-primary, #3b82f6);
+  }
+</style>
+
+<script>
+  function initHeadingPermalinks() {
+    const anchors = document.querySelectorAll('.heading-anchor');
+    const checkIcon = `<svg class="inline-block align-middle ml-2 text-green-500" height="20" width="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 12l5 5l10 -10"></path></svg>`;
+
+    anchors.forEach((anchor) => {
+      anchor.addEventListener('click', async (_e) => {
+        // Construct full URL
+        const url = window.location.href.split('#')[0] + anchor.getAttribute('href');
+
+        try {
+          await navigator.clipboard.writeText(url);
+
+          // Visual feedback
+          const originalHTML = anchor.innerHTML;
+          anchor.innerHTML = checkIcon;
+
+          setTimeout(() => {
+            anchor.innerHTML = originalHTML;
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy permalink:', err);
+        }
+      });
+    });
+  }
+
+  initHeadingPermalinks();
+  document.addEventListener('astro:after-swap', initHeadingPermalinks);
+</script>
