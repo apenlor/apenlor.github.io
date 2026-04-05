@@ -102,6 +102,7 @@ export default defineConfig({
             class: "heading-anchor",
             ariaHidden: true,
             tabIndex: -1,
+            ariaLabel: "Permalink to this section",
           },
           content: {
             type: "element",
