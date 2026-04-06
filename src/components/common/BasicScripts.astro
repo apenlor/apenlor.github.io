@@ -91,12 +91,9 @@ import { UI } from 'astrowind:config';
         case 'linkedin':
           href = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${text}`;
           break;
-        case 'whatsapp':
-          href = `https://wa.me/?text=${text}%20${url}`;
-          break;
-        case 'mail':
-          href = `mailto:?subject=%22${text}%22&body=${text}%20${url}`;
-          break;
+        case 'copy':
+          navigator.clipboard.writeText(elem.getAttribute('data-aw-url'));
+          return;
 
         default:
           return;
