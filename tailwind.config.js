@@ -42,6 +42,31 @@ export default {
               paddingTop: "0.75rem",
               paddingBottom: "0.75rem",
             },
+            // H2: subtle bottom border
+            h2: {
+              borderBottomWidth: "1px",
+              borderBottomColor: "var(--aw-color-text-muted)",
+              paddingBottom: "0.5rem",
+            },
+            // Inline code: classic styling without backticks
+            code: {
+              backgroundColor: "rgba(0, 0, 0, 0.05)",
+              padding: "0.2rem 0.4rem",
+              borderRadius: "0.25rem",
+              fontWeight: "400",
+            },
+            "code::before": {
+              content: "none",
+            },
+            "code::after": {
+              content: "none",
+            },
+            "pre code": {
+              backgroundColor: "transparent",
+              padding: "0",
+              borderRadius: "0",
+              fontWeight: "inherit",
+            },
           },
         },
         // Dark mode (applied when `prose-invert` is active)
@@ -52,6 +77,12 @@ export default {
             },
             "thead th": {
               backgroundColor: "rgba(255, 255, 255, 0.08)",
+            },
+            code: {
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+            },
+            "pre code": {
+              backgroundColor: "transparent",
             },
           },
         },
