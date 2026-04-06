@@ -53,7 +53,6 @@ It is crucial to have a deep and precise understanding of the contract testing f
   alt="Consumer Driven diagram"
   class="mx-auto"
 />
-_Consumer Driven diagram_
 
 Contract testing is a methodology with greater depth and complexity than initially apparent. As you work with it, you'll continuously encounter new situations and challenges. There are tons of languages, standards, libraries, frameworks, and other factors that can significantly impact how you approach development. My latest challenge was facing a SpringBoot application that relied almost entirely on [Spring Integration](https://spring.io/projects/spring-integration). Barely any custom code from the developers, just a bunch of Spring configurations. I found myself dealing with HTTP Gateways and MessageChannels that Spring had fully generated. Adjusting their behavior to point to our Pact Mock server was pretty complex.
 
@@ -100,7 +99,6 @@ While both Contract Testing & Functional Testing are vital, understanding their 
   alt="Testing pyramid"
   class="mx-auto"
 />
-_Testing pyramid_
 
 **Contract testing is all about the communication between a consumer and a provider.** It confirms that the two sides are on the same page regarding the exchanges happening between them. Let's say we have a scenario where we're creating a new customer via a POST request to an `/customers` endpoint. In this case, a contract test would check that both sides have the same understanding of what is required in terms of request and response for this operation. **However, it would not confirm the side effects of this operation,** like the correct creation and storage of the new customer, **that's where functional tests come in.**
 

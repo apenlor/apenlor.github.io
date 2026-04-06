@@ -49,7 +49,7 @@ Both sides will be synchronized through CI's pipelines and the PactFlow webhooks
 
 Keep in mind that in your first run as a consumer, after publishing your contract, the [can-i-deploy tool](https://docs.pact.io/pact_broker/can_i_deploy) will block the deployment. That is totally expected: the provider is not deployed, and your contract is not yet validated, so the framework can not allow you to deploy. That's why the provider CI needs to be run to validate the first version of the contract **and be deployed** in the target environment. This is a situation that you will face in almost any deployment that contains a communication change, your consumer will be forced to wait for the provider to include the changes on their side.
 
-> **Disclaimer!** The CIs for consumers or providers are being represented as timelines. When there's a webhook callback, even though we are using the same timeline it does not mean it should be the same execution (you may not want to pause your pipelines).
+> **Disclaimer!** --> The CIs for consumers or providers are being represented as timelines. When there's a webhook callback, even though we are using the same timeline it does not mean it should be the same execution (you may not want to pause your pipelines).
 
 <Image
   src={diagramConsumerDrivenWorkflow}
@@ -58,7 +58,6 @@ Keep in mind that in your first run as a consumer, after publishing your contrac
   alt="Consumer Driven Workflow"
   class="mx-auto"
 />
-_Consumer Driven Workflow_
 
 ### Consumer \- Deployment without impact on provider
 
@@ -76,7 +75,6 @@ consuming one extra existing attribute). If the changes to the consumer didn't a
   alt="Consumer deployment without impact on provider"
   class="mx-auto"
 />
-_Consumer deployment without impact on provider_
 
 ### Provider \- Deployment without impact on consumer
 
@@ -89,7 +87,6 @@ Opposite situation to our previous point, now we are trying to update our provid
   alt="Provider deployment without impact on consumer"
   class="mx-auto"
 />
-_Provider deployment without impact on consumer_
 
 ### Consumer \- Deployment with impact on provider
 
@@ -120,7 +117,6 @@ To solve this, the logical steps are:
   alt="Provider deployment with impact on consumer"
   class="mx-auto"
 />
-_Provider deployment with impact on consumer_
 
 ### Breaking Changes
 

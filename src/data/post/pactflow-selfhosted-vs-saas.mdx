@@ -71,7 +71,6 @@ In our architecture diagram, we are reflecting the deployment in just one region
   alt="PactFlow AWS sample architecture"
   class="mx-auto"
 />
-_PactFlow AWS sample architecture_
 
 Any team with experience in AWS will be able to create a similar architecture pretty fast.
 
@@ -100,9 +99,11 @@ On the other hand, when using the **self-hosted approach**, you will be responsi
 >
 > **1 database unit** = 1 CPU, 256 MiB memory, 1 GiB storage (per week), 25 writes/s, 10 read/s
 >
-> For every 500 active users\*, you should increment your total compute capacity by one unit, and each database server capacity by one unit.
+> ---
 >
-> _Active users are defined as a developer that either logs into PactFlow daily or commits code that would trigger a CI build that integrates with PactFlow._
+> For every 500 active users\*, you should increment your total compute capacity by one unit, and each database server capacity by one unit.
+
+> _\* Active users are defined as a developer that either logs into PactFlow daily or commits code that would trigger a CI build that integrates with PactFlow._
 
 But of course, **it always will be better to monitor the platform and scale dynamically**.
 
@@ -179,7 +180,7 @@ Bonus section. I'll give you a simple and quick overview of the roles that you m
 
 A standard Contract Testing adoption team would be comprised of the following roles:
 
-- **Solutions Architect:** Would be in charge of product deployment and maintenance in your platform, so you will need an expert on the platform that is going to host PactFlow. And not only the platform (AWS/Google Cloud/Azure/OpenShift) but also the technologies that are going to surround it, which could be for example Kubernetes, Istio, CertManager, or any other component used for orchestration. Only needed in a self-hosted approach.
+- **Architect:** Would be in charge of product deployment and maintenance in your platform, so you will need an expert on the platform that is going to host PactFlow. And not only the platform (AWS/Google Cloud/Azure/OpenShift) but also the technologies that are going to surround it, which could be for example Kubernetes, Istio, CertManager, or any other component used for orchestration. Only needed in a self-hosted approach.
 - **Subject Matter Expert:** Role with a deep understanding of Contract Testing and PactFlow. Will act as lead for the technical team and the group of practice. A profile with good communication skills and management experience.
 - **DevOps:** For CI/CD & Webhooks implementation. Specialized in pipeline implementation with the tool you use for the CI/CD (Jenkins, Bamboo, GitHub Actions…)
 - **Engineers:** Roles for helping in the code implementation and adoption of Contract Testing. They need to have solid knowledge about how to implement contract testing using the languages from your stack and hopefully, really good skills for knowledge transfer with your teams members.

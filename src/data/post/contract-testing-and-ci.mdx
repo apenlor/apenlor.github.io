@@ -55,7 +55,7 @@ As you can see, webhook creation automation is included in the provider pipeline
 
 If you're using the Pact CLI instead of direct API calls, the process is much easier as you have the [create-or-update-webhook](https://github.com/pact-foundation/pact_broker-client#create-or-update-webhook) available, so you will not need to worry about checking anything.
 
-This approach consists of creating a dedicated webhook individually for each of the consumers, but you also have the option of not specifying the consumer. This way, any new consumer that joins will automatically be included in the webhook event.
+> This approach consists of creating a dedicated webhook individually for each of the consumers, but you also have the option of not specifying the consumer. This way, any new consumer that joins will automatically be included in the webhook event.
 
 By following this strategy, the **webhooks will be reviewed and created for each provider during each build**. We only focus on the creation because PactFlow itself will handle the deletion of the webhooks if an integration is deleted.
 
