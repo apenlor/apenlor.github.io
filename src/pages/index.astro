@@ -1,6 +1,7 @@
 ---
 import Layout from "~/layouts/PageLayout.astro";
 import Hero from "~/components/widgets/Hero.astro";
+import Image from "~/components/common/Image.astro";
 import BlogLatestPosts from "~/components/widgets/BlogLatestPosts.astro";
 import CallToAction from "~/components/widgets/CallToAction.astro";
 import avatarImage from "~/assets/images/bio-photo.jpg";
@@ -30,13 +31,14 @@ const metadata = {
     ]}
   >
     <Fragment slot="title">
-      <img
-        src={avatarImage.src}
+      <Image
+        src={avatarImage}
         alt="Alejandro Pena Lorenzo"
         class="w-24 h-24 rounded-full mx-auto mb-6 shadow-lg object-cover"
-        width="96"
-        height="96"
+        width={96}
+        height={96}
         loading="eager"
+        decoding="async"
       />
       Hi there! I'm Alex 👋
     </Fragment>
@@ -55,6 +57,7 @@ const metadata = {
     information="Thoughts, reflections, and practical takeaways from engineering management and system design."
     layout="list"
     count={3}
+    eagerCount={1}
   />
 
   <!-- Talks CTA ********************* -->

@@ -4,16 +4,17 @@ import type { Post } from '~/types';
 
 export interface Props {
   posts: Array<Post>;
+  eagerCount?: number;
 }
 
-const { posts } = Astro.props;
+const { posts, eagerCount = 0 } = Astro.props;
 ---
 
 <ul>
   {
-    posts.map((post) => (
+    posts.map((post, index) => (
       <li class="mb-12 md:mb-20">
-        <Item post={post} />
+        <Item post={post} imageLoading={index < eagerCount ? "eager" : "lazy"} />
       </li>
     ))
   }

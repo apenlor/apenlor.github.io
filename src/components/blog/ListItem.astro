@@ -13,9 +13,10 @@ import { getFormattedDate } from '~/utils/utils';
 
 export interface Props {
   post: Post;
+  imageLoading?: 'eager' | 'lazy';
 }
 
-const { post } = Astro.props;
+const { post, imageLoading = 'lazy' } = Astro.props;
 const image = (await findImage(post.image)) as ImageMetadata | undefined;
 
 const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
@@ -38,7 +39,8 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
                 sizes="(max-width: 900px) 400px, 900px"
                 alt={post.title}
                 aspectRatio="16:9"
-                loading="lazy"
+                loading={imageLoading}
+                fetchpriority={imageLoading === 'eager' ? 'high' : 'auto'}
                 decoding="async"
               />
             )}

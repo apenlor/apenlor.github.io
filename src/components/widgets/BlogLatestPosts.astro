@@ -17,6 +17,7 @@ export interface Props extends Widget {
   information?: string;
   count?: number;
   layout?: 'grid' | 'list';
+  eagerCount?: number;
 }
 
 const {
@@ -26,6 +27,7 @@ const {
   information = await Astro.slots.render('information'),
   count = 4,
   layout = 'grid',
+  eagerCount = 0,
 
   id,
   isDark = false,
@@ -58,7 +60,7 @@ const posts = APP_BLOG.isEnabled ? await findLatestPosts({ count }) : [];
         {information && <p class="text-muted dark:text-slate-400 lg:text-sm lg:max-w-md" set:html={information} />}
       </div>
 
-      {layout === 'list' ? <List posts={posts} /> : <Grid posts={posts} />}
+      {layout === 'list' ? <List posts={posts} eagerCount={eagerCount} /> : <Grid posts={posts} eagerCount={eagerCount} />}
     </WidgetWrapper>
   ) : (
     <Fragment />

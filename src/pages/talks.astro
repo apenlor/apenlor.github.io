@@ -45,7 +45,7 @@ const talks = [
 
   <section class="px-4 py-16 sm:px-6 mx-auto lg:px-8 lg:py-20 max-w-4xl">
     <div class="space-y-16">
-      {talks.map((talk) => (
+      {talks.map((talk, index) => (
         <article class="flex flex-col gap-6">
           <header>
             <p class="text-sm font-medium text-muted">{talk.date}</p>
@@ -59,7 +59,8 @@ const talks = [
               title={talk.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
-              loading="lazy"
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchpriority={index === 0 ? "high" : "auto"}
             ></iframe>
           </div>
         </article>
