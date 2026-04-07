@@ -89,6 +89,12 @@ Always run this after any structural change (frontmatter, config, new pages, com
 - **Semicolons:** Yes (Prettier default).
 - Run `npm run fix` after bulk edits to auto-correct formatting before committing.
 
+### Security & Static Analysis (Codacy / ESLint)
+
+- **Object Injection:** Avoid accessing object properties with dynamic, untrusted keys (`obj[key]`). When building dictionaries, prefer `new Map()` over plain objects `{}`. If you must use objects, initialize them securely via `Object.create(null)`.
+- **Property Validation:** If you must access a dynamic key on an existing object, validate it first with `Object.prototype.hasOwnProperty.call(obj, key)`.
+- **No loose types:** ESLint config forbids `any`. Use strict TypeScript types or `unknown` where necessary, and properly narrow them. `npm run check` will fail on `any`.
+
 ### Imports
 
 - Use the `~` path alias for all `src/` imports: `import Foo from '~/components/ui/Foo.astro'`.
