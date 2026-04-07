@@ -1,96 +1,97 @@
 ---
-import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
-import ItemGrid from '~/components/ui/ItemGrid.astro';
-import Image from '~/components/common/Image.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Layout from '~/layouts/PageLayout.astro';
-import { Icon } from 'astro-icon/components';
+import WidgetWrapper from "~/components/ui/WidgetWrapper.astro";
+import ItemGrid from "~/components/ui/ItemGrid.astro";
+import Image from "~/components/common/Image.astro";
+import Steps from "~/components/widgets/Steps.astro";
+import Layout from "~/layouts/PageLayout.astro";
+import { Icon } from "astro-icon/components";
 
 const metadata = {
-  title: 'About',
-  description: "So, who the heck is this guy? Meet Alejandro Pena Lorenzo, a Software Engineer with over a decade of experience.",
+  title: "About",
+  description:
+    "So, who the heck is this guy? Meet Alejandro Pena Lorenzo, a Software Engineer with over a decade of experience.",
 };
 
 const socialLinks = [
   {
-    icon: 'tabler:brand-bluesky',
+    icon: "tabler:brand-bluesky",
     callToAction: {
-      target: '_blank',
-      text: 'Bluesky',
-      href: 'https://bsky.app/profile/apenlor.github.io',
+      target: "_blank",
+      text: "Bluesky",
+      href: "https://bsky.app/profile/apenlor.github.io",
     },
   },
   {
-    icon: 'tabler:brand-linkedin',
+    icon: "tabler:brand-linkedin",
     callToAction: {
-      target: '_blank',
-      text: 'LinkedIn',
-      href: 'https://www.linkedin.com/in/alejandropenalorenzo',
+      target: "_blank",
+      text: "LinkedIn",
+      href: "https://www.linkedin.com/in/alejandropenalorenzo",
     },
   },
   {
-    icon: 'tabler:brand-github',
+    icon: "tabler:brand-github",
     callToAction: {
-      target: '_blank',
-      text: 'GitHub',
-      href: 'https://github.com/apenlor',
+      target: "_blank",
+      text: "GitHub",
+      href: "https://github.com/apenlor",
     },
   },
 ];
 
 const certifications = [
   {
-    title: 'Generative AI Leader',
-    description: 'Google',
-    icon: 'tabler:brand-google',
+    title: "Generative AI Leader",
+    description: "Google",
+    icon: "tabler:brand-google",
     callToAction: {
-      target: '_blank',
-      href: 'https://www.credly.com/badges/e9d8b43d-5d2c-4cf6-baf3-4c4c279c5a7c/linked_in_profile',
+      target: "_blank",
+      href: "https://www.credly.com/badges/e9d8b43d-5d2c-4cf6-baf3-4c4c279c5a7c/linked_in_profile",
     },
   },
   {
-    title: 'Cloud Digital Leader',
-    description: 'Google',
-    icon: 'tabler:brand-google',
+    title: "Cloud Digital Leader",
+    description: "Google",
+    icon: "tabler:brand-google",
     callToAction: {
-      target: '_blank',
-      href: 'https://www.credly.com/badges/6dc9b9e4-3978-406c-a4c5-e744cd86e856/linked_in_profile',
+      target: "_blank",
+      href: "https://www.credly.com/badges/6dc9b9e4-3978-406c-a4c5-e744cd86e856/linked_in_profile",
     },
   },
   {
-    title: 'AWS Cloud Practitioner',
-    description: 'Amazon Web Services',
-    icon: 'tabler:brand-aws',
+    title: "AWS Cloud Practitioner",
+    description: "Amazon Web Services",
+    icon: "tabler:brand-aws",
     callToAction: {
-      target: '_blank',
-      href: 'https://www.credly.com/badges/4a519ed4-8888-49e4-a7a1-058f13a64740?source=linked_in_profile',
+      target: "_blank",
+      href: "https://www.credly.com/badges/4a519ed4-8888-49e4-a7a1-058f13a64740?source=linked_in_profile",
     },
   },
   {
-    title: 'Certified Kafka Developer',
-    description: 'Confluent',
-    icon: 'tabler:certificate',
+    title: "Certified Kafka Developer",
+    description: "Confluent",
+    icon: "tabler:certificate",
     callToAction: {
-      target: '_blank',
-      href: 'https://certificates.confluent.io/8dc5c4c1-5ddd-4eac-92be-f3ac3590d8f3#acc.ezJSkV4u',
+      target: "_blank",
+      href: "https://certificates.confluent.io/8dc5c4c1-5ddd-4eac-92be-f3ac3590d8f3#acc.ezJSkV4u",
     },
   },
   {
-    title: 'FinOps Certified Practitioner',
-    description: 'FinOps Foundation',
-    icon: 'tabler:cloud',
+    title: "FinOps Certified Practitioner",
+    description: "FinOps Foundation",
+    icon: "tabler:cloud",
     callToAction: {
-      target: '_blank',
-      href: 'https://verify.skilljar.com/c/vsocc7tfufs6',
+      target: "_blank",
+      href: "https://verify.skilljar.com/c/vsocc7tfufs6",
     },
   },
   {
-    title: 'Certified Jenkins Engineer',
-    description: 'CloudBees',
-    icon: 'tabler:settings',
+    title: "Certified Jenkins Engineer",
+    description: "CloudBees",
+    icon: "tabler:settings",
     callToAction: {
-      target: '_blank',
-      href: 'https://certificates.cloudbees.com/cf0e1366-e4cb-44eb-ae9b-70730847a6db#acc.fxT16jRi',
+      target: "_blank",
+      href: "https://certificates.cloudbees.com/cf0e1366-e4cb-44eb-ae9b-70730847a6db#acc.fxT16jRi",
     },
   },
 ];
@@ -101,18 +102,29 @@ const certifications = [
   <section class="relative md:-mt-[76px] not-prose">
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
       <div class="pt-0 md:pt-[76px] pointer-events-none"></div>
-      <div class="py-12 md:py-20">
+      <div class="pt-12 md:pt-20 pb-0 md:pb-4">
         <div class="text-center pb-8 md:pb-16 max-w-5xl mx-auto">
-          <h1 class="text-5xl md:text-6xl font-bold leading-tighter tracking-tighter mb-4 font-heading dark:text-gray-200 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          <h1
+            class="text-5xl md:text-6xl font-bold leading-tighter tracking-tighter mb-4 font-heading dark:text-gray-200 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+          >
             So, who the heck is <span class="text-accent">this guy?</span>
           </h1>
-          <div class="max-w-3xl mx-auto intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+          <div
+            class="max-w-3xl mx-auto intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+          >
             <p class="text-xl text-muted mb-6 dark:text-slate-200">
-              Principal Engineer <a href="https://www.sngular.com/" target="_blank" rel="noopener noreferrer" class="hover:underline text-accent font-bold">@Sngular</a>
+              Principal Engineer <a
+                href="https://www.sngular.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:underline text-accent font-bold">@Sngular</a
+              >
             </p>
           </div>
         </div>
-        <div class="max-w-7xl mx-auto px-0 sm:px-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+        <div
+          class="max-w-7xl mx-auto px-0 sm:px-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+        >
           <Image
             src="~/assets/images/header-about.png"
             class="mx-auto rounded-md w-full shadow-lg"
@@ -130,41 +142,50 @@ const certifications = [
   <!-- About Content Section -->
   <WidgetWrapper>
     <div class="max-w-4xl mx-auto px-4">
-      <div class="text-center mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-        <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-4xl mb-4 font-heading">
-          Hi there! 👋 I'm Alex!
+      <div
+        class="text-center mb-8 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
+        <h3
+          class="text-2xl font-bold tracking-tight dark:text-white sm:text-4xl mb-4 font-heading"
+        >
+          👋 Hi there! I'm Alex
         </h3>
       </div>
-        <div class="text-lg prose prose-lg dark:prose-invert max-w-none text-justify intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+      <div
+        class="text-lg prose prose-lg dark:prose-invert max-w-none text-justify intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+      >
         <p class="mb-4">
-          My name is <strong>Alex</strong>, and I am a Software Engineer with over a decade of expertise in technology
-          and software development. My journey began around 2010, and since then I have had the privilege of working in
-          various roles that have shaped my skills and understanding of the industry.
+          I'm a <strong>Principal Engineer</strong> at <a
+            class="text-blue-600 dark:text-blue-400 underline"
+            href="https://sngular.com"
+            target="_blank"
+            rel="noopener noreferrer">Sngular</a
+          >, based in Galicia ❤️ (Spain). Currently, I head the engineering and
+          platform architecture for a joint venture product on GCP. Previously,
+          I served as the <strong
+            >Backend and Quality Engineering Chapter Lead</strong
+          >, supporting engineering teams, driving business development, and
+          shaping technical proposals across the organization.
         </p>
         <p class="mb-4">
-          Currently, I'm located in Galicia ❤️ (Spain), where I serve as <strong>Backend Chapter Lead</strong> at
-          <a class="text-blue-600 dark:text-blue-400 underline" href="https://sngular.com" target="_blank" rel="noopener noreferrer">Sngular</a>,
-          supporting engineers and contributing to business development and project proposals. My technical expertise
-          encompasses <strong>backend development</strong>, <strong>DevOps</strong>, and <strong>Quality Engineering</strong>,
-          and I have held roles as a Tech Lead and Solutions Architect on various projects.
-        </p>
-        <p class="mb-4">
-          My early work involved developing document management systems using Alfresco Software, focusing on performance
-          audits and technical training. I later contributed to projects like BIC Cloud Workflow and BIC Cloud GRC,
-          working on workflow process design and risk management.
-        </p>
-        <p class="mb-4">
-          My recent experiences in the financial sector in the US have been particularly rewarding. In Pittsburgh, I
-          designed and built a real-time stock exchange application for <strong>PNC Bank</strong> using <strong>Kafka</strong>
-          and Confluent. I collaborated with <strong>Capital One</strong> in Washington, DC, to enhance their MFA login
-          infrastructure, and worked with <strong>Freddie Mac</strong> to help them adopt Contract Testing across their
-          whole organization.
+          Before moving into this position, I spent several years leading
+          engineering efforts for major US financial institutions. I've designed
+          real-time stock exchange applications powered by <strong>Kafka</strong
+          >, enhanced enterprise MFA login infrastructures, and guided massive
+          organizations in adopting and scaling new quality practices.
         </p>
         <p class="mb-6">
-          This last experience led me to a continuous collaboration with SmartBear, especially regarding their
-          <a class="text-blue-600 dark:text-blue-400 underline" href="https://pactflow.io/" target="_blank" rel="noopener noreferrer">PactFlow</a>
-          product. Many of the articles and live events you'll find here are related to the contract testing practice.
-          Thank you for visiting my page — don't hesitate to connect!
+          That enterprise experience deeply connected me with <strong
+            >Contract Testing</strong
+          >. I maintain an ongoing collaboration with SmartBear around their <a
+            class="text-blue-600 dark:text-blue-400 underline"
+            href="https://pactflow.io/"
+            target="_blank"
+            rel="noopener noreferrer">Swagger Contract Testing</a
+          >
+          product (formerly PactFlow). Much of the content you'll find on this site
+          revolves around implementing these testing strategies effectively. Thanks
+          for visiting!
         </p>
       </div>
 
@@ -173,12 +194,13 @@ const certifications = [
           items={socialLinks}
           columns={3}
           classes={{
-            container: 'gap-y-4 md:gap-y-8',
-            panel: 'max-w-none text-center flex flex-col items-center justify-center',
-            title: 'text-lg font-medium leading-6 dark:text-white mt-4',
-            description: 'text-muted dark:text-slate-400',
-            icon: 'mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-2',
-            action: 'mx-auto',
+            container: "gap-y-4 md:gap-y-8",
+            panel:
+              "max-w-none text-center flex flex-col items-center justify-center",
+            title: "text-lg font-medium leading-6 dark:text-white mt-4",
+            description: "text-muted dark:text-slate-400",
+            icon: "mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-2",
+            action: "mx-auto",
           }}
         />
       </div>
@@ -194,31 +216,32 @@ const certifications = [
         title:
           'Principal Engineer — Product & Platform Architecture <br /> <span class="font-normal">Sngular · A Coruña, Spain</span> <br /> <span class="text-sm font-normal">2025 - Present</span>',
         description:
-          'Head engineering for a joint venture product on GCP. Designing observability and platform capabilities for high-throughput distributed systems.',
-        icon: 'tabler:briefcase',
+          "Head engineering for a joint venture product on GCP. Designing observability and platform capabilities for high-throughput distributed systems.",
+        icon: "tabler:briefcase",
       },
       {
         title:
           'Principal Engineer — Chapter Lead Backend & QE <br /> <span class="font-normal">Sngular · A Coruña, Spain</span> <br /> <span class="text-sm font-normal">2024 - 2025</span>',
         description:
-          'Led Backend & QE chapters across teams. Partnered with presales on technical solutions and defined career paths and training programs.',
-        icon: 'tabler:briefcase',
+          "Led Backend & QE chapters across teams. Partnered with presales on technical solutions and defined career paths and training programs.",
+        icon: "tabler:briefcase",
       },
       {
         title:
           'Head Engineer <br /> <span class="font-normal">Sngular US · Washington DC area</span> <br /> <span class="text-sm font-normal">2019 - 2024</span>',
         description:
-          'Led engineering for major US financial clients (Freddie Mac, Capital One, PNC Bank). Implemented contract testing at enterprise scale, built cybersecurity MFA platforms, and developed real-time Kafka applications.',
-        icon: 'tabler:briefcase',
+          "Led engineering for major US financial clients (Freddie Mac, Capital One, PNC Bank). Implemented contract testing at enterprise scale, built cybersecurity MFA platforms, and developed real-time Kafka applications.",
+        icon: "tabler:briefcase",
       },
       {
-        title: 'Earlier roles <br /> <span class="font-normal">8+ years in software engineering</span>',
+        title:
+          'Earlier roles <br /> <span class="font-normal">8+ years in software engineering</span>',
         description:
           'Progressive experience from developer to tech lead across document management, workflow automation, and           enterprise applications. <a class="text-blue-600 dark:text-blue-400 underline" href="https://www.linkedin.com/in/alejandropenalorenzo/" target="_blank" rel="noopener noreferrer">See full history on LinkedIn</a>.',
-        icon: 'tabler:briefcase',
+        icon: "tabler:briefcase",
       },
     ]}
-    classes={{ container: 'max-w-3xl' }}
+    classes={{ container: "max-w-3xl" }}
   />
 
   <!-- Education Section -->
@@ -227,23 +250,25 @@ const certifications = [
     items={[
       {
         title:
-          "Bachelor's Degree in Computer Science <br /> <span class=\"font-normal\">Universidade da Coruña, Spain</span> <br /> <span class=\"text-sm font-normal\">2004</span>",
-        icon: 'tabler:school',
+          'Bachelor\'s Degree in Computer Science <br /> <span class="font-normal">Universidade da Coruña, Spain</span> <br /> <span class="text-sm font-normal">2009</span>',
+        icon: "tabler:school",
       },
       {
         title:
-          "Associate's Degree in Telecommunications and Computer Systems <br /> <span class=\"font-normal\">IES Urbano Lugrís, A Coruña, Spain</span> <br /> <span class=\"text-sm font-normal\">2001</span>",
-        icon: 'tabler:school',
+          'Associate\'s Degree in Telecommunications and Computer Systems <br /> <span class="font-normal">IES Urbano Lugrís, A Coruña, Spain</span> <br /> <span class="text-sm font-normal">2003</span>',
+        icon: "tabler:school",
       },
     ]}
-    classes={{ container: 'max-w-3xl' }}
+    classes={{ container: "max-w-3xl" }}
   />
 
   <!-- Certifications Section -->
   <WidgetWrapper>
     <div class="max-w-3xl mx-auto px-4">
       <div class="text-center mb-8 md:mb-12">
-        <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-4 font-heading">
+        <h3
+          class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-4 font-heading"
+        >
           Certifications
         </h3>
       </div>
@@ -264,7 +289,9 @@ const certifications = [
                 <h3 class="text-sm font-semibold leading-tight dark:text-white mt-4 group-hover:text-primary transition-colors">
                   {title}
                 </h3>
-                <p class="text-xs text-muted dark:text-slate-400 mt-1">{description}</p>
+                <p class="text-xs text-muted dark:text-slate-400 mt-1">
+                  {description}
+                </p>
               </a>
             </div>
           ))
