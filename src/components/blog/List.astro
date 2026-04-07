@@ -13,7 +13,7 @@ const { posts, eagerCount = 4 } = Astro.props;
 <ul>
   {
     posts.map((post, index) => (
-      <li class="mb-12 md:mb-20">
+      <li class="mb-12 md:mb-20 last:mb-0">
         <Item
           post={post}
           imageLoading={index < eagerCount ? 'eager' : 'lazy'}
