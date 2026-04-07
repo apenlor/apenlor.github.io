@@ -1,6 +1,5 @@
 ---
 import WidgetWrapper from "~/components/ui/WidgetWrapper.astro";
-import ItemGrid from "~/components/ui/ItemGrid.astro";
 import Image from "~/components/common/Image.astro";
 import Steps from "~/components/widgets/Steps.astro";
 import Layout from "~/layouts/PageLayout.astro";
@@ -13,14 +12,6 @@ const metadata = {
 };
 
 const socialLinks = [
-  {
-    icon: "tabler:brand-bluesky",
-    callToAction: {
-      target: "_blank",
-      text: "Bluesky",
-      href: "https://bsky.app/profile/apenlor.github.io",
-    },
-  },
   {
     icon: "tabler:brand-linkedin",
     callToAction: {
@@ -35,6 +26,14 @@ const socialLinks = [
       target: "_blank",
       text: "GitHub",
       href: "https://github.com/apenlor",
+    },
+  },
+  {
+    icon: "tabler:brand-bluesky",
+    callToAction: {
+      target: "_blank",
+      text: "Bluesky",
+      href: "https://bsky.app/profile/apenlor.github.io",
     },
   },
 ];
@@ -189,20 +188,24 @@ const certifications = [
         </p>
       </div>
 
-      <div class="mt-8 max-w-3xl mx-auto">
-        <ItemGrid
-          items={socialLinks}
-          columns={3}
-          classes={{
-            container: "gap-y-4 md:gap-y-8",
-            panel:
-              "max-w-none text-center flex flex-col items-center justify-center",
-            title: "text-lg font-medium leading-6 dark:text-white mt-4",
-            description: "text-muted dark:text-slate-400",
-            icon: "mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-2",
-            action: "mx-auto",
-          }}
-        />
+      <div class="mt-8 flex justify-center gap-8 md:gap-12">
+        {
+          socialLinks.map(({ icon, callToAction }) => (
+            <div class="intersect-once motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+              <a
+                href={callToAction?.href}
+                target={callToAction?.target}
+                rel="noopener noreferrer"
+                aria-label={`${callToAction?.text}, opens in new tab`}
+                class="flex flex-col items-center text-center group"
+              >
+                <span class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-green-600 dark:bg-green-700 text-gray-50 p-2 group-hover:bg-green-700 dark:group-hover:bg-green-800 transition-colors">
+                  <Icon name={icon} class="w-6 h-6" />
+                </span>
+              </a>
+            </div>
+          ))
+        }
       </div>
     </div>
   </WidgetWrapper>
