@@ -127,10 +127,13 @@ const certifications = [
           <Image
             src="~/assets/images/header-about.png"
             class="mx-auto rounded-md w-full shadow-lg"
-            widths={[400, 768, 1024, 2040]}
-            sizes="(max-width: 767px) 400px, (max-width: 1023px) 768px, (max-width: 2039px) 1024px, 2040px"
+            widths={[400, 768, 1024, 1280, 2584]}
+            sizes="(max-width: 1280px) 100vw, 1280px"
             loading="eager"
-            width={2040}
+            fetchpriority="high"
+            decoding="async"
+            width={2584}
+            height={996}
             alt="Alejandro Pena Lorenzo at the Grand Canyon"
           />
         </div>
