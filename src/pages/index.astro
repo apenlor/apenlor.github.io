@@ -7,7 +7,7 @@ import CallToAction from "~/components/widgets/CallToAction.astro";
 import avatarImage from "~/assets/images/bio-photo.jpg";
 
 const metadata = {
-  title: "Alejandro Pena Lorenzo — Software Engineer",
+  title: "Alejandro Pena Lorenzo — Software Engineer's Journal",
   ignoreTitleTemplate: true,
 };
 ---
@@ -29,23 +29,28 @@ const metadata = {
         href: "/about",
       },
     ]}
+    classes={{
+      container: "pb-0 md:pb-0",
+    }}
   >
     <Fragment slot="title">
       <Image
         src={avatarImage}
         alt="Alejandro Pena Lorenzo"
-        class="w-24 h-24 rounded-full mx-auto mb-6 shadow-lg object-cover"
-        width={96}
-        height={96}
+        class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 shadow-lg object-cover transition-all duration-300"
+        width={160}
+        height={160}
         loading="eager"
         decoding="async"
       />
-      Hi there! I'm Alex 👋
+      <span class="sr-only">Software Engineer's Journal</span>
     </Fragment>
 
     <Fragment slot="subtitle">
-      16+ years building resilient platforms and leading cross-functional teams.
-      Specialized in Backend, QE & DevOps - with a focus on Platform Engineering.
+      <span class="text-xl sm:text-2xl font-bold dark:text-white">
+        Thoughts & insights on engineering management, system design, and
+        software development.
+      </span>
     </Fragment>
   </Hero>
 
@@ -54,10 +59,12 @@ const metadata = {
   <BlogLatestPosts
     id="blog"
     title="Latest articles"
-    information="Thoughts, reflections, and practical takeaways from engineering management and system design."
     layout="list"
     count={3}
     eagerCount={1}
+    classes={{
+      container: "pt-0 md:pt-0 lg:pt-0",
+    }}
   />
 
   <!-- Talks CTA ********************* -->
