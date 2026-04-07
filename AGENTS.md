@@ -220,9 +220,10 @@ page uses `layout="list" count={3}`.
 
 To optimize Largest Contentful Paint (LCP) and avoid above-the-fold lazy-loading penalties, list components (`Grid`, `List`, `BlogLatestPosts`) use an `eagerCount` prop:
 
-- **Default behavior:** `eagerCount` defaults to `4`. The first 4 items receive `loading="eager"`, but **only the first item** receives `fetchpriority="high"` to prevent bandwidth contention.
-- **Below-the-fold override:** When rendering lists strictly below the fold (e.g., `BlogHighlightedPosts` at the bottom of an article), you **must** pass `eagerCount={0}` to disable eager loading.
-- **Vertical lists:** For vertical lists (like on the landing page) where items quickly fall below the fold, override the default to match visible items (e.g., `eagerCount={3}`).
+- **Default behavior:** `eagerCount` defaults to `4` for grids and `1` for vertical lists. The first `eagerCount` items receive `loading="eager"`.
+- **Vertical lists:** For vertical lists (like on the landing page or blog index), the viewport typically only fits one or two items. Use `eagerCount={1}` or `eagerCount={2}` max.
+- **Below-the-fold override:** When rendering lists strictly below the fold (e.g., `BlogHighlightedPosts` at the bottom of an article, or `BlogLatestPosts` below a large Hero), you **must** pass `eagerCount={0}` to disable eager loading entirely for that section.
+- **Fetch Priority:** Only the **first item** in any list receives `fetchpriority="high"` automatically to prevent bandwidth contention.
 
 ---
 

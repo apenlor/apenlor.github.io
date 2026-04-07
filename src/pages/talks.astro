@@ -1,33 +1,35 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
+import Layout from "~/layouts/PageLayout.astro";
+import HeroText from "~/components/widgets/HeroText.astro";
 
 const metadata = {
-  title: 'Talks & Live Collaborations',
-  description: 'Live collaborations, conference talks, and community events featuring Alejandro Pena Lorenzo.',
+  title: "Talks & Live Collaborations",
+  description:
+    "Live collaborations, conference talks, and community events featuring Alejandro Pena Lorenzo.",
 };
 
 const talks = [
   {
-    date: 'October 31st, 2024',
-    title: 'SmartBear DevRel Hangouts #1 — Spooky Software Shockers Special',
+    date: "October 31st, 2024",
+    title: "SmartBear DevRel Hangouts #1 - Spooky Software Shockers Special",
     description:
-      'Participating in a special DevRel event with SmartBear, sharing some spooky experiences related to API management.',
-    youtubeId: '6GLgxPIapuc',
+      "Participating in a special DevRel event with SmartBear, sharing some spooky experiences related to API management.",
+    youtubeId: "6GLgxPIapuc",
   },
   {
-    date: 'October 27th, 2023',
-    title: 'Pactober — PactBuilderDSL, presented by Sngular',
+    date: "October 27th, 2023",
+    title: "Pactober - PactBuilderDSL, presented by Sngular",
     description:
-      'Collaboration with Pact during the Pactober event, celebrating its 10th anniversary.',
-    youtubeId: 'whXaNti7PSg',
+      "Collaboration with Pact during the Pactober event, celebrating its 10th anniversary.",
+    youtubeId: "whXaNti7PSg",
   },
   {
-    date: 'March 24th, 2022',
-    title: 'Reducing the cost of testing in application modernization: a banking case study',
+    date: "March 24th, 2022",
+    title:
+      "Reducing the cost of testing in application modernization: a banking case study",
     description:
-      'Addressing the topics covered in the article on PactFlow & Contract Testing: A Business Case Study.',
-    youtubeId: 'LyVSmRtwFkc',
+      "Addressing the topics covered in the article on PactFlow & Contract Testing: A Business Case Study.",
+    youtubeId: "LyVSmRtwFkc",
   },
 ];
 ---
@@ -42,28 +44,34 @@ const talks = [
 
   <!-- Talks List ******************** -->
 
-  <section class="px-4 pb-16 pt-0 md:pt-8 sm:px-6 mx-auto lg:px-8 lg:pb-20 lg:pt-8 max-w-4xl">
+  <section
+    class="px-4 pb-16 pt-0 md:pt-8 sm:px-6 mx-auto lg:px-8 lg:pb-20 lg:pt-8 max-w-4xl"
+  >
     <div class="space-y-16">
-      {talks.map((talk, index) => (
-        <article class="flex flex-col gap-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-          <header>
-            <p class="text-sm font-medium text-muted">{talk.date}</p>
-            <h2 class="text-2xl font-bold tracking-tight dark:text-white mt-1">{talk.title}</h2>
-            <p class="mt-2 text-muted">{talk.description}</p>
-          </header>
-          <div class="relative w-full" style="padding-top: 56.25%;">
-            <iframe
-              class="absolute inset-0 w-full h-full rounded-lg shadow-lg"
-              src={`https://www.youtube-nocookie.com/embed/${talk.youtubeId}?controls=1`}
-              title={talk.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading={index < 2 ? 'eager' : 'lazy'}
-              fetchpriority={index === 0 ? 'high' : 'auto'}
-            ></iframe>
-          </div>
-        </article>
-      ))}
+      {
+        talks.map((talk, index) => (
+          <article class="flex flex-col gap-6 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+            <header>
+              <p class="text-sm font-medium text-muted">{talk.date}</p>
+              <h2 class="text-2xl font-bold tracking-tight dark:text-white mt-1">
+                {talk.title}
+              </h2>
+              <p class="mt-2 text-muted">{talk.description}</p>
+            </header>
+            <div class="relative w-full" style="padding-top: 56.25%;">
+              <iframe
+                class="absolute inset-0 w-full h-full rounded-lg shadow-lg"
+                src={`https://www.youtube-nocookie.com/embed/${talk.youtubeId}?controls=1`}
+                title={talk.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading={index < 1 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "auto"}
+              />
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 </Layout>
