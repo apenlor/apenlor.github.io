@@ -111,8 +111,12 @@ Always run this after any structural change (frontmatter, config, new pages, com
 - Prefer AstroWind widgets (`~/components/widgets/`) over custom markup. Only write custom markup
   when a widget's structure would require awkward workarounds.
 - When writing custom sections, wrap them in `<WidgetWrapper>` to get consistent padding,
-  dark-mode background, and intersection animations. `WidgetWrapper` accepts: `id`, `isDark`, `bg`,
-  `containerClass`, `as`.
+  dark-mode background, and intersection animations.
+- **Section Spacing:** Most widgets use `<WidgetWrapper>`. Use the `spacing` prop instead of manual `containerClass` padding overrides:
+  - `spacing="normal"` (default): High padding (`py-12 md:py-16 lg:py-20`).
+  - `spacing="compact"`: Moderate padding (`py-8 md:py-10 lg:py-12`).
+  - `spacing="tight"`: Low padding (`py-4 md:py-6 lg:py-8`).
+  - `spacing="none"`: Zero padding.
 - Use `<Icon name="tabler:…" />` from `astro-icon/components` for all icons. Do not use inline SVG.
 - Use `<Image>` from `~/components/common/Image.astro` (not `astro:assets` directly) for
   optimized images.
@@ -125,16 +129,17 @@ Always run this after any structural change (frontmatter, config, new pages, com
 Always import from `~/types` rather than re-declaring inline:
 
 - **`CallToAction`** — `{ variant?: "primary"|"secondary"|"tertiary"|"link"; text?: string; href?: string; icon?: string; target?: string; }`
-- **`Widget`** — base for all widgets: `{ id?: string; isDark?: boolean; bg?: string; classes?: Record<string, …> }`
+- **`Widget`** — base for all widgets: `{ id?, isDark?, bg?, classes?, spacing?: "normal"|"compact"|"tight"|"none" }`
 - **`Item`** — used by `ItemGrid`, `Steps`, etc.: `{ title?, description?, icon?, callToAction?, image? }`
 - **`MetaData`** — page SEO object passed to `PageLayout`: `{ title?, description?, robots?, openGraph?, twitter? }`
 
 ### Hero widget constraint
 
-`Hero` renders `subtitle` via `<p set:html={subtitle} />`. **Never pass block-level HTML
-(`<div>`, `<section>`, etc.) in the `subtitle` prop** — the browser will auto-close the `<p>` and
-produce broken markup. Use the `<Fragment slot="subtitle">` named slot for rich subtitle content
-instead.
+- `Hero` renders `subtitle` via `<p set:html={subtitle} />`. **Never pass block-level HTML
+  (`<div>`, `<section>`, etc.) in the `subtitle` prop** — the browser will auto-close the `<p>` and
+  produce broken markup. Use the `<Fragment slot="subtitle">` named slot for rich subtitle content
+  instead.
+- `Hero` does not yet support the `spacing` prop. Use `classes.container` for padding overrides.
 
 ### CSS / Tailwind
 

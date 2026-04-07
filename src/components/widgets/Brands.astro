@@ -15,10 +15,11 @@ const {
   isDark = false,
   classes = {},
   bg = await Astro.slots.render('bg'),
+  spacing,
 } = Astro.props;
 ---
 
-<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl mx-auto ${classes?.container ?? ''}`} bg={bg} spacing={spacing}>
   <Headline title={title} subtitle={subtitle} tagline={tagline} />
 
   <div class="flex flex-wrap justify-center gap-x-6 sm:gap-x-12 lg:gap-x-24">

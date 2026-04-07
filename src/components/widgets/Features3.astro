@@ -20,6 +20,7 @@ const {
   isDark = false,
   classes = {},
   bg = await Astro.slots.render('bg'),
+  spacing,
 } = Astro.props;
 ---
 
@@ -30,6 +31,7 @@ const {
     classes?.container ?? ''
   }`}
   bg={bg}
+  spacing={spacing}
 >
   <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
 

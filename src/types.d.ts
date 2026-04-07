@@ -110,6 +110,7 @@ export interface Widget {
   isDark?: boolean;
   bg?: string;
   classes?: Record<string, string | Record<string, string>>;
+  spacing?: "normal" | "compact" | "tight" | "none";
 }
 
 export interface Headline {
