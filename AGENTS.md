@@ -14,7 +14,6 @@ This site is built with **Astro 6**, the **AstroWind** template, **Tailwind CSS 
 - **Template:** AstroWind (Tailwind CSS v4, TypeScript)
 - **Primary Languages:** TypeScript, Astro components (`.astro`), Markdown / MDX, YAML
 - **Hosting / Deployment:** GitHub Pages — `main` branch triggers `.github/workflows/deploy.yml`
-- **Search:** Pagefind — indexed automatically at build time into `dist/pagefind/`
 - **Icons:** `astro-icon` with `@iconify-json/tabler` (all tabler icons) and a subset of `flat-color-icons`
 - **Node version:** `>=22.12.0` (enforced in `package.json`)
 
@@ -25,7 +24,7 @@ src/
   config.yaml          — Site-wide config (name, URL, blog settings, analytics)
   navigation.ts        — Header & footer navigation links
   content.config.ts    — Content collection schema (Astro Content Layer API)
-  pages/               — Astro pages (index.astro, about.astro, talks.astro, search.astro, …)
+  pages/               — Astro pages (index.astro, about.astro, talks.astro, …)
   data/post/           — Blog posts as Markdown / MDX (Content Collection)
   assets/images/       — All images (referenced via ~/assets/images/…)
   components/

@@ -14,10 +14,6 @@ export const headerData = {
       text: "About",
       href: getPermalink("/about"),
     },
-    {
-      text: "Search",
-      href: getPermalink("/search"),
-    },
   ],
   actions: [],
   socialLinks: [

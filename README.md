@@ -6,7 +6,6 @@ Personal site — built with [Astro 5](https://astro.build) and the [AstroWind](
 
 - **Framework:** [Astro 5](https://astro.build)
 - **Template:** [AstroWind](https://github.com/arthelokyo/astrowind) (Tailwind CSS + TypeScript)
-- **Search:** [Pagefind](https://pagefind.app)
 - **Deployment:** GitHub Actions → GitHub Pages
 
 ## Development
@@ -22,13 +21,13 @@ npm run fix       # lint fix
 
 ## Content
 
-| Location             | Purpose                                                                  |
-| -------------------- | ------------------------------------------------------------------------ |
-| `src/data/post/`     | Blog posts (Markdown, Astro Content Collections)                         |
-| `src/pages/`         | Site pages (`index.astro`, `about.astro`, `talks.astro`, `search.astro`) |
-| `src/assets/images/` | Images (referenced as `~/assets/images/...`)                             |
-| `src/config.yaml`    | Site-wide config (name, URL, blog settings)                              |
-| `src/navigation.ts`  | Header and footer navigation                                             |
+| Location             | Purpose                                                  |
+| -------------------- | -------------------------------------------------------- |
+| `src/data/post/`     | Blog posts (Markdown, Astro Content Collections)         |
+| `src/pages/`         | Site pages (`index.astro`, `about.astro`, `talks.astro`) |
+| `src/assets/images/` | Images (referenced as `~/assets/images/...`)             |
+| `src/config.yaml`    | Site-wide config (name, URL, blog settings)              |
+| `src/navigation.ts`  | Header and footer navigation                             |
 
 ## Key conventions
 
