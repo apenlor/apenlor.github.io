@@ -7,14 +7,18 @@ export interface Props {
   eagerCount?: number;
 }
 
-const { posts, eagerCount = 0 } = Astro.props;
+const { posts, eagerCount = 4 } = Astro.props;
 ---
 
 <ul>
   {
     posts.map((post, index) => (
       <li class="mb-12 md:mb-20">
-        <Item post={post} imageLoading={index < eagerCount ? "eager" : "lazy"} />
+        <Item
+          post={post}
+          imageLoading={index < eagerCount ? 'eager' : 'lazy'}
+          imageFetchPriority={index === 0 ? 'high' : 'auto'}
+        />
       </li>
     ))
   }

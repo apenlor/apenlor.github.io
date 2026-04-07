@@ -7,9 +7,17 @@ export interface Props {
   eagerCount?: number;
 }
 
-const { posts, eagerCount = 0 } = Astro.props;
+const { posts, eagerCount = 4 } = Astro.props;
 ---
 
 <div class="grid gap-6 row-gap-5 md:grid-cols-2 lg:grid-cols-4 -mb-6">
-  {posts.map((post, index) => <Item post={post} imageLoading={index < eagerCount ? "eager" : "lazy"} />)}
+  {
+    posts.map((post, index) => (
+      <Item
+        post={post}
+        imageLoading={index < eagerCount ? 'eager' : 'lazy'}
+        imageFetchPriority={index === 0 ? 'high' : 'auto'}
+      />
+    ))
+  }
 </div>
