@@ -238,18 +238,20 @@ export const getStaticPathsBlogCategory = async ({
     }
   });
 
-  return Array.from(categories.keys()).flatMap((categorySlug) =>
-    paginate(
+  return Array.from(categories.keys()).flatMap((categorySlug) => {
+    const categoryProps = categories.get(categorySlug);
+    if (!categoryProps) return [];
+    return paginate(
       posts.filter(
         (post) => post.category?.slug && categorySlug === post.category?.slug,
       ),
       {
         params: { category: categorySlug, blog: CATEGORY_BASE || undefined },
         pageSize: blogPostsPerPage,
-        props: { category: categories.get(categorySlug)! },
+        props: { category: categoryProps },
       },
-    ),
-  );
+    );
+  });
 };
 
 /** */
@@ -272,8 +274,10 @@ export const getStaticPathsBlogTag = async ({
     }
   });
 
-  return Array.from(tags.keys()).flatMap((tagSlug) =>
-    paginate(
+  return Array.from(tags.keys()).flatMap((tagSlug) => {
+    const tagProps = tags.get(tagSlug);
+    if (!tagProps) return [];
+    return paginate(
       posts.filter(
         (post) =>
           Array.isArray(post.tags) &&
@@ -282,10 +286,10 @@ export const getStaticPathsBlogTag = async ({
       {
         params: { tag: tagSlug, blog: TAG_BASE || undefined },
         pageSize: blogPostsPerPage,
-        props: { tag: tags.get(tagSlug)! },
+        props: { tag: tagProps },
       },
-    ),
-  );
+    );
+  });
 };
 
 /** */
@@ -327,12 +331,5 @@ export async function getRelatedPosts(
 
   postsWithScores.sort((a, b) => b.score - a.score);
 
-  const selectedPosts: Post[] = [];
-  let i = 0;
-  while (selectedPosts.length < maxResults && i < postsWithScores.length) {
-    selectedPosts.push(postsWithScores[i].post);
-    i++;
-  }
-
-  return selectedPosts;
+  return postsWithScores.slice(0, maxResults).map((item) => item.post);
 }

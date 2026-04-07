@@ -56,11 +56,17 @@ export const findImage = async (
   const images = await fetchLocalImages();
   const key = imagePath.replace("~/", "/src/");
 
-  return images &&
-    Object.prototype.hasOwnProperty.call(images, key) &&
-    typeof images[key] === "function"
-    ? ((await images[key]()) as { default: ImageMetadata }).default
-    : null;
+  if (!images) return null;
+
+  const match = Object.entries(images).find(([k]) => k === key);
+
+  if (match && typeof match[1] === "function") {
+    const fn = match[1] as () => Promise<{ default: ImageMetadata }>;
+    const module = await fn();
+    return module.default;
+  }
+
+  return null;
 };
 
 /** */

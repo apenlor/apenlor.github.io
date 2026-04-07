@@ -23,7 +23,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const hasExternalScripts: boolean = false;
+const hasExternalScripts = process.env.VITE_HAS_EXTERNAL_SCRIPTS === "true";
 const whenExternalScripts = (
   items: (() => AstroIntegration) | (() => AstroIntegration)[] = [],
 ) =>

@@ -91,7 +91,7 @@ Always run this after any structural change (frontmatter, config, new pages, com
 
 ### Security & Static Analysis (Codacy / ESLint)
 
-- **Object Injection:** Avoid accessing object properties with dynamic, untrusted keys (`obj[key]`). When building dictionaries, prefer `new Map()` over plain objects `{}`. If you must use objects, initialize them securely via `Object.create(null)`.
+- **Object Injection:** Avoid accessing object properties with dynamic, untrusted keys (`obj[key]`). When building dictionaries, prefer `new Map()` over plain objects `{}`. If you must use objects, create them securely via `Object.create(null)` and use `Object.fromEntries()` instead of direct property assignment in loops. Avoid finding dynamic properties on objects when possible; if `hasOwnProperty` validation still fails static analysis, convert the object via `Object.entries()` and use `.find()`.
 - **Property Validation:** If you must access a dynamic key on an existing object, validate it first with `Object.prototype.hasOwnProperty.call(obj, key)`.
 - **No loose types:** ESLint config forbids `any`. Use strict TypeScript types or `unknown` where necessary, and properly narrow them. `npm run check` will fail on `any`.
 

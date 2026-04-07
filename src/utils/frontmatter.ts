@@ -18,22 +18,22 @@ export const responsiveTablesRehypePlugin: RehypePlugin = () => {
   return function (tree) {
     if (!tree.children) return;
 
-    for (let i = 0; i < tree.children.length; i++) {
-      const child = tree.children[i];
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    tree.children = tree.children.flatMap((child: any) => {
       if (child.type === "element" && child.tagName === "table") {
-        tree.children[i] = {
-          type: "element",
-          tagName: "div",
-          properties: {
-            style: "overflow:auto",
+        return [
+          {
+            type: "element",
+            tagName: "div",
+            properties: {
+              style: "overflow:auto",
+            },
+            children: [child],
           },
-          children: [child],
-        };
-
-        i++;
+        ];
       }
-    }
+      return [child];
+    });
   };
 };
 

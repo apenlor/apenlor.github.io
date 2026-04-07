@@ -114,28 +114,27 @@ export const applyGetPermalinks = (
   if (Array.isArray(menu)) {
     return menu.map((item) => applyGetPermalinks(item));
   } else if (typeof menu === "object" && menu !== null) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const obj: any = Object.create(null);
-    for (const key in menu) {
+    const entries = Object.entries(menu).map(([key, value]) => {
       if (key === "href") {
-        if (typeof menu[key] === "string") {
-          obj[key] = getPermalink(menu[key]);
-        } else if (typeof menu[key] === "object") {
-          if (menu[key].type === "home") {
-            obj[key] = getHomePermalink();
-          } else if (menu[key].type === "blog") {
-            obj[key] = getBlogPermalink();
-          } else if (menu[key].type === "asset") {
-            obj[key] = getAsset(menu[key].url);
-          } else if (menu[key].url) {
-            obj[key] = getPermalink(menu[key].url, menu[key].type);
+        if (typeof value === "string") {
+          return [key, getPermalink(value)];
+        } else if (typeof value === "object" && value !== null) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const valAsObj = value as any;
+          if (valAsObj.type === "home") {
+            return [key, getHomePermalink()];
+          } else if (valAsObj.type === "blog") {
+            return [key, getBlogPermalink()];
+          } else if (valAsObj.type === "asset") {
+            return [key, getAsset(valAsObj.url)];
+          } else if (valAsObj.url) {
+            return [key, getPermalink(valAsObj.url, valAsObj.type)];
           }
         }
-      } else {
-        obj[key] = applyGetPermalinks(menu[key]);
       }
-    }
-    return obj;
+      return [key, applyGetPermalinks(value)];
+    });
+    return Object.fromEntries(entries);
   }
   return menu;
 };
