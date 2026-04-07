@@ -163,7 +163,7 @@ Always import from `~/types` rather than re-declaring inline:
   publishDate: 2024-12-19T00:00:00Z # unquoted — YAML native date, NOT a string
   title: "Post title"
   excerpt: "One-sentence description shown in listings"
-  image: ~/assets/images/teaser-image.png
+  image: ~/assets/images/cover-image.png
   category: Contract Testing # single string, not an array
   tags:
     - Tag1
