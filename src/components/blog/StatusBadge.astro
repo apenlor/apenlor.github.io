@@ -1,0 +1,17 @@
+---
+export interface Props {
+  color: "green" | "yellow" | "red";
+}
+
+const { color } = Astro.props;
+
+const colorClasses: Record<string, string> = {
+  green: "bg-green-50 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+  yellow: "bg-amber-50 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+  red: "bg-red-50 text-red-800 dark:bg-red-900/30 dark:text-red-300",
+};
+---
+
+<span class:list={["not-prose inline-block rounded px-2 py-0.5 text-sm font-medium", colorClasses[color]]}>
+  <slot />
+</span>

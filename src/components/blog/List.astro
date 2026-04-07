@@ -1,0 +1,25 @@
+---
+import Item from '~/components/blog/ListItem.astro';
+import type { Post } from '~/types';
+
+export interface Props {
+  posts: Array<Post>;
+  eagerCount?: number;
+}
+
+const { posts, eagerCount = 2 } = Astro.props;
+---
+
+<ul>
+  {
+    posts.map((post, index) => (
+      <li class="mb-12 md:mb-20 last:mb-0">
+        <Item
+          post={post}
+          imageLoading={index < eagerCount ? 'eager' : 'lazy'}
+          imageFetchPriority={index === 0 ? 'high' : 'auto'}
+        />
+      </li>
+    ))
+  }
+</ul>

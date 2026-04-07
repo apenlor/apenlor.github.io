@@ -1,0 +1,202 @@
+---
+import { Icon } from "astro-icon/components";
+import Image from "~/components/common/Image.astro";
+
+import PostTags from "~/components/blog/Tags.astro";
+import SocialShare from "~/components/common/SocialShare.astro";
+import TableOfContents from "~/components/blog/TableOfContents.astro";
+
+import { getPermalink } from "~/utils/permalinks";
+import { getFormattedDate } from "~/utils/utils";
+import { findImage } from "~/utils/images";
+
+import type { Post } from "~/types";
+import type { ImageMetadata } from "astro";
+
+export interface Props {
+  post: Post;
+  url: string | URL;
+}
+
+const { post, url } = Astro.props;
+const image = (post.image ? await findImage(post.image) : null) as
+  | ImageMetadata
+  | string
+  | null;
+---
+
+<section class="py-8 sm:py-16 lg:py-20 mx-auto">
+  <article>
+    <header
+      class={image
+        ? "relative max-w-5xl mx-auto mb-8 rounded-xl overflow-hidden intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+        : "intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"}
+    >
+      {
+        image && (
+          <div class="absolute inset-0 w-full h-full z-0">
+            <Image
+              src={image}
+              class="w-full h-full object-cover"
+              widths={[400, 1024]}
+              sizes="(max-width: 1024px) 400px, 1024px"
+              alt={post?.excerpt || ""}
+              width={1024}
+              height={506}
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-slate-900/30" />
+          </div>
+        )
+      }
+
+      <div
+        class={`relative z-10 flex flex-col justify-end ${image ? "pt-24 pb-8 md:pt-36 md:pb-12" : "mt-0 mb-8"}`}
+      >
+        <div
+          class="flex justify-between flex-col sm:flex-row max-w-5xl mx-auto px-4 sm:px-6 sm:items-center w-full"
+        >
+          <p class={image ? "text-slate-300" : ""}>
+            <Icon
+              name="tabler:clock"
+              class={`w-4 h-4 inline-block -mt-0.5 ${image ? "text-slate-300" : "dark:text-gray-400"}`}
+            />
+            <time datetime={String(post.publishDate)} class="inline-block"
+              >{getFormattedDate(post.publishDate)}</time
+            >
+            {
+              post.author && (
+                <>
+                  {" "}
+                  ·{" "}
+                  <Icon
+                    name="tabler:user"
+                    class={`w-4 h-4 inline-block -mt-0.5 ${image ? "text-slate-300" : "dark:text-gray-400"}`}
+                  />
+                  <span class="inline-block">{post.author}</span>
+                </>
+              )
+            }
+            {
+              post.category && (
+                <>
+                  {" "}
+                  ·{" "}
+                  <a
+                    class={`hover:underline inline-block ${image ? "text-slate-300" : ""}`}
+                    href={getPermalink(post.category.slug, "category")}
+                  >
+                    {post.category.title}
+                  </a>
+                </>
+              )
+            }
+            {
+              post.readingTime && (
+                <>
+                  &nbsp;· <span>{post.readingTime}</span> min read
+                </>
+              )
+            }
+          </p>
+        </div>
+
+        <h1
+          class={`px-4 sm:px-6 max-w-5xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading w-full ${image ? "text-white mt-2" : ""}`}
+        >
+          {post.title}
+        </h1>
+        <p
+          class={`max-w-5xl mx-auto mt-4 px-4 sm:px-6 text-xl md:text-2xl text-justify w-full ${image ? "text-slate-200" : "text-muted dark:text-slate-400"}`}
+        >
+          {post.excerpt}
+        </p>
+      </div>
+
+      {!image && (
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+          <div class="border-t dark:border-slate-700" />
+        </div>
+      )}
+    </header>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 mt-8">
+      <div class="xl:grid xl:grid-cols-[1fr_220px] xl:gap-10">
+        {/* Main content */}
+        <div
+          class="prose prose-md lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg prose-headings:scroll-mt-[80px] prose-li:my-0 min-w-0"
+        >
+          <slot />
+        </div>
+        {/* Sidebar TOC */}
+        {
+          post.headings && post.headings.length > 0 && (
+            <aside class="hidden xl:block">
+              <div class="sticky top-24">
+                <TableOfContents headings={post.headings} />
+              </div>
+            </aside>
+          )
+        }
+      </div>
+    </div>
+    <div
+      class="mx-auto px-4 sm:px-6 max-w-7xl mt-8 flex justify-between flex-col sm:flex-row"
+    >
+      <PostTags tags={post.tags} class="mr-5 rtl:mr-0 rtl:ml-5" />
+      <SocialShare
+        url={url}
+        text={post.title}
+        class="mt-5 sm:mt-1 align-middle text-gray-500 dark:text-slate-600"
+      />
+    </div>
+  </article>
+</section>
+
+<style is:global>
+  .heading-anchor {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    color: var(--color-muted, #6b7280);
+  }
+  *:hover > .heading-anchor,
+  .heading-anchor:focus {
+    opacity: 1;
+  }
+  .heading-anchor:hover {
+    color: var(--color-primary, #3b82f6);
+  }
+</style>
+
+<script>
+  function initHeadingPermalinks() {
+    const anchors = document.querySelectorAll(".heading-anchor");
+    const checkIcon = `<svg class="inline-block align-middle ml-2 text-green-500" height="20" width="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 12l5 5l10 -10"></path></svg>`;
+
+    anchors.forEach((anchor) => {
+      anchor.addEventListener("click", async (_e) => {
+        // Construct full URL
+        const url =
+          window.location.href.split("#")[0] + anchor.getAttribute("href");
+
+        try {
+          await navigator.clipboard.writeText(url);
+
+          // Visual feedback
+          const originalHTML = anchor.innerHTML;
+          anchor.innerHTML = checkIcon;
+
+          setTimeout(() => {
+            anchor.innerHTML = originalHTML;
+          }, 2000);
+        } catch (err) {
+          console.error("Failed to copy permalink:", err);
+        }
+      });
+    });
+  }
+
+  initHeadingPermalinks();
+  document.addEventListener("astro:after-swap", initHeadingPermalinks);
+</script>

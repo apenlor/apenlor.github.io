@@ -1,0 +1,90 @@
+---
+import Layout from "~/layouts/PageLayout.astro";
+import Hero from "~/components/widgets/Hero.astro";
+import Image from "~/components/common/Image.astro";
+import BlogLatestPosts from "~/components/widgets/BlogLatestPosts.astro";
+import CallToAction from "~/components/widgets/CallToAction.astro";
+import avatarImage from "~/assets/images/bio-photo.jpg";
+
+const metadata = {
+  title: "Alejandro Pena Lorenzo — Software Engineer's Journal",
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    id="hero"
+    actions={[
+      {
+        variant: "primary",
+        text: "Read the blog",
+        href: "/blog",
+        icon: "tabler:book",
+      },
+      {
+        text: "About me",
+        href: "/about",
+      },
+    ]}
+    classes={{
+      container: "pb-0 md:pb-0",
+    }}
+  >
+    <Fragment slot="title">
+      <Image
+        src={avatarImage}
+        alt="Alejandro Pena Lorenzo"
+        class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 shadow-lg object-cover transition-all duration-300"
+        width={160}
+        height={160}
+        loading="eager"
+        decoding="async"
+      />
+      <span class="sr-only">Software Engineer's Journal</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="text-xl sm:text-2xl font-bold dark:text-white">
+        Thoughts & insights on engineering management, system design, and
+        software development.
+      </span>
+    </Fragment>
+  </Hero>
+
+  <!-- Latest Blog Posts ************* -->
+
+  <BlogLatestPosts
+    id="blog"
+    title="Latest articles"
+    layout="list"
+    count={3}
+    eagerCount={1}
+    spacing="none"
+  />
+
+  <!-- Talks CTA ********************* -->
+
+  <CallToAction
+    actions={[
+      {
+        variant: "primary",
+        text: "Watch the talks",
+        href: "/talks",
+        icon: "tabler:player-play",
+      },
+    ]}
+    classes={{
+      container: "pt-4 md:pt-10",
+    }}
+  >
+    <Fragment slot="title"> Live collaborations & talks </Fragment>
+
+    <Fragment slot="subtitle">
+      On stage and on screen: scaling teams, driving quality culture, and
+      sharing what works (at least for me!)
+    </Fragment>
+  </CallToAction>
+</Layout>
