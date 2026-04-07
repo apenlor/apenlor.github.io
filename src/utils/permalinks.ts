@@ -107,11 +107,15 @@ const definitivePermalink = (permalink: string): string =>
   createPath(BASE_PATHNAME, permalink);
 
 /** */
-export const applyGetPermalinks = (menu: object = {}) => {
+export const applyGetPermalinks = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  menu: any = {},
+) => {
   if (Array.isArray(menu)) {
     return menu.map((item) => applyGetPermalinks(item));
   } else if (typeof menu === "object" && menu !== null) {
-    const obj = {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const obj: any = Object.create(null);
     for (const key in menu) {
       if (key === "href") {
         if (typeof menu[key] === "string") {

@@ -128,7 +128,7 @@ const load = async function (): Promise<Array<Post>> {
   return results;
 };
 
-let _posts: Array<Post>;
+let _posts: Array<Post> | undefined = undefined;
 
 /** */
 export const isBlogEnabled = APP_BLOG.isEnabled;
@@ -195,7 +195,7 @@ export const findLatestPosts = async ({
   const _count = count || 4;
   const posts = await fetchPosts();
 
-  return posts ? posts.slice(0, _count) : [];
+  return posts.slice(0, _count);
 };
 
 /** */
@@ -231,14 +231,14 @@ export const getStaticPathsBlogCategory = async ({
   if (!isBlogEnabled || !isBlogCategoryRouteEnabled) return [];
 
   const posts = await fetchPosts();
-  const categories = {};
+  const categories = new Map<string, { slug: string; title: string }>();
   posts.map((post) => {
     if (post.category?.slug) {
-      categories[post.category?.slug] = post.category;
+      categories.set(post.category.slug, post.category);
     }
   });
 
-  return Array.from(Object.keys(categories)).flatMap((categorySlug) =>
+  return Array.from(categories.keys()).flatMap((categorySlug) =>
     paginate(
       posts.filter(
         (post) => post.category?.slug && categorySlug === post.category?.slug,
@@ -246,7 +246,7 @@ export const getStaticPathsBlogCategory = async ({
       {
         params: { category: categorySlug, blog: CATEGORY_BASE || undefined },
         pageSize: blogPostsPerPage,
-        props: { category: categories[categorySlug] },
+        props: { category: categories.get(categorySlug)! },
       },
     ),
   );
@@ -261,16 +261,18 @@ export const getStaticPathsBlogTag = async ({
   if (!isBlogEnabled || !isBlogTagRouteEnabled) return [];
 
   const posts = await fetchPosts();
-  const tags = {};
+  const tags = new Map<string, { slug: string; title: string }>();
   posts.map((post) => {
     if (Array.isArray(post.tags)) {
       post.tags.map((tag) => {
-        tags[tag?.slug] = tag;
+        if (tag?.slug) {
+          tags.set(tag.slug, tag);
+        }
       });
     }
   });
 
-  return Array.from(Object.keys(tags)).flatMap((tagSlug) =>
+  return Array.from(tags.keys()).flatMap((tagSlug) =>
     paginate(
       posts.filter(
         (post) =>
@@ -280,7 +282,7 @@ export const getStaticPathsBlogTag = async ({
       {
         params: { tag: tagSlug, blog: TAG_BASE || undefined },
         pageSize: blogPostsPerPage,
-        props: { tag: tags[tagSlug] },
+        props: { tag: tags.get(tagSlug)! },
       },
     ),
   );

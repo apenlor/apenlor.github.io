@@ -231,17 +231,13 @@ const getBreakpoints = ({
   if (layout === "fixed") {
     return [width, doubleWidth];
   }
-  if (layout === "constrained") {
-    return [
-      // Always include the image at 1x and 2x the specified width
-      width,
-      doubleWidth,
-      // Filter out any resolutions that are larger than the double-res image
-      ...(breakpoints || config.deviceSizes).filter((w) => w < doubleWidth),
-    ];
-  }
-
-  return [];
+  return [
+    // Always include the image at 1x and 2x the specified width
+    width,
+    doubleWidth,
+    // Filter out any resolutions that are larger than the double-res image
+    ...(breakpoints || config.deviceSizes).filter((w) => w < doubleWidth),
+  ];
 };
 
 /* ** */
@@ -406,7 +402,7 @@ export async function getImagesOptimized(
         aspectRatio: aspectRatio,
         objectPosition: objectPosition,
         layout: layout,
-      })}${style ?? ""}`,
+      })}${style}`,
       ...rest,
     },
   };
