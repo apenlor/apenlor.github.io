@@ -212,6 +212,14 @@ custom markup instead of relying on `callToAction` — see the certifications se
 Accepts a `layout` prop (`'grid'` | `'list'`, default `'grid'`) and a `count` prop. The home
 page uses `layout="list" count={3}`.
 
+### Image Loading & Performance (`eagerCount`)
+
+To optimize Largest Contentful Paint (LCP) and avoid above-the-fold lazy-loading penalties, list components (`Grid`, `List`, `BlogLatestPosts`) use an `eagerCount` prop:
+
+- **Default behavior:** `eagerCount` defaults to `4`. The first 4 items receive `loading="eager"`, but **only the first item** receives `fetchpriority="high"` to prevent bandwidth contention.
+- **Below-the-fold override:** When rendering lists strictly below the fold (e.g., `BlogHighlightedPosts` at the bottom of an article), you **must** pass `eagerCount={0}` to disable eager loading.
+- **Vertical lists:** For vertical lists (like on the landing page) where items quickly fall below the fold, override the default to match visible items (e.g., `eagerCount={3}`).
+
 ---
 
 ## 6. Agent Workflow
