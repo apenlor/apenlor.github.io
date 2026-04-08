@@ -9,9 +9,9 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: "Software Engineer's Journal"
-    template: "%s — Software Engineer's Journal"
-  description: "Personal site sharing insights, experiences, and thoughts on Software Engineering. Development, Quality Assurance and DevOps"
+    default: "Alejandro Pena Lorenzo | Software Engineer's Journal"
+    template: "%s | Software Engineer's Journal"
+  description: "Alejandro Pena Lorenzo | Insights on Engineering Management, System Design, Software Development, Quality Assurance, and DevOps."
   robots:
     index: true
     follow: true
