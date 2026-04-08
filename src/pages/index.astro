@@ -34,15 +34,17 @@ const metadata = {
     }}
   >
     <Fragment slot="title">
-      <Image
-        src={avatarImage}
-        alt="Alejandro Pena Lorenzo"
-        class="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 shadow-lg object-cover transition-all duration-300"
-        width={160}
-        height={160}
-        loading="eager"
-        decoding="async"
-      />
+      <div class="mx-auto w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden mb-6 shadow-lg shrink-0">
+        <Image
+          src={avatarImage}
+          alt="Alejandro Pena Lorenzo"
+          class="w-full h-full object-cover transition-all duration-300"
+          width={160}
+          height={160}
+          loading="eager"
+          decoding="async"
+        />
+      </div>
       <span class="sr-only">Software Engineer's Journal</span>
     </Fragment>
 
