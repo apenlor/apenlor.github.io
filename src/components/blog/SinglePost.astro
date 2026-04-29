@@ -38,6 +38,7 @@ const image = (post.image ? await findImage(post.image) : null) as
             <Image
               src={image}
               class="w-full h-full object-cover"
+              layout="cover"
               widths={[400, 1024]}
               sizes="(max-width: 1024px) 400px, 1024px"
               alt={post?.excerpt || ""}
