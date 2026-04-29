@@ -1,0 +1,111 @@
+---
+publishDate: 2026-05-06T00:00:00Z
+title: Mid-weight LLMs autogestionados, ¿el futuro?
+excerpt:
+  Reflexión sobre el cambio hacia modelos autogestionados de rango medio y las
+  implicaciones técnicas, operativas y económicas de ese enfoque.
+category: IA
+image: ~/assets/images/cover-mid-weight-llms.png
+tags:
+  - Local LLMs
+  - AI sovereignty
+  - GenAI
+  - OpenCode
+  - Fine-tuning
+---
+
+Hemos llegado a ese momento que se estaba augurando desde hace tiempo: el fin de la tarifa plana del token. Durante los últimos años, la industria de GenAI ha estado operando a un nivel de pérdidas astronómicas y bajo la falsa ilusión de que el coste de computación era irrelevante. Era rápido, era espectacular, pero financieramente insostenible.
+
+El reciente <a href="https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing" target="_blank" rel="noopener noreferrer">anuncio de GitHub Copilot</a> confirma lo que muchos veían venir: a partir de junio de 2026, el modelo de tarifa plana muere. El paso a una facturación basada en uso y los **multiplicadores de coste de hasta 27x** para algunos modelos son un golpe de realidad. El uso de agentic workflows en la nube se ha popularizado, y ha reventado _(todavía más)_ los márgenes de los proveedores.
+
+## El futuro apunta a local (y va a exigir más disciplina)
+
+Con este escenario, replantearse la estrategia de consumo parece la única vía razonable.
+
+En mi opinión, el futuro pasa por adoptar una estrategia de soberanía de IA. Una estrategia que apunte a **delegar la gran mayoría de las tareas cotidianas a modelos de rango medio (20B-35B)** donde nosotros tengamos el control absoluto de la infraestructura y el precio. Esto implica evitar cualquier forma de _"vendor lock-in"_ y apostar por herramientas flexibles que permitan hilar fino en la segregación de tareas entre múltiples modelos _(motivos por los que soy fiel defensor de alternativas como <a href="https://opencode.ai/" target="_blank" rel="noopener noreferrer">OpenCode</a> o <a href="https://pi.dev/" target="_blank" rel="noopener noreferrer">pi.dev</a> frente a ecosistemas cerrados como los de Anthropic u OpenAI)_
+
+Esto no significa obligatoriamente ejecutar todo en local en el portátil del desarrollador, abarca desde servidores de inferencia en nuestra VPC, hasta servicios como Vertex AI con endpoints privados. Lo que para mí está claro es que **los _frontier models_ deberían quedar reservados únicamente para operaciones críticas o de extrema complejidad**.
+
+No es solo optimización de costes, la estrategia enlaza directamente con una decisión operativa y de diseño. A medida que los modelos generalistas se estandarizan, el verdadero valor está en especializarlos para tareas concretas con datos y contexto propios. **Apostar por modelos locales o autogestionados permite afinarlos para casos de uso específicos**, mantener el control y adaptarlos continuamente. No se trata de utilizar un modelo generalista de coste astronómico para todo, sino de disponer de múltiples modelos _(mucho más ligeros)_ especializados. En ese escenario, la ventaja competitiva ya no viene del modelo en sí, sino de lo bien que resuelve problemas concretos dentro de tu organización.
+
+Si se decide apostar por esta estrategia, hay algunos factores clave a tener en cuenta y que serán los críticos, y los que más dolores de cabeza nos provocarán: la importancia del contexto _(a nivel de calidad y cantidad)_, el fine-tuning, los controles de calidad y el cambio de mentalidad en la forma de uso.
+
+## El contexto, el fine-tuning, la calidad y la forma de uso
+
+### La gestión del contexto
+
+Si ya es crítico en el uso de modelos frontier, para nuestro caso la importancia se eleva al cuadrado. **La ventana disponible será más acotada y la capacidad de atención y precisión del modelo, mucho más frágil**. La calidad caerá en picado si lo saturamos.
+
+En <a href="https://newsletter.principiamachina.com/p/context-engineering" target="_blank" rel="noopener noreferrer">su artículo sobre Context Engineering</a>, Ezequiel explica con detalle el concepto de _"Context Rot"_, haciendo una analogía con la situación del uso de la memoria RAM en el pasado _(no tan lejano)_. No se trata de meter más información por fuerza bruta, sino de aplicar arquitecturas de <a href="https://medium.com/@martia_es/progressive-disclosure-the-technique-that-helps-control-context-and-tokens-in-ai-agents-8d6108b09289" target="_blank" rel="noopener noreferrer">Progressive Disclosure</a> y, especialmente, ser muy estrictos con el punto que comenta sobre el _Targeted Retrieval_. Hay que aportar única y exclusivamente la información necesaria para la tarea, acotada y controlada, para asegurarnos de que el modelo centre su atención en lo estrictamente indispensable.
+
+### La ventaja operativa del fine-tuning
+
+Sabiendo que el contexto hay que gestionarlo como si fuera sagrado, la capacidad de especializar modelos _(aun siendo "ligeros", como `Qwen 3.6 27b` o `Gemma 4 31b`)_ nos da una clara ventaja operativa.
+
+Implicará una inversión en el proceso de entrenamiento inicial, pero especializar a los agentes nos ayudará a **reducir drásticamente la cantidad de contexto** que necesitamos aportar en cada operativa específica. El uso intensivo de _skills_, reglas y largos ficheros `.md` de configuración está muy bien si dispones de un contexto amplio y su gestión no es crítica, pero en nuestra situación queremos minimizar los tokens de entrada para que el modelo afine su precisión. Un modelo entrenado en tu stack o en las necesidades específicas de la tarea que va a ejecutar ya **trae la lección aprendida**.
+
+El entrenamiento de este tipo de modelos es hoy completamente asumible gracias a técnicas de adaptación paramétrica eficiente como <a href="https://arxiv.org/abs/2106.09685" target="_blank" rel="noopener noreferrer">LoRA</a>. De hecho, plataformas como Vertex AI de Google Cloud <a href="https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing?hl=es-419#gemma-model" target="_blank" rel="noopener noreferrer">han estandarizado el fine-tuning gestionado</a>, ofreciendo estos procesos bajo modelos de facturación basados en el uso. En paralelo, frameworks como <a href="https://developer.nvidia.com/nemo-customizer/?sortBy=developer_learning_library%2Fsort%2Ffeatured_in.nemo_customizer%3Adesc%2Ctitle%3Aasc" target="_blank" rel="noopener noreferrer">NVIDIA NeMo</a> permiten implementar estas técnicas con un mayor control sobre la infraestructura, mientras que <a href="https://unsloth.ai/" target="_blank" rel="noopener noreferrer">librerías optimizadas como Unsloth</a> facilitan su ejecución eficiente incluso en entornos con recursos limitados.
+
+### El control de calidad y las herramientas deterministas
+
+Otro concepto que ya es clave en cualquier escenario, pero que con el uso de modelos _no-frontier_ aumenta su criticidad.
+
+Tal y como argumenta Jason Gorman en su serie <a href="https://codemanship.wordpress.com/2025/10/30/the-ai-ready-software-developer-index/" target="_blank" rel="noopener noreferrer">The AI-Ready Software Developer</a>, la escalabilidad del desarrollo asistido por IA depende de **integrar los modelos en workflows deterministas y con retroalimentación estricta**. En este enfoque se generan propuestas, pero su validez se verifica siempre mediante mecanismos como tests automatizados, integración continua o análisis estático. Esto pasa por aplicar prácticas como derivar tests a partir de especificaciones ejecutables _(por ejemplo, en Gherkin)_ o reutilizar de forma sistemática los resultados de herramientas como linters o suites de tests. **El modelo propone, el sistema de ingeniería valida, restringe, corrige y fuerza la iteración**.
+
+### El cambio de mentalidad
+
+Todo esto desemboca en un cambio de paradigma frente a los flujos agénticos habituales con LLMs en la nube. Operar con modelos locales **requiere un trabajo a mucho más bajo nivel y una mayor intervención humana** debido a los límites inherentes de los modelos. Lejos de ser un inconveniente, este roce constante, en mi opinión, **es positivo porque evita la peligrosa invitación a "despegarse" del código** que tan fácilmente provocan modelos como `Opus 4.6`. Se acabó el lanzar un prompt del tipo _"revísame el repo entero y plantea este cambio a súper alto nivel que implica un montón de modificaciones"_. Obligarnos a trocear el problema y guiar al modelo nos devuelve el control sobre el software.
+
+## Cacharreando en local
+
+Llevo unas semanas experimentando con una configuración de modelos locales para mi trabajo diario. Tras múltiples pruebas y una experimentación que todavía continúa, he llegado a una estrategia funcional que mitiga parte de las carencias habituales de los modelos pequeños en entornos de ejecución limitados.
+
+Mi entorno de pruebas es un **MacBook Pro M4 con 48 GB de RAM**. Aunque es una máquina potente, ejecutar modelos que rondan los 30B de parámetros exige optimizar cada giga de VRAM disponible, especialmente cuando la <a href="https://huggingface.co/blog/not-lain/kv-caching" target="_blank" rel="noopener noreferrer">KV cache</a> empieza a dispararse al gestionar ventanas de contexto amplias.
+
+### La orquestación: llama.cpp y llama-swap
+
+Para servir los modelos me apoyo en <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener noreferrer">llama.cpp</a> y, sobre todo, en <a href="https://github.com/mostlygeek/llama-swap" target="_blank" rel="noopener noreferrer">llama-swap</a>. ¿Por qué no <a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">Ollama</a>? Bueno, utilizar `llama.cpp` requiere _un pelín_ más de configuración, pero ganas en optimización y eficiencia.
+
+**El swap es la pieza clave: permite intercambiar el modelo que se está sirviendo bajo demanda**. En lugar de intentar cargar tres modelos en paralelo y saturar la memoria, llama-swap gestiona la carga y descarga en VRAM de forma transparente para mi instancia de OpenCode. Os <a href="https://github.com/apenlor/llm-local-setup" target="_blank" rel="noopener noreferrer">dejo por aquí el repositorio</a> por si queréis echar un vistazo, es relativamente simple y posiblemente con mucho margen de mejora.
+
+### El flujo de 3 capas: Plan → Review → Build
+
+Decidí añadir un paso intermedio frente al flujo habitual de "Plan" y "Build":
+
+- **Plan (<a href="https://huggingface.co/unsloth/DeepSeek-R1-Distill-Qwen-32B-GGUF" target="_blank" rel="noopener noreferrer">DeepSeek R1 Distill 32b</a>)**: un modelo muy imaginativo y con una capacidad de razonamiento profundo. Es el encargado de trazar la estrategia técnica inicial.
+- **Review (<a href="https://huggingface.co/unsloth/gemma-4-31B-it-GGUF" target="_blank" rel="noopener noreferrer">Gemma 4 31b</a>)**: `DeepSeek` puede ser "demasiado" creativo y, a veces, desestructurado en su output. Aquí entra `Gemma`, un modelo mucho más pragmático, rápido y estricto. Su función es pulir el plan, eliminar redundancias y asegurar que la propuesta sea ejecutable y técnicamente sólida.
+- **Build (<a href="https://huggingface.co/unsloth/Qwen3.6-27B-GGUF" target="_blank" rel="noopener noreferrer">Qwen 3.6 27b</a>)**: para la escritura de código pura, `Qwen 3.6 27b` es ahora mismo el _sweet spot_ de los _mid-weight LLMs_. Su gran ventaja es el <a href="https://qwen.ai/blog?id=qwen3.6" target="_blank" rel="noopener noreferrer">_"preserve_thinking"_</a>: mantiene el contexto de su cadena de razonamiento entre iteraciones. Esto le permite entender por qué está tomando ciertas decisiones de implementación sin perderse en flujos de trabajo agénticos complejos, algo donde `Gemma 4` suele sufrir más.
+
+El modelo de uso y el rol de cada agente se configura a nivel de herramienta de desarrollo. En mi caso, utilizo mi <a href="https://github.com/apenlor/opencode-expert-mode" target="_blank" rel="noopener noreferrer">suite de configuración para desarrollo con agentes con OpenCode</a>. Nótese que el modelo de _skills_ y _commands_ está pensado más para el trabajo con modelos cloud y todavía no lo he optimizado para uso local, pero sí que aporto una configuración base para uso local en el ejemplo <a href="https://github.com/apenlor/opencode-expert-mode/blob/main/opencode.local.example.json" target="_blank" rel="noopener noreferrer"><code>opencode.local.example.json</code></a>.
+
+### El peaje de la velocidad: Q5 vs Q4
+
+No todo es idílico. El **principal punto de dolor en local es el throughput o tasa de generación de tokens**. Inicialmente aposté por una cuantización **`Q5_K_M`** para los tres modelos, buscando la máxima fidelidad. Sin embargo, las iteraciones de planificación y revisión podían alargarse varios minutos.
+
+Actualmente estoy transicionando a **`Q4_K_M`**. Si bien sacrificas algo de precisión teórica, la ganancia en velocidad es notable. Aquí es donde los controles de calidad deterministas que comentamos antes deben entrar en juego: si la implementación se desvía del objetivo por culpa de la cuantización, el sistema debe forzar la iteración.
+
+Cabe destacar que este es el principal trade-off del enfoque puramente local. Si en lugar de esto optamos por levantar un endpoint privado en cloud para el equipo, podemos abandonar `llama.cpp` en favor de motores de inferencia como <a href="https://vllm.ai/" target="_blank" rel="noopener noreferrer">`vLLM`</a> servidos en GPUs. Esto nos permite ejecutar los modelos en `FP8` o `INT4` nativo, compartiendo la `KV Cache` entre el equipo y multiplicando el throughput sin los cuellos de botella de un portátil.
+
+### OpenCode como centro de todo
+
+Nada de esto tendría sentido sin una herramienta _vendor-agnostic_. Utilizo **OpenCode porque no me ata a un proveedor ni a una suscripción**. Me permite combinar diferentes orígenes de modelos y orquestar estos flujos complejos con total libertad. Además, es open-source y auditable, con todas las ventajas que ello conlleva.
+
+Si creemos que el futuro es local o mixto, OpenCode es, en mi opinión, uno de los actores principales para recuperar la soberanía sobre nuestras herramientas. De hecho, estoy trabajando en configuraciones que van más allá del puro desarrollo, como este <a href="https://github.com/apenlor/opencode-em-os" target="_blank" rel="noopener noreferrer">asistente de soporte para Engineering Managers</a> integrado con Jira y GitHub.
+
+#### Repositorios de referencia
+
+- Local models setup: <a href="https://github.com/apenlor/llm-local-setup" target="_blank" rel="noopener noreferrer">https://github.com/apenlor/llm-local-setup</a>
+- OpenCode Expert Mode (dev): <a href="https://github.com/apenlor/opencode-expert-mode" target="_blank" rel="noopener noreferrer">https://github.com/apenlor/opencode-expert-mode</a>
+- OpenCode EM OS (Engineer Manager): <a href="https://github.com/apenlor/opencode-em-os" target="_blank" rel="noopener noreferrer">https://github.com/apenlor/opencode-em-os</a>
+
+## Conclusión: más ingeniería
+
+Todo parece apuntar a que el futuro del desarrollo asistido pasa por apoyarnos en lo local, o nube privada. Sin embargo, esta transición exige un cambio de paradigma: **toca desprendernos de las malas costumbres** que se han incrustado en nuestra forma de trabajar demasiado rápido durante estos últimos años.
+
+Lejos de ser un paso atrás, sinceramente **creo que será un cambio netamente positivo**. Recuperamos la soberanía, el control absoluto y la **privacidad** de nuestro código. Reducimos <a href="https://siddhantkhare.com/writing/ai-fatigue-is-real" target="_blank" rel="noopener noreferrer">la fatiga cognitiva de los equipos</a>: el efecto de _**burn-out**_ _(también llamado "AI fatigue")_ disminuye cuando se reduce la cantidad de PRs masivas generadas por un modelo _frontier_, o cuando tu foco de atención no está saltando continuamente de un punto a otro y te centras en un problema. Además, **reduce el riesgo de desapego** y descontrol sobre el código.
+
+Incluso a nivel macro, **el planeta y nuestra infraestructura agradecerán un cambio de modelo de uso así**.
+
+Personalmente, estoy bastante emocionado con los retos que trae esta nueva etapa. Optimizar LLMs, diseñar validaciones eficientes y orquestar flujos en local me resulta infinitamente más estimulante, a nivel técnico, que la estrategia de matar moscas a cañonazos y quemar tokens/computación como si no hubiera un mañana.
+
+Espero acertar y que no envejezca demasiado mal este artículo 🙂
